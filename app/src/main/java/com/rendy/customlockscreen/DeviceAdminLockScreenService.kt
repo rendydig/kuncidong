@@ -1,6 +1,7 @@
 package com.rendy.customlockscreen
 
 import android.app.*
+import android.app.admin.DevicePolicyManager
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
@@ -245,7 +246,7 @@ class DeviceAdminLockScreenService : Service() {
             
             // Instruction text
             addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = "Answer the question below to unlock your device:"
+                text = "Jawab pertanyaan di bawah untuk membuka kunci perangkat Anda:"
                 textSize = 16f
                 setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.text_secondary))
                 gravity = Gravity.CENTER

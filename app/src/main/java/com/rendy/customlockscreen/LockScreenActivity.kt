@@ -119,7 +119,7 @@ class LockScreenActivity : AppCompatActivity() {
     }
     
     private fun initializeData() {
-        questionRepository = QuestionRepository()
+        questionRepository = QuestionRepository(this)
     }
     
     private fun setupAnswerButtonListeners() {
@@ -131,19 +131,28 @@ class LockScreenActivity : AppCompatActivity() {
     }
     
     private fun loadNewQuestion() {
-        currentQuestion = questionRepository.getRandomQuestion()
-        
-        tvCategory.text = currentQuestion.category.displayName
-        tvQuestion.text = currentQuestion.questionText
-        
-        // Set answer options
-        currentQuestion.options.forEachIndexed { index, option ->
-            answerButtons[index].text = option
+        lifecycleScope.launch {
+            val question = questionRepository.getRandomQuestion()
+            if (question != null) {
+                currentQuestion = question
+                
+                tvCategory.text = currentQuestion.category.displayName
+                tvQuestion.text = currentQuestion.questionText
+                
+                // Set answer options
+                currentQuestion.options.forEachIndexed { index, option ->
+                    answerButtons[index].text = option
+                }
+                
+                // Reset button states
+                resetButtonStates()
+                tvFeedback.visibility = View.GONE
+            } else {
+                // Handle case when no question is available
+                tvQuestion.text = "No questions available"
+                tvCategory.text = "Error"
+            }
         }
-        
-        // Reset button states
-        resetButtonStates()
-        tvFeedback.visibility = View.GONE
     }
     
     private fun handleAnswerSelected(selectedIndex: Int) {

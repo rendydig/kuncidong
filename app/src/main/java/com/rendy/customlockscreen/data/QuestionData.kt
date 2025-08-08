@@ -23,7 +23,7 @@ data class QuestionJson(
         return Question(
             id = id,
             category = QuestionCategory.valueOf(category),
-            question = question,
+            questionText = question,
             options = options,
             correctAnswerIndex = correctAnswerIndex
         )

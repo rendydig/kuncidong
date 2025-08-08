@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Smart Lock Screen"
+        android:text="Smartlock untuk Anak-anak"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/primary_blue"
@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Answer the question to unlock"
+        android:text="Jawab pertanyaan di bawah untuk membuka kunci perangkat Anda:"
         android:textSize="14sp"
         android:textColor="@color/text_secondary"
         android:textAlignment="center"

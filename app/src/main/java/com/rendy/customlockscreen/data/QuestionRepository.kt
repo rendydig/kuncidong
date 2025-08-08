@@ -81,7 +81,8 @@ class QuestionRepository(private val context: Context) {
     suspend fun resetQuestions() {
         withContext(Dispatchers.IO) {
             questionDao.deleteAllQuestions()
-            questionDao.insertQuestions(indonesianQuestions)
+            val questions = loadQuestionsFromAssets()
+            questionDao.insertQuestions(questions)
         }
     }
 }
