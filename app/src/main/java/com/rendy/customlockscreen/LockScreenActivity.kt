@@ -14,6 +14,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.rendy.customlockscreen.data.Question
 import com.rendy.customlockscreen.data.QuestionRepository
 import java.text.SimpleDateFormat

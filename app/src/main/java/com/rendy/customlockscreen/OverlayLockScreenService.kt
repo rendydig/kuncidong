@@ -15,7 +15,10 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.*
 import com.rendy.customlockscreen.data.QuestionRepository
+import com.rendy.customlockscreen.data.Question
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,7 +33,9 @@ class OverlayLockScreenService : Service() {
     private var windowManager: WindowManager? = null
     private var overlayView: View? = null
     private var isOverlayShowing = false
-    private val questionRepository = QuestionRepository()
+    private lateinit var questionRepository: QuestionRepository
+    private var currentQuestion: Question? = null
+    private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     
     private val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -60,8 +65,14 @@ class OverlayLockScreenService : Service() {
         Log.d(TAG, "OverlayLockScreenService created")
         
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        questionRepository = QuestionRepository(this)
         createNotificationChannel()
         registerScreenReceiver()
+        
+        // Initialize questions on first run
+        serviceScope.launch {
+            questionRepository.initializeQuestions()
+        }
     }
     
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -117,21 +128,29 @@ class OverlayLockScreenService : Service() {
     }
     
     private fun showOverlay() {
-        if (isOverlayShowing || !Settings.canDrawOverlays(this)) {
-            Log.d(TAG, "Cannot show overlay - already showing or no permission")
+        if (isOverlayShowing) return
+        
+        if (!Settings.canDrawOverlays(this)) {
+            Log.w(TAG, "Overlay permission not granted")
             return
         }
         
-        try {
-            overlayView = createOverlayView()
-            val params = createOverlayParams()
-            
-            windowManager?.addView(overlayView, params)
-            isOverlayShowing = true
-            Log.d(TAG, "Overlay shown successfully")
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to show overlay: ${e.message}")
+        serviceScope.launch {
+            try {
+                val question = questionRepository.getRandomQuestion()
+                if (question != null) {
+                    currentQuestion = question
+                    overlayView = createOverlayView(question)
+                    val params = createOverlayParams()
+                    windowManager?.addView(overlayView, params)
+                    isOverlayShowing = true
+                    Log.d(TAG, "Overlay shown")
+                } else {
+                    Log.w(TAG, "No question available")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to show overlay: ${e.message}")
+            }
         }
     }
     
@@ -148,8 +167,7 @@ class OverlayLockScreenService : Service() {
         }
     }
     
-    private fun createOverlayView(): View {
-        val question = questionRepository.getRandomQuestion()
+    private fun createOverlayView(question: Question): View {
         
         return LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -290,5 +308,6 @@ class OverlayLockScreenService : Service() {
         }
         
         hideOverlay()
+        serviceScope.cancel()
     }
 }

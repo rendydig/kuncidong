@@ -1,12 +1,12 @@
 package com.rendy.customlockscreen
 
 import android.app.*
-import android.app.admin.DevicePolicyManager
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
@@ -16,8 +16,11 @@ import android.view.*
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.*
 import com.rendy.customlockscreen.data.QuestionRepository
+import com.rendy.customlockscreen.data.Question
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +37,9 @@ class DeviceAdminLockScreenService : Service() {
     private var isOverlayShowing = false
     private var devicePolicyManager: DevicePolicyManager? = null
     private var adminComponent: ComponentName? = null
-    private val questionRepository = QuestionRepository()
+    private lateinit var questionRepository: QuestionRepository
+    private var currentQuestion: Question? = null
+    private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     
     private val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -69,9 +74,15 @@ class DeviceAdminLockScreenService : Service() {
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         devicePolicyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         adminComponent = ComponentName(this, DeviceAdminReceiver::class.java)
+        questionRepository = QuestionRepository(this)
         
         createNotificationChannel()
         registerScreenReceiver()
+        
+        // Initialize questions on first run
+        serviceScope.launch {
+            questionRepository.initializeQuestions()
+        }
     }
     
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -156,16 +167,23 @@ class DeviceAdminLockScreenService : Service() {
             return
         }
         
-        try {
-            overlayView = createEducationalOverlayView()
-            val params = createOverlayParams()
-            
-            windowManager?.addView(overlayView, params)
-            isOverlayShowing = true
-            Log.d(TAG, "Educational overlay shown successfully")
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to show educational overlay: ${e.message}")
+        serviceScope.launch {
+            try {
+                val question = questionRepository.getRandomQuestion()
+                if (question != null) {
+                    currentQuestion = question
+                    overlayView = createEducationalOverlayView(question)
+                    val params = createOverlayParams()
+                    
+                    windowManager?.addView(overlayView, params)
+                    isOverlayShowing = true
+                    Log.d(TAG, "Educational overlay shown successfully")
+                } else {
+                    Log.w(TAG, "No question available")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to show educational overlay: ${e.message}")
+            }
         }
     }
     
@@ -182,8 +200,7 @@ class DeviceAdminLockScreenService : Service() {
         }
     }
     
-    private fun createEducationalOverlayView(): View {
-        val question = questionRepository.getRandomQuestion()
+    private fun createEducationalOverlayView(question: Question): View {
         
         return LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -368,5 +385,6 @@ class DeviceAdminLockScreenService : Service() {
         }
         
         hideOverlay()
+        serviceScope.cancel()
     }
 }
