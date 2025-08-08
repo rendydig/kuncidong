@@ -325,9 +325,10 @@ class MainActivity : AppCompatActivity() {
             val timerStatus = when (timerInterval) {
                 0 -> "❌ Tidak Aktif"
                 1 -> "✅ Setiap 1 Menit"
+                3 -> "✅ Setiap 3 Menit"
+                5 -> "✅ Setiap 5 Menit"
                 10 -> "✅ Setiap 10 Menit"
                 15 -> "✅ Setiap 15 Menit"
-                30 -> "✅ Setiap 30 Menit"
                 else -> "❓ Tidak Dikenal"
             }
             appendLine("⏰ Timer Otomatis: $timerStatus")
@@ -362,9 +363,9 @@ class MainActivity : AppCompatActivity() {
         // Update service button text
         val serviceButtonText = btnStartService.findViewById<TextView>(R.id.tvStartServiceText)
         serviceButtonText?.text = if (deviceAdminServiceRunning) {
-            "🛑 Hentikan Smartlock"
+            "🛑 Hentikan kunci"
         } else {
-            "▶️ Mulai Smartlock"
+            "▶️ aktifkan kunci"
         }
     }
     

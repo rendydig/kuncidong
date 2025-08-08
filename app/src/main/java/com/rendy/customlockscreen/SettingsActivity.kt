@@ -6,6 +6,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,18 +17,7 @@ import androidx.cardview.widget.CardView
 
 class SettingsActivity : AppCompatActivity() {
     
-    private lateinit var optionNever: CardView
-    private lateinit var option1Min: CardView
-    private lateinit var option10Min: CardView
-    private lateinit var option15Min: CardView
-    private lateinit var option30Min: CardView
-    
-    private lateinit var checkNever: TextView
-    private lateinit var check1Min: TextView
-    private lateinit var check10Min: TextView
-    private lateinit var check15Min: TextView
-    private lateinit var check30Min: TextView
-    
+    private lateinit var spinnerTimerInterval: Spinner
     private lateinit var tvTimerStatus: TextView
     private lateinit var tvNextTrigger: TextView
     
@@ -33,6 +26,17 @@ class SettingsActivity : AppCompatActivity() {
     
     private lateinit var sharedPreferences: SharedPreferences
     private var selectedInterval = 15 // Default 15 minutes
+    
+    private val timerOptions = arrayOf(
+        "Tidak Pernah",
+        "Setiap 1 Menit", 
+        "Setiap 3 Menit",
+        "Setiap 5 Menit",
+        "Setiap 10 Menit",
+        "Setiap 15 Menit"
+    )
+    
+    private val timerValues = arrayOf(0, 1, 3, 5, 10, 15)
     
     private val statusHandler = Handler(Looper.getMainLooper())
     private val statusUpdateRunnable = object : Runnable {
@@ -47,9 +51,10 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_TIMER_INTERVAL = "timer_interval"
         const val INTERVAL_NEVER = 0
         const val INTERVAL_1_MIN = 1
+        const val INTERVAL_3_MIN = 3
+        const val INTERVAL_5_MIN = 5
         const val INTERVAL_10_MIN = 10
         const val INTERVAL_15_MIN = 15
-        const val INTERVAL_30_MIN = 30
         
         fun getTimerInterval(context: Context): Int {
             val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -70,7 +75,7 @@ class SettingsActivity : AppCompatActivity() {
         initializePreferences()
         setupClickListeners()
         loadCurrentSettings()
-        updateUI()
+        updateTimerStatus()
     }
     
     override fun onResume() {
@@ -84,23 +89,31 @@ class SettingsActivity : AppCompatActivity() {
     }
     
     private fun initializeViews() {
-        optionNever = findViewById(R.id.optionNever)
-        option1Min = findViewById(R.id.option1Min)
-        option10Min = findViewById(R.id.option10Min)
-        option15Min = findViewById(R.id.option15Min)
-        option30Min = findViewById(R.id.option30Min)
-        
-        checkNever = findViewById(R.id.checkNever)
-        check1Min = findViewById(R.id.check1Min)
-        check10Min = findViewById(R.id.check10Min)
-        check15Min = findViewById(R.id.check15Min)
-        check30Min = findViewById(R.id.check30Min)
-        
+        spinnerTimerInterval = findViewById(R.id.spinnerTimerInterval)
         tvTimerStatus = findViewById(R.id.tvTimerStatus)
         tvNextTrigger = findViewById(R.id.tvNextTrigger)
         
         btnSave = findViewById(R.id.btnSave)
         btnBack = findViewById(R.id.btnBack)
+        
+        setupSpinner()
+    }
+    
+    private fun setupSpinner() {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timerOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTimerInterval.adapter = adapter
+        
+        spinnerTimerInterval.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedInterval = timerValues[position]
+                updateTimerStatus()
+            }
+            
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
     }
     
     private fun initializePreferences() {
@@ -108,26 +121,6 @@ class SettingsActivity : AppCompatActivity() {
     }
     
     private fun setupClickListeners() {
-        optionNever.setOnClickListener {
-            selectOption(INTERVAL_NEVER)
-        }
-        
-        option1Min.setOnClickListener {
-            selectOption(INTERVAL_1_MIN)
-        }
-        
-        option10Min.setOnClickListener {
-            selectOption(INTERVAL_10_MIN)
-        }
-        
-        option15Min.setOnClickListener {
-            selectOption(INTERVAL_15_MIN)
-        }
-        
-        option30Min.setOnClickListener {
-            selectOption(INTERVAL_30_MIN)
-        }
-        
         btnSave.setOnClickListener {
             saveSettings()
         }
@@ -139,40 +132,22 @@ class SettingsActivity : AppCompatActivity() {
     
     private fun loadCurrentSettings() {
         selectedInterval = sharedPreferences.getInt(KEY_TIMER_INTERVAL, INTERVAL_15_MIN)
-    }
-    
-    private fun selectOption(interval: Int) {
-        selectedInterval = interval
-        updateUI()
-    }
-    
-    private fun updateUI() {
-        // Hide all checkmarks first
-        checkNever.visibility = TextView.GONE
-        check1Min.visibility = TextView.GONE
-        check10Min.visibility = TextView.GONE
-        check15Min.visibility = TextView.GONE
-        check30Min.visibility = TextView.GONE
         
-        // Show checkmark for selected option
-        when (selectedInterval) {
-            INTERVAL_NEVER -> checkNever.visibility = TextView.VISIBLE
-            INTERVAL_1_MIN -> check1Min.visibility = TextView.VISIBLE
-            INTERVAL_10_MIN -> check10Min.visibility = TextView.VISIBLE
-            INTERVAL_15_MIN -> check15Min.visibility = TextView.VISIBLE
-            INTERVAL_30_MIN -> check30Min.visibility = TextView.VISIBLE
+        // Set spinner selection based on current interval
+        val position = timerValues.indexOf(selectedInterval)
+        if (position >= 0) {
+            spinnerTimerInterval.setSelection(position)
         }
-        
-        updateTimerStatus()
     }
     
     private fun updateTimerStatus() {
         val statusText = when (selectedInterval) {
             INTERVAL_NEVER -> "Timer tidak aktif"
             INTERVAL_1_MIN -> "Timer aktif: Setiap 1 menit"
+            INTERVAL_3_MIN -> "Timer aktif: Setiap 3 menit"
+            INTERVAL_5_MIN -> "Timer aktif: Setiap 5 menit"
             INTERVAL_10_MIN -> "Timer aktif: Setiap 10 menit"
             INTERVAL_15_MIN -> "Timer aktif: Setiap 15 menit"
-            INTERVAL_30_MIN -> "Timer aktif: Setiap 30 menit"
             else -> "Timer tidak dikenal"
         }
         

@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Smartlock untuk Anak-anak</string>
-    <string name="app_description">Layar Kunci Edukatif untuk Anak-anak</string>
+    <string name="app_name">kunci dong</string>
+    <string name="app_description">kunci dong - Layar Kunci Edukatif</string>
     <string name="enable_device_admin">Aktifkan Admin Perangkat</string>
     <string name="start_service">Mulai Layanan Layar Kunci</string>
     <string name="stop_service">Hentikan Layanan Layar Kunci</string>
@@ -12,9 +12,9 @@
     <string name="unlock_instruction">Jawab pertanyaan untuk membuka kunci</string>
     <string name="correct_answer">Benar! Bagus sekali! 🎉</string>
     <string name="incorrect_answer">Salah. Coba lagi! 🤔</string>
-    <string name="service_notification_title">Layar Kunci Pintar Aktif</string>
+    <string name="service_notification_title">kunci dong Aktif</string>
     <string name="service_notification_text">Layar kunci edukatif sedang berjalan</string>
-    <string name="admin_explanation">Aktifkan admin perangkat agar Layar Kunci Pintar berfungsi dengan baik</string>
-    <string name="admin_disable_warning">Ini akan menonaktifkan fungsi Layar Kunci Pintar</string>
+    <string name="admin_explanation">Aktifkan admin perangkat agar kunci dong berfungsi dengan baik</string>
+    <string name="admin_disable_warning">Ini akan menonaktifkan fungsi kunci dong</string>
     <string name="accessibility_service_description">Mendeteksi kapan layar kunci muncul untuk menampilkan pertanyaan edukatif</string>
 </resources>
