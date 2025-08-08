@@ -10,41 +10,37 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import com.rendy.customlockscreen.data.Question
 import com.rendy.customlockscreen.data.QuestionRepository
-import java.text.SimpleDateFormat
-import java.util.*
 
 class LockScreenActivity : AppCompatActivity() {
     
     private lateinit var tvCategory: TextView
     private lateinit var tvQuestion: TextView
     private lateinit var tvFeedback: TextView
-    private lateinit var tvTime: TextView
-    private lateinit var tvDate: TextView
     
-    private lateinit var btnAnswer1: Button
-    private lateinit var btnAnswer2: Button
-    private lateinit var btnAnswer3: Button
-    private lateinit var btnAnswer4: Button
+    private lateinit var btnAnswer1: CardView
+    private lateinit var btnAnswer2: CardView
+    private lateinit var btnAnswer3: CardView
+    private lateinit var btnAnswer4: CardView
     
-    private lateinit var answerButtons: List<Button>
+    private lateinit var tvAnswer1: TextView
+    private lateinit var tvAnswer2: TextView
+    private lateinit var tvAnswer3: TextView
+    private lateinit var tvAnswer4: TextView
+    
+    private lateinit var answerButtons: List<CardView>
+    private lateinit var answerTextViews: List<TextView>
     private lateinit var questionRepository: QuestionRepository
     private lateinit var currentQuestion: Question
     
-    private val timeHandler = Handler(Looper.getMainLooper())
-    private val timeUpdateRunnable = object : Runnable {
-        override fun run() {
-            updateTimeAndDate()
-            timeHandler.postDelayed(this, 1000)
-        }
-    }
+
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,27 +89,29 @@ class LockScreenActivity : AppCompatActivity() {
         initializeViews()
         initializeData()
         loadNewQuestion()
-        startTimeUpdates()
     }
     
     override fun onDestroy() {
         super.onDestroy()
-        timeHandler.removeCallbacks(timeUpdateRunnable)
     }
     
     private fun initializeViews() {
         tvCategory = findViewById(R.id.tvCategory)
         tvQuestion = findViewById(R.id.tvQuestion)
         tvFeedback = findViewById(R.id.tvFeedback)
-        tvTime = findViewById(R.id.tvTime)
-        tvDate = findViewById(R.id.tvDate)
         
         btnAnswer1 = findViewById(R.id.btnAnswer1)
         btnAnswer2 = findViewById(R.id.btnAnswer2)
         btnAnswer3 = findViewById(R.id.btnAnswer3)
         btnAnswer4 = findViewById(R.id.btnAnswer4)
         
+        tvAnswer1 = findViewById(R.id.tvAnswer1)
+        tvAnswer2 = findViewById(R.id.tvAnswer2)
+        tvAnswer3 = findViewById(R.id.tvAnswer3)
+        tvAnswer4 = findViewById(R.id.tvAnswer4)
+        
         answerButtons = listOf(btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4)
+        answerTextViews = listOf(tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4)
         
         setupAnswerButtonListeners()
     }
@@ -141,7 +139,7 @@ class LockScreenActivity : AppCompatActivity() {
                 
                 // Set answer options
                 currentQuestion.options.forEachIndexed { index, option ->
-                    answerButtons[index].text = option
+                    answerTextViews[index].text = option
                 }
                 
                 // Reset button states
@@ -159,16 +157,19 @@ class LockScreenActivity : AppCompatActivity() {
         val isCorrect = selectedIndex == currentQuestion.correctAnswerIndex
         
         // Disable all buttons
-        answerButtons.forEach { it.isEnabled = false }
+        answerButtons.forEach { 
+            it.isClickable = false
+            it.alpha = 0.6f
+        }
         
         // Update button colors
         answerButtons.forEachIndexed { index, button ->
             when {
                 index == currentQuestion.correctAnswerIndex -> {
-                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.answer_button_correct))
+                    button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.success_green))
                 }
                 index == selectedIndex && !isCorrect -> {
-                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.answer_button_incorrect))
+                    button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.error_red))
                 }
             }
         }
@@ -197,28 +198,15 @@ class LockScreenActivity : AppCompatActivity() {
     
     private fun resetButtonStates() {
         answerButtons.forEach { button ->
-            button.isEnabled = true
-            button.setBackgroundResource(R.drawable.answer_button_selector)
+            button.isClickable = true
+            button.alpha = 1.0f
+            button.setCardBackgroundColor(Color.parseColor("#E3F2FD"))
         }
     }
     
     private fun unlockDevice() {
         // Finish this activity to return to home screen
         finish()
-    }
-    
-    private fun startTimeUpdates() {
-        timeHandler.post(timeUpdateRunnable)
-    }
-    
-    private fun updateTimeAndDate() {
-        val now = Calendar.getInstance()
-        
-        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault())
-        
-        tvTime.text = timeFormat.format(now.time)
-        tvDate.text = dateFormat.format(now.time)
     }
     
     override fun onBackPressed() {

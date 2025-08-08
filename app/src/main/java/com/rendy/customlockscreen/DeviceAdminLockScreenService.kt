@@ -14,16 +14,12 @@ import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 import com.rendy.customlockscreen.data.QuestionRepository
 import com.rendy.customlockscreen.data.Question
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DeviceAdminLockScreenService : Service() {
     
@@ -202,124 +198,46 @@ class DeviceAdminLockScreenService : Service() {
     }
     
     private fun createEducationalOverlayView(question: Question): View {
+        // Inflate the modern CardView-based layout
+        val inflater = LayoutInflater.from(this)
+        val overlayView = inflater.inflate(R.layout.activity_lock_screen, null)
         
-        return LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setBackgroundColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.lock_screen_background))
-            setPadding(48, 48, 48, 48)
-            
-            // Lock icon and title
-            addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = "🔒 Educational Lock Screen"
-                textSize = 24f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.white))
-                gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = 32 }
-            })
-            
-            // Time display
-            addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-                textSize = 48f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.white))
-                gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = 16 }
-            })
-            
-            // Date display
-            addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault()).format(Date())
-                textSize = 18f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.text_secondary))
-                gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = 48 }
-            })
-            
-            // Instruction text
-            addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = "Jawab pertanyaan di bawah untuk membuka kunci perangkat Anda:"
-                textSize = 16f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.text_secondary))
-                gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = 32 }
-            })
-            
-            // Category badge
-            addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = question.category.name
-                textSize = 14f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.white))
-                gravity = Gravity.CENTER
-                setPadding(24, 8, 24, 8)
-                setBackgroundResource(R.drawable.category_badge)
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { 
-                    gravity = Gravity.CENTER_HORIZONTAL
-                    bottomMargin = 24 
-                }
-            })
-            
-            // Question text
-            addView(TextView(this@DeviceAdminLockScreenService).apply {
-                text = question.questionText
-                textSize = 20f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.white))
-                gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = 32 }
-            })
-            
-            // Answer buttons
-            question.options.forEachIndexed { index, option ->
-                addView(Button(this@DeviceAdminLockScreenService).apply {
-                    text = option
-                    textSize = 16f
-                    setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.white))
-                    setBackgroundResource(R.drawable.answer_button_selector)
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    ).apply { bottomMargin = 16 }
-                    
-                    setOnClickListener {
-                        handleAnswer(index == question.correctAnswerIndex)
-                    }
-                })
-            }
-            
-            // Emergency unlock button (for safety)
-            addView(Button(this@DeviceAdminLockScreenService).apply {
-                text = "Emergency Unlock (Skip Question)"
-                textSize = 12f
-                setTextColor(ContextCompat.getColor(this@DeviceAdminLockScreenService, R.color.text_hint))
-                setBackgroundColor(android.graphics.Color.TRANSPARENT)
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { topMargin = 24 }
-                
-                setOnClickListener {
-                    // Allow emergency unlock
-                    hideOverlay()
-                }
-            })
+        // Find views and populate with question data
+        val tvCategory = overlayView.findViewById<TextView>(R.id.tvCategory)
+        val tvQuestion = overlayView.findViewById<TextView>(R.id.tvQuestion)
+        val tvFeedback = overlayView.findViewById<TextView>(R.id.tvFeedback)
+        
+        val btnAnswer1 = overlayView.findViewById<androidx.cardview.widget.CardView>(R.id.btnAnswer1)
+        val btnAnswer2 = overlayView.findViewById<androidx.cardview.widget.CardView>(R.id.btnAnswer2)
+        val btnAnswer3 = overlayView.findViewById<androidx.cardview.widget.CardView>(R.id.btnAnswer3)
+        val btnAnswer4 = overlayView.findViewById<androidx.cardview.widget.CardView>(R.id.btnAnswer4)
+        
+        val tvAnswer1 = overlayView.findViewById<TextView>(R.id.tvAnswer1)
+        val tvAnswer2 = overlayView.findViewById<TextView>(R.id.tvAnswer2)
+        val tvAnswer3 = overlayView.findViewById<TextView>(R.id.tvAnswer3)
+        val tvAnswer4 = overlayView.findViewById<TextView>(R.id.tvAnswer4)
+        
+        val answerButtons = listOf(btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4)
+        val answerTextViews = listOf(tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4)
+        
+        // Populate question data
+        tvCategory.text = question.category.displayName
+        tvQuestion.text = question.questionText
+        tvFeedback.visibility = View.GONE
+        
+        // Set answer options
+        question.options.forEachIndexed { index, option ->
+            answerTextViews[index].text = option
         }
+        
+        // Set click listeners
+        answerButtons.forEachIndexed { index, button ->
+            button.setOnClickListener {
+                handleAnswer(index == question.correctAnswerIndex)
+            }
+        }
+        
+        return overlayView
     }
     
     private fun createOverlayParams(): WindowManager.LayoutParams {

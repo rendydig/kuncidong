@@ -12,18 +12,18 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.text.TextUtils
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 
 class MainActivity : AppCompatActivity() {
     
-    private lateinit var btnEnableAdmin: Button
-    private lateinit var btnOverlayPermission: Button
-    private lateinit var btnAccessibilityService: Button
-    private lateinit var btnStartService: Button
-    private lateinit var btnTestLockScreen: Button
+    private lateinit var btnEnableAdmin: CardView
+    private lateinit var btnOverlayPermission: CardView
+    private lateinit var btnAccessibilityService: CardView
+    private lateinit var btnStartService: CardView
+    private lateinit var btnTestLockScreen: CardView
     private lateinit var tvStatus: TextView
     
     private lateinit var devicePolicyManager: DevicePolicyManager
@@ -332,10 +332,11 @@ class MainActivity : AppCompatActivity() {
         tvStatus.text = statusText
         
         // Update service button text
-        btnStartService.text = if (deviceAdminServiceRunning) {
-            "🛑 Stop Educational Lock Controller"
+        val serviceButtonText = btnStartService.findViewById<TextView>(R.id.tvStartServiceText)
+        serviceButtonText?.text = if (deviceAdminServiceRunning) {
+            "🛑 Hentikan Smartlock"
         } else {
-            "▶️ Start Educational Lock Controller"
+            "▶️ Mulai Smartlock"
         }
     }
     
