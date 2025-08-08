@@ -1287,38 +1287,134 @@
     {
       "id": 108,
       "category": "MATHEMATICS",
-      "question": "Berapa hasil dari 11 - 3?",
+      "question": "Manakah bilangan yang lebih besar?",
       "options": [
-        "8",
-        "7",
-        "9",
-        "6"
+        "15 > 9",
+        "7 > 12",
+        "6 > 10",
+        "4 > 8"
       ],
       "correctAnswerIndex": 0
     },
     {
       "id": 109,
       "category": "MATHEMATICS",
-      "question": "Berapa hasil dari 11 - 2?",
+      "question": "Manakah bilangan yang lebih kecil?",
       "options": [
-        "9",
-        "8",
-        "10",
-        "7"
+        "5 < 9",
+        "12 < 8",
+        "15 < 11",
+        "20 < 17"
       ],
       "correctAnswerIndex": 0
     },
     {
       "id": 110,
       "category": "MATHEMATICS",
-      "question": "Berapa hasil dari 11 - 1?",
+      "question": "Urutkan bilangan berikut dari terkecil ke terbesar:",
       "options": [
-        "10",
-        "9",
-        "11",
-        "8"
+        "3, 7, 10, 15",
+        "15, 10, 7, 3",
+        "3, 15, 7, 10",
+        "10, 3, 15, 7"
       ],
       "correctAnswerIndex": 0
+    },
+    {
+      "id": 111,
+      "category": "MATHEMATICS",
+      "question": "Manakah bilangan yang lebih besar?",
+      "options": [
+        "20 > 14",
+        "8 > 16",
+        "5 > 11",
+        "3 > 7"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 112,
+      "category": "MATHEMATICS",
+      "question": "Manakah bilangan yang lebih kecil?",
+      "options": [
+        "6 < 12",
+        "18 < 13",
+        "22 < 17",
+        "16 < 9"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 113,
+      "category": "MATHEMATICS",
+      "question": "Urutkan bilangan berikut dari terbesar ke terkecil:",
+      "options": [
+        "25, 18, 12, 7",
+        "7, 12, 18, 25",
+        "18, 7, 25, 12",
+        "12, 25, 7, 18"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 114,
+      "category": "MATHEMATICS",
+      "question": "Manakah pernyataan yang benar?",
+      "options": [
+        "8 + 3 > 15",
+        "6 + 4 > 12",
+        "10 + 5 > 12",
+        "7 + 2 > 11"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 115,
+      "category": "MATHEMATICS",
+      "question": "Manakah pernyataan yang salah?",
+      "options": [
+        "15 - 8 > 5",
+        "9 - 4 > 7",
+        "20 - 12 > 6",
+        "18 - 10 > 7"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 116,
+      "category": "MATHEMATICS",
+      "question": "Bilangan manakah yang tepat berada di antara 10 dan 20?",
+      "options": [
+        "8",
+        "22",
+        "15",
+        "5"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 117,
+      "category": "MATHEMATICS",
+      "question": "Jika 5 + x = 12, berapakah nilai x?",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "5"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 118,
+      "category": "MATHEMATICS",
+      "question": "Manakah bilangan ganjil berikut?",
+      "options": [
+        "8",
+        "12",
+        "20",
+        "15"
+      ],
+      "correctAnswerIndex": 3
     }
   ]
 }

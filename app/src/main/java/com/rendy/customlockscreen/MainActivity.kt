@@ -199,14 +199,14 @@ class MainActivity : AppCompatActivity() {
     private fun requestAccessibilityService() {
         val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
         startActivity(intent)
-        Toast.makeText(this, "Find 'Smart Lock Screen' in the list and enable it", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Cari 'Kunci Dong' di daftar dan aktifkan", Toast.LENGTH_LONG).show()
     }
     
     private fun requestAdminPermission() {
         val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN).apply {
             putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, adminComponent)
             putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, 
-                "Enable device admin to allow Smart Lock Screen to function properly")
+                "Enable device admin untuk memungkinkan Smart Lock Screen berfungsi dengan baik")
         }
         startActivityForResult(intent, REQUEST_CODE_ENABLE_ADMIN)
     }
@@ -214,7 +214,7 @@ class MainActivity : AppCompatActivity() {
     private fun startLockScreenService() {
         // Check overlay permission first
         if (!hasOverlayPermission()) {
-            Toast.makeText(this, "Please grant 'Display over other apps' permission first", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Harap berikan izin 'Display over other apps' terlebih dahulu", Toast.LENGTH_LONG).show()
             requestOverlayPermission()
             return
         }
@@ -226,9 +226,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 startService(serviceIntent)
             }
-            Toast.makeText(this, "Lock Screen Service started", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Layar Kunci Edukasi dimulai", Toast.LENGTH_SHORT).show()
         } catch (e: SecurityException) {
-            Toast.makeText(this, "Failed to start service: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Gagal memulai layanan: ${e.message}", Toast.LENGTH_LONG).show()
         }
         updateStatus()
     }
@@ -236,13 +236,13 @@ class MainActivity : AppCompatActivity() {
     private fun stopLockScreenService() {
         val serviceIntent = Intent(this, LockScreenService::class.java)
         stopService(serviceIntent)
-        Toast.makeText(this, "Lock Screen Service stopped", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Layar Kunci Edukasi berhenti", Toast.LENGTH_SHORT).show()
         updateStatus()
     }
     
     private fun startOverlayService() {
         if (!hasOverlayPermission()) {
-            Toast.makeText(this, "Please grant 'Display over other apps' permission first", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Harap berikan izin 'Display over other apps' terlebih dahulu", Toast.LENGTH_LONG).show()
             requestOverlayPermission()
             return
         }
@@ -254,9 +254,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 startService(serviceIntent)
             }
-            Toast.makeText(this, "Educational Lock Screen Overlay started", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Layar Kunci Edukasi dimulai", Toast.LENGTH_SHORT).show()
         } catch (e: SecurityException) {
-            Toast.makeText(this, "Failed to start overlay service: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Gagal memulai layanan overlay: ${e.message}", Toast.LENGTH_LONG).show()
         }
         updateStatus()
     }
@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() {
     private fun stopOverlayService() {
         val serviceIntent = Intent(this, OverlayLockScreenService::class.java)
         stopService(serviceIntent)
-        Toast.makeText(this, "Educational Lock Screen Overlay stopped", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Layar Kunci Edukasi berhenti", Toast.LENGTH_SHORT).show()
         updateStatus()
     }
     
@@ -276,7 +276,7 @@ class MainActivity : AppCompatActivity() {
     
     private fun startDeviceAdminService() {
         if (!hasOverlayPermission()) {
-            Toast.makeText(this, "Please grant 'Display over other apps' permission first", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Harap berikan izin 'Display over other apps' terlebih dahulu", Toast.LENGTH_LONG).show()
             requestOverlayPermission()
             return
         }
@@ -288,9 +288,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 startService(serviceIntent)
             }
-            Toast.makeText(this, "Educational Lock Screen Controller started", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Pengontrol Kunci Layar Edukasi dimulai", Toast.LENGTH_SHORT).show()
         } catch (e: SecurityException) {
-            Toast.makeText(this, "Failed to start device admin service: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Gagal memulai layanan admin perangkat: ${e.message}", Toast.LENGTH_LONG).show()
         }
         updateStatus()
     }
@@ -298,7 +298,7 @@ class MainActivity : AppCompatActivity() {
     private fun stopDeviceAdminService() {
         val serviceIntent = Intent(this, DeviceAdminLockScreenService::class.java)
         stopService(serviceIntent)
-        Toast.makeText(this, "Educational Lock Screen Controller stopped", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Pengontrol Kunci Layar Edukasi berhenti", Toast.LENGTH_SHORT).show()
         updateStatus()
     }
     
@@ -315,12 +315,10 @@ class MainActivity : AppCompatActivity() {
         val timerInterval = SettingsActivity.getTimerInterval(this)
         
         val statusText = buildString {
-            appendLine("📱 Educational Lock Screen Controller:")
+            appendLine("📱 Pengontrol Kunci Layar Edukasi:")
             appendLine()
-            appendLine("🔐 Device Admin: ${if (adminActive) "✅ Enabled" else "❌ Disabled"}")
-            appendLine("🖥️ Display Over Apps: ${if (overlayPermission) "✅ Granted" else "❌ Not Granted"}")
-            appendLine("🎯 Lock Controller: ${if (deviceAdminServiceRunning) "✅ Running" else "❌ Stopped"}")
-            
+            appendLine("🔐 Admin Perangkat: ${if (adminActive) "✅ Diaktifkan" else "❌ Dinonaktifkan"}")
+            appendLine("🖥️ Tampilkan Di Atas Aplikasi: ${if (overlayPermission) "✅ Diberikan" else "❌ Tidak Diberikan"}")
             // Timer status
             val timerStatus = when (timerInterval) {
                 0 -> "❌ Tidak Aktif"
@@ -335,23 +333,23 @@ class MainActivity : AppCompatActivity() {
             
             appendLine()
             when {
-                !adminActive -> appendLine("⚠️ Enable Device Admin to continue")
-                !overlayPermission -> appendLine("⚠️ Grant Display Over Apps permission")
-                !deviceAdminServiceRunning -> appendLine("⚠️ Start the Educational Lock Screen Controller")
-                else -> appendLine("🎉 Ready! Your device will show educational questions")
+                !adminActive -> appendLine("⚠️ Aktifkan Admin Perangkat untuk terus")
+                !overlayPermission -> appendLine("⚠️ Tampilkan Di Atas Aplikasi")
+                !deviceAdminServiceRunning -> appendLine("⚠️ Mulai Pengontrol Kunci Layar Edukasi")
+                else -> appendLine("🎉 Siap! Perangkat Anda akan menampilkan pertanyaan edukasi")
             }
             appendLine()
             if (deviceAdminServiceRunning) {
-                appendLine("🔒 Device will be locked when screen turns on")
-                appendLine("📚 Answer questions correctly to unlock")
+                appendLine("🔒 Perangkat akan terkunci saat layar menyala")
+                appendLine("📚 Jawab pertanyaan dengan benar untuk membuka kunci")
                 if (timerInterval > 0) {
                     appendLine("⏰ Layar kunci muncul otomatis setiap $timerInterval menit")
                 }
-                appendLine("🚨 Emergency unlock available if needed")
+                appendLine("🚨 Kunci darurat tersedia jika diperlukan")
             } else {
-                appendLine("💡 This service controls device locking and shows")
-                appendLine("   educational questions that must be answered")
-                appendLine("   correctly before the device can be unlocked.")
+                appendLine("💡 Layanan ini mengontrol kunci perangkat dan menampilkan")
+                appendLine("   pertanyaan edukasi yang harus dijawab")
+                appendLine("   dengan benar sebelum perangkat dapat dibuka.")
                 if (timerInterval > 0) {
                     appendLine("⏰ Timer otomatis akan aktif setelah service dimulai")
                 }
@@ -375,17 +373,17 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             REQUEST_CODE_ENABLE_ADMIN -> {
                 if (resultCode == RESULT_OK) {
-                    Toast.makeText(this, "Device Admin enabled successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Admin Perangkat berhasil diaktifkan", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "Device Admin is required for the app to work", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Admin Perangkat diperlukan untuk aplikasi ini", Toast.LENGTH_LONG).show()
                 }
                 updateStatus()
             }
             REQUEST_CODE_OVERLAY_PERMISSION -> {
                 if (hasOverlayPermission()) {
-                    Toast.makeText(this, "Overlay permission granted! You can now start the service.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Izin tampilan di atas aplikasi diberikan! Anda sekarang dapat memulai layanan.", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "'Display over other apps' permission is required for the lock screen to work", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Izin tampilan di atas aplikasi diperlukan untuk layar kunci bekerja", Toast.LENGTH_LONG).show()
                 }
                 updateStatus()
             }

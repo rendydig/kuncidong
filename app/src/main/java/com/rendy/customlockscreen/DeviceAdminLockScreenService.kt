@@ -112,7 +112,7 @@ class DeviceAdminLockScreenService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Educational Lock Screen Controller",
+                "Pengontrol Kunci Layar Edukasi",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = "Controls device locking for educational purposes"
@@ -132,8 +132,8 @@ class DeviceAdminLockScreenService : Service() {
         )
         
         return Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle("Educational Lock Screen Active")
-            .setContentText("Answer questions to unlock your device")
+            .setContentTitle("Pengontrol Kunci Layar Edukasi Aktif")
+            .setContentText("Jawab pertanyaan untuk membuka kunci")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentIntent(pendingIntent)
             .setOngoing(true)

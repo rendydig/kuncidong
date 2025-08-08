@@ -94,7 +94,7 @@ class LockScreenService : Service() {
             // Service notification channel
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
-                "Smart Lock Screen Service",
+                "Kunci Dong Edukasi Service",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = "Keeps the smart lock screen active"
