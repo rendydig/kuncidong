@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnOverlayPermission: CardView
     private lateinit var btnAccessibilityService: CardView
     private lateinit var btnStartService: CardView
+    private lateinit var btnSettings: CardView
     private lateinit var btnTestLockScreen: CardView
     private lateinit var tvStatus: TextView
     
@@ -50,12 +51,14 @@ class MainActivity : AppCompatActivity() {
         initializeDeviceAdmin()
         setupClickListeners()
         updateStatus()
+        initializeTimerService()
     }
     
     override fun onResume() {
         super.onResume()
         updateStatus()
         statusHandler.post(statusUpdateRunnable)
+        initializeTimerService() // Restart timer service in case settings changed
     }
     
     override fun onPause() {
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         btnOverlayPermission = findViewById(R.id.btnOverlayPermission)
         btnAccessibilityService = findViewById(R.id.btnAccessibilityService)
         btnStartService = findViewById(R.id.btnStartService)
+        btnSettings = findViewById(R.id.btnSettings)
         btnTestLockScreen = findViewById(R.id.btnTestLockScreen)
         tvStatus = findViewById(R.id.tvStatus)
     }
@@ -118,6 +122,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 startDeviceAdminService()
             }
+        }
+        
+        btnSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
         
         btnTestLockScreen.setOnClickListener {
@@ -303,6 +312,7 @@ class MainActivity : AppCompatActivity() {
         val adminActive = isAdminActive()
         val overlayPermission = hasOverlayPermission()
         val deviceAdminServiceRunning = isDeviceAdminServiceRunning()
+        val timerInterval = SettingsActivity.getTimerInterval(this)
         
         val statusText = buildString {
             appendLine("📱 Educational Lock Screen Controller:")
@@ -310,6 +320,18 @@ class MainActivity : AppCompatActivity() {
             appendLine("🔐 Device Admin: ${if (adminActive) "✅ Enabled" else "❌ Disabled"}")
             appendLine("🖥️ Display Over Apps: ${if (overlayPermission) "✅ Granted" else "❌ Not Granted"}")
             appendLine("🎯 Lock Controller: ${if (deviceAdminServiceRunning) "✅ Running" else "❌ Stopped"}")
+            
+            // Timer status
+            val timerStatus = when (timerInterval) {
+                0 -> "❌ Tidak Aktif"
+                1 -> "✅ Setiap 1 Menit"
+                10 -> "✅ Setiap 10 Menit"
+                15 -> "✅ Setiap 15 Menit"
+                30 -> "✅ Setiap 30 Menit"
+                else -> "❓ Tidak Dikenal"
+            }
+            appendLine("⏰ Timer Otomatis: $timerStatus")
+            
             appendLine()
             when {
                 !adminActive -> appendLine("⚠️ Enable Device Admin to continue")
@@ -321,11 +343,17 @@ class MainActivity : AppCompatActivity() {
             if (deviceAdminServiceRunning) {
                 appendLine("🔒 Device will be locked when screen turns on")
                 appendLine("📚 Answer questions correctly to unlock")
+                if (timerInterval > 0) {
+                    appendLine("⏰ Layar kunci muncul otomatis setiap $timerInterval menit")
+                }
                 appendLine("🚨 Emergency unlock available if needed")
             } else {
                 appendLine("💡 This service controls device locking and shows")
                 appendLine("   educational questions that must be answered")
                 appendLine("   correctly before the device can be unlocked.")
+                if (timerInterval > 0) {
+                    appendLine("⏰ Timer otomatis akan aktif setelah service dimulai")
+                }
             }
         }
         
@@ -360,6 +388,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 updateStatus()
             }
+        }
+    }
+    
+    private fun initializeTimerService() {
+        // Start timer service if interval is set and not disabled
+        val timerInterval = SettingsActivity.getTimerInterval(this)
+        if (timerInterval > 0) {
+            val intent = Intent(this, LockScreenTimerService::class.java)
+            startService(intent)
         }
     }
 }

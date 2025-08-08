@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
     <application
         android:name=".SmartLockApplication"
@@ -33,6 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Settings Activity -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Customlockscreen.NoActionBar" />
 
         <!-- Lock Screen Activity -->
         <activity
@@ -113,6 +121,12 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Device admin educational lock screen service that controls device locking with educational questions" />
         </service>
+
+        <!-- Lock Screen Timer Service -->
+        <service
+            android:name=".LockScreenTimerService"
+            android:enabled="true"
+            android:exported="false" />
 
     </application>
 

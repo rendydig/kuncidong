@@ -60,6 +60,10 @@ class DeviceAdminLockScreenService : Service() {
                     Log.d(TAG, "User present - but we control unlocking now")
                     // Don't hide overlay on user present - we control when to unlock
                 }
+                "com.rendy.customlockscreen.TRIGGER_LOCK_SCREEN_NOW" -> {
+                    Log.d(TAG, "Timer trigger broadcast received - locking device and showing question")
+                    lockDeviceAndShowQuestion()
+                }
             }
         }
     }
@@ -83,10 +87,21 @@ class DeviceAdminLockScreenService : Service() {
     }
     
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "Service started")
+        Log.d(TAG, "Service started with action: ${intent?.action}")
         
         val notification = createNotification()
         startForeground(NOTIFICATION_ID, notification)
+        
+        // Handle timer trigger
+        when (intent?.action) {
+            "TIMER_TRIGGER" -> {
+                Log.d(TAG, "Timer trigger received - locking device and showing question")
+                // Small delay to ensure service is fully started
+                android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                    lockDeviceAndShowQuestion()
+                }, 500)
+            }
+        }
         
         return START_STICKY
     }
@@ -130,8 +145,15 @@ class DeviceAdminLockScreenService : Service() {
             addAction(Intent.ACTION_SCREEN_ON)
             addAction(Intent.ACTION_SCREEN_OFF)
             addAction(Intent.ACTION_USER_PRESENT)
+            addAction("com.rendy.customlockscreen.TRIGGER_LOCK_SCREEN_NOW")
         }
-        registerReceiver(screenReceiver, filter)
+        
+        // Use RECEIVER_NOT_EXPORTED for Android 14+ compatibility
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(screenReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(screenReceiver, filter)
+        }
     }
     
     private fun lockDeviceAndShowQuestion() {
