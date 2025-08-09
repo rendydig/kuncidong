@@ -38,7 +38,7 @@ cd d:\projects\android
    - Smart Lock Screen should appear with:
      - Current time and date
      - Educational question with 4 multiple choice answers
-     - Category badge (Mathematics, Science, etc.)
+     - Category badge (MATEMATIKA, Science, etc.)
 
 2. **Test Answer Selection**
    - **Correct Answer**: 
@@ -53,7 +53,7 @@ cd d:\projects\android
 3. **Test Question Variety**
    - Lock and unlock device multiple times
    - Verify different questions appear from various categories:
-     - Mathematics (15 + 27 = ?)
+     - MATEMATIKA (15 + 27 = ?)
      - Science (Chemical symbol for water?)
      - Geography (Capital of France?)
      - History (Year WWII ended?)

@@ -12,20 +12,25 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.text.TextUtils
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
+import android.widget.LinearLayout
 
 class MainActivity : AppCompatActivity() {
     
-    private lateinit var btnEnableAdmin: CardView
-    private lateinit var btnOverlayPermission: CardView
-    private lateinit var btnAccessibilityService: CardView
-    private lateinit var btnStartService: CardView
-    private lateinit var btnSettings: CardView
-    private lateinit var btnTestLockScreen: CardView
+    private lateinit var btnEnableAdmin: LinearLayout
+    private lateinit var btnOverlayPermission: LinearLayout
+    private lateinit var btnAccessibilityService: LinearLayout
+    private lateinit var btnStartService: MaterialCardView
+    private lateinit var btnSettings: MaterialCardView
+    private lateinit var btnTestLockScreen: MaterialCardView
     private lateinit var tvStatus: TextView
+    private lateinit var switchAdmin: Switch
+    private lateinit var switchOverlay: Switch
+    private lateinit var switchAccessibility: Switch
     
     private lateinit var devicePolicyManager: DevicePolicyManager
     private lateinit var adminComponent: ComponentName
@@ -74,6 +79,9 @@ class MainActivity : AppCompatActivity() {
         btnSettings = findViewById(R.id.btnSettings)
         btnTestLockScreen = findViewById(R.id.btnTestLockScreen)
         tvStatus = findViewById(R.id.tvStatus)
+        switchAdmin = findViewById(R.id.switchAdmin)
+        switchOverlay = findViewById(R.id.switchOverlay)
+        switchAccessibility = findViewById(R.id.switchAccessibility)
     }
     
     private fun initializeDeviceAdmin() {
@@ -84,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         btnEnableAdmin.setOnClickListener {
             if (isAdminActive()) {
-                Toast.makeText(this, "Device Admin is already enabled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Admin perangkat sudah aktif", Toast.LENGTH_SHORT).show()
             } else {
                 requestAdminPermission()
             }
@@ -92,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         
         btnOverlayPermission.setOnClickListener {
             if (hasOverlayPermission()) {
-                Toast.makeText(this, "Display over other apps permission is already granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Izin tampilan over apps sudah diberikan", Toast.LENGTH_SHORT).show()
             } else {
                 requestOverlayPermission()
             }
@@ -100,20 +108,15 @@ class MainActivity : AppCompatActivity() {
         
         btnAccessibilityService.setOnClickListener {
             if (isAccessibilityServiceEnabled()) {
-                Toast.makeText(this, "Accessibility service is already enabled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Layanan aksesibilitas sudah aktif", Toast.LENGTH_SHORT).show()
             } else {
                 requestAccessibilityService()
             }
         }
         
         btnStartService.setOnClickListener {
-            if (!isAdminActive()) {
-                Toast.makeText(this, "Please enable Device Admin first", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            
-            if (!hasOverlayPermission()) {
-                Toast.makeText(this, "Please grant Display Over Apps permission first", Toast.LENGTH_SHORT).show()
+            if (!areAllPermissionsGranted()) {
+                Toast.makeText(this, "Harap aktifkan semua izin terlebih dahulu", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             
@@ -130,23 +133,16 @@ class MainActivity : AppCompatActivity() {
         }
         
         btnTestLockScreen.setOnClickListener {
-            // Test both notification and direct activity launch
-            Toast.makeText(this, "Testing: Creating notification + launching activity", Toast.LENGTH_SHORT).show()
+            // Test original lock screen with Material Design improvements
+            Toast.makeText(this, "🚀 Testing Lock Screen with Material Design", Toast.LENGTH_SHORT).show()
             
-            // Test notification
-            val serviceIntent = Intent(this, LockScreenService::class.java)
-            serviceIntent.action = "TEST_NOTIFICATION"
-            startService(serviceIntent)
-            
-            // Test direct activity launch
-            Handler(Looper.getMainLooper()).postDelayed({
-                val intent = Intent(this, LockScreenActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
-                           Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                           Intent.FLAG_ACTIVITY_SINGLE_TOP
-                }
-                startActivity(intent)
-            }, 1000)
+            // Launch original lock screen activity
+            val intent = Intent(this, LockScreenActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
+                       Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                       Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
         }
     }
     
@@ -309,62 +305,38 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun updateStatus() {
-        val adminActive = isAdminActive()
-        val overlayPermission = hasOverlayPermission()
-        val deviceAdminServiceRunning = isDeviceAdminServiceRunning()
-        val timerInterval = SettingsActivity.getTimerInterval(this)
+        val isServiceRunning = isServiceRunning()
+        val isDeviceAdminServiceRunning = isDeviceAdminServiceRunning()
         
-        val statusText = buildString {
-            appendLine("📱 Pengontrol Kunci Layar Edukasi:")
-            appendLine()
-            appendLine("🔐 Admin Perangkat: ${if (adminActive) "✅ Diaktifkan" else "❌ Dinonaktifkan"}")
-            appendLine("🖥️ Tampilkan Di Atas Aplikasi: ${if (overlayPermission) "✅ Diberikan" else "❌ Tidak Diberikan"}")
-            // Timer status
-            val timerStatus = when (timerInterval) {
-                0 -> "❌ Tidak Aktif"
-                1 -> "✅ Setiap 1 Menit"
-                3 -> "✅ Setiap 3 Menit"
-                5 -> "✅ Setiap 5 Menit"
-                10 -> "✅ Setiap 10 Menit"
-                15 -> "✅ Setiap 15 Menit"
-                else -> "❓ Tidak Dikenal"
-            }
-            appendLine("⏰ Timer Otomatis: $timerStatus")
-            
-            appendLine()
-            when {
-                !adminActive -> appendLine("⚠️ Aktifkan Admin Perangkat untuk terus")
-                !overlayPermission -> appendLine("⚠️ Tampilkan Di Atas Aplikasi")
-                !deviceAdminServiceRunning -> appendLine("⚠️ Mulai Pengontrol Kunci Layar Edukasi")
-                else -> appendLine("🎉 Siap! Perangkat Anda akan menampilkan pertanyaan edukasi")
-            }
-            appendLine()
-            if (deviceAdminServiceRunning) {
-                appendLine("🔒 Perangkat akan terkunci saat layar menyala")
-                appendLine("📚 Jawab pertanyaan dengan benar untuk membuka kunci")
-                if (timerInterval > 0) {
-                    appendLine("⏰ Layar kunci muncul otomatis setiap $timerInterval menit")
-                }
-                appendLine("🚨 Kunci darurat tersedia jika diperlukan")
-            } else {
-                appendLine("💡 Layanan ini mengontrol kunci perangkat dan menampilkan")
-                appendLine("   pertanyaan edukasi yang harus dijawab")
-                appendLine("   dengan benar sebelum perangkat dapat dibuka.")
-                if (timerInterval > 0) {
-                    appendLine("⏰ Timer otomatis akan aktif setelah service dimulai")
-                }
-            }
+        // Update permission switches
+        switchAdmin.isChecked = isAdminActive()
+        switchOverlay.isChecked = hasOverlayPermission()
+        switchAccessibility.isChecked = isAccessibilityServiceEnabled()
+        
+        // Update main button state
+        val allPermissionsGranted = areAllPermissionsGranted()
+        btnStartService.alpha = if (allPermissionsGranted) 1.0f else 0.5f
+        btnStartService.isEnabled = allPermissionsGranted
+        
+        val statusText = when {
+            isDeviceAdminServiceRunning -> "Layar Kunci Edukatif: Aktif ✅"
+            isServiceRunning -> "Layanan Berjalan: Sebagian ⚠️"
+            else -> "Layanan: Tidak Aktif ❌"
         }
         
         tvStatus.text = statusText
         
         // Update service button text
-        val serviceButtonText = btnStartService.findViewById<TextView>(R.id.tvStartServiceText)
-        serviceButtonText?.text = if (deviceAdminServiceRunning) {
-            "🛑 Hentikan kunci"
+        val serviceButtonText = if (isDeviceAdminServiceRunning) {
+            "Matikan Kunci Edukatif"
         } else {
-            "▶️ aktifkan kunci"
+            "Aktifkan Kunci Edukatif"
         }
+        findViewById<TextView>(R.id.tvStartServiceText).text = serviceButtonText
+    }
+    
+    private fun areAllPermissionsGranted(): Boolean {
+        return isAdminActive() && hasOverlayPermission() && isAccessibilityServiceEnabled()
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

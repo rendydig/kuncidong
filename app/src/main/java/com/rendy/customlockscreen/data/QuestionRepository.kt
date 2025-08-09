@@ -32,9 +32,9 @@ class QuestionRepository(private val context: Context) {
     
     private fun getDefaultQuestions(): List<Question> {
         return listOf(
-            Question(1, QuestionCategory.MATHEMATICS, "Berapa hasil dari 1 + 10?", 
+            Question(1, QuestionCategory.MATEMATIKA, "Berapa hasil dari 1 + 10?", 
                 listOf("11", "10", "12", "9"), 0),
-            Question(2, QuestionCategory.MATHEMATICS, "Berapa hasil dari 2 + 9?", 
+            Question(2, QuestionCategory.MATEMATIKA, "Berapa hasil dari 2 + 9?", 
                 listOf("11", "10", "12", "13"), 0)
         )
     }

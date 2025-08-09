@@ -78,7 +78,7 @@ The primary goal of this application is to **make children smarter** by requirin
 ## Question Categories
 
 The app includes various educational categories:
-- **Mathematics**: Basic arithmetic, geometry, algebra
+- **MATEMATIKA**: Basic arithmetic, geometry, algebra
 - **Science**: Physics, chemistry, biology concepts
 - **Geography**: Countries, capitals, landmarks
 - **History**: Important events, figures, dates

@@ -54,6 +54,14 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     
+    // UI Enhancement Libraries
+    implementation("com.airbnb.android:lottie:6.2.0") // Beautiful animations
+    implementation("androidx.viewpager2:viewpager2:1.0.0") // Smooth swiping
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4") // MotionLayout
+    implementation("com.facebook.shimmer:shimmer:0.5.0") // Loading effects
+    implementation("de.hdodenhof:circleimageview:3.1.0") // Circular images
+    implementation("jp.wasabeef:recyclerview-animators:4.0.2") // List animations
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

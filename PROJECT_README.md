@@ -12,7 +12,7 @@ Smart Lock Screen is an educational Android application built in Kotlin that tra
 
 ### 🧠 **Educational Questions**
 - 30+ pre-loaded questions across 6 categories:
-  - Mathematics (basic arithmetic, percentages, powers)
+  - MATEMATIKA (basic arithmetic, percentages, powers)
   - Science (chemistry, biology, physics basics)
   - Geography (countries, capitals, continents)
   - History (world events, famous figures)
@@ -114,7 +114,7 @@ app/src/main/
 
 ## Educational Categories
 
-### Mathematics
+### MATEMATIKA
 - Basic arithmetic (addition, subtraction, multiplication, division)
 - Percentages and fractions
 - Powers and exponents
@@ -172,7 +172,7 @@ Edit `QuestionRepository.kt` to add new questions:
 ```kotlin
 Question(
     id = 31,
-    category = QuestionCategory.MATHEMATICS,
+    category = QuestionCategory.MATEMATIKA,
     questionText = "What is 12 × 8?",
     options = listOf("94", "96", "98", "100"),
     correctAnswerIndex = 1

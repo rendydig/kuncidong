@@ -17,7 +17,7 @@ We're excited to introduce **Smart Lock Screen v1.0**, an innovative educational
 
 ### 🧠 **Educational Question System**
 - **30+ Pre-loaded Questions**: Carefully curated educational content across 6 categories
-  - 📊 **Mathematics**: Basic arithmetic, percentages, powers, and problem-solving
+  - 📊 **MATEMATIKA**: Basic arithmetic, percentages, powers, and problem-solving
   - 🔬 **Science**: Chemistry, biology, physics fundamentals
   - 🌍 **Geography**: Countries, capitals, continents, and world knowledge
   - 📚 **History**: World events, famous figures, and important dates

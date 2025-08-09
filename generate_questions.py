@@ -11,7 +11,7 @@ def generate_addition_questions():
                 result = first_num + second_num
                 question = {
                     "id": question_id,
-                    "category": "MATHEMATICS",
+                    "category": "MATEMATIKA",
                     "question": f"Berapa hasil dari {first_num} + {second_num}?",
                     "options": [str(result), str(result-1), str(result+1), str(result-2)],
                     "correctAnswerIndex": 0
@@ -32,7 +32,7 @@ def generate_subtraction_questions(start_id):
                 result = minuend - subtrahend
                 question = {
                     "id": question_id,
-                    "category": "MATHEMATICS", 
+                    "category": "MATEMATIKA", 
                     "question": f"Berapa hasil dari {minuend} - {subtrahend}?",
                     "options": [str(result), str(result-1), str(result+1), str(result-2) if result > 2 else "0"],
                     "correctAnswerIndex": 0

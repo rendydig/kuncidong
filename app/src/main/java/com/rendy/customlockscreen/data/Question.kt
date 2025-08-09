@@ -20,7 +20,7 @@ data class Question(
 )
 
 enum class QuestionCategory(val displayName: String) {
-    MATHEMATICS("Matematika"),
+    MATEMATIKA("Matematika"),
     SCIENCE("IPA (Ilmu Pengetahuan Alam)"),
     GEOGRAPHY("IPS (Geografi)"),
     HISTORY("IPS (Sejarah)"),
