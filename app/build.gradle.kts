@@ -62,6 +62,10 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0") // Circular images
     implementation("jp.wasabeef:recyclerview-animators:4.0.2") // List animations
     
+    // HTTP Client for downloading questions
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

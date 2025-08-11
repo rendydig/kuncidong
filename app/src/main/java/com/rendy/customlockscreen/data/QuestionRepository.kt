@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import com.rendy.customlockscreen.services.GoogleDriveService
 
 class QuestionRepository(private val context: Context) {
     
@@ -13,6 +14,7 @@ class QuestionRepository(private val context: Context) {
     private val questionDao = database.questionDao()
     private val sharedPreferences: SharedPreferences = 
         context.getSharedPreferences("question_prefs", Context.MODE_PRIVATE)
+    private val googleDriveService = GoogleDriveService()
     
     private fun loadQuestionsFromAssets(): List<Question> {
         return try {
@@ -43,10 +45,41 @@ class QuestionRepository(private val context: Context) {
         withContext(Dispatchers.IO) {
             val isFirstTime = sharedPreferences.getBoolean("is_first_time", true)
             if (isFirstTime) {
-                val questions = loadQuestionsFromAssets()
-                questionDao.insertQuestions(questions)
+                try {
+                    // Try to download default question pack (Kelas 2 SD) on first launch
+                    val defaultQuestions = downloadDefaultQuestionPack()
+                    if (defaultQuestions.isNotEmpty()) {
+                        questionDao.insertQuestions(defaultQuestions)
+                    } else {
+                        // Fallback to local assets if download fails
+                        val questions = loadQuestionsFromAssets()
+                        questionDao.insertQuestions(questions)
+                    }
+                } catch (e: Exception) {
+                    // Fallback to local assets if download fails
+                    val questions = loadQuestionsFromAssets()
+                    questionDao.insertQuestions(questions)
+                }
                 sharedPreferences.edit().putBoolean("is_first_time", false).apply()
             }
+        }
+    }
+    
+    /**
+     * Download default question pack (Kelas 2 SD) for first-time users
+     */
+    private suspend fun downloadDefaultQuestionPack(): List<Question> {
+        return try {
+            val questionPacks = googleDriveService.getAvailableQuestionPacks()
+            val kelas2Pack = questionPacks.find { it.category == "KELAS_2" }
+            
+            if (kelas2Pack != null) {
+                googleDriveService.downloadQuestionPack(kelas2Pack)
+            } else {
+                emptyList()
+            }
+        } catch (e: Exception) {
+            emptyList()
         }
     }
     
@@ -83,6 +116,15 @@ class QuestionRepository(private val context: Context) {
             questionDao.deleteAllQuestions()
             val questions = loadQuestionsFromAssets()
             questionDao.insertQuestions(questions)
+        }
+    }
+    
+    suspend fun replaceAllQuestions(newQuestions: List<Question>) {
+        withContext(Dispatchers.IO) {
+            questionDao.deleteAllQuestions()
+            questionDao.insertQuestions(newQuestions)
+            // Reset first time flag so questions are considered initialized
+            sharedPreferences.edit().putBoolean("is_first_time", false).apply()
         }
     }
 }

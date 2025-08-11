@@ -27,10 +27,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnStartService: MaterialCardView
     private lateinit var btnSettings: MaterialCardView
     private lateinit var btnTestLockScreen: MaterialCardView
+    private lateinit var btnQuestionManager: MaterialCardView
     private lateinit var tvStatus: TextView
     private lateinit var switchAdmin: Switch
     private lateinit var switchOverlay: Switch
     private lateinit var switchAccessibility: Switch
+    private lateinit var switchLockService: Switch
     
     private lateinit var devicePolicyManager: DevicePolicyManager
     private lateinit var adminComponent: ComponentName
@@ -78,10 +80,12 @@ class MainActivity : AppCompatActivity() {
         btnStartService = findViewById(R.id.btnStartService)
         btnSettings = findViewById(R.id.btnSettings)
         btnTestLockScreen = findViewById(R.id.btnTestLockScreen)
+        btnQuestionManager = findViewById(R.id.btnQuestionManager)
         tvStatus = findViewById(R.id.tvStatus)
         switchAdmin = findViewById(R.id.switchAdmin)
         switchOverlay = findViewById(R.id.switchOverlay)
         switchAccessibility = findViewById(R.id.switchAccessibility)
+        switchLockService = findViewById(R.id.switchLockService)
     }
     
     private fun initializeDeviceAdmin() {
@@ -115,15 +119,26 @@ class MainActivity : AppCompatActivity() {
         }
         
         btnStartService.setOnClickListener {
-            if (!areAllPermissionsGranted()) {
+            // This card now just shows the switch, clicking the card toggles the switch
+            if (areAllPermissionsGranted()) {
+                switchLockService.toggle()
+            } else {
                 Toast.makeText(this, "Harap aktifkan semua izin terlebih dahulu", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
+            }
+        }
+        
+        switchLockService.setOnCheckedChangeListener { _, isChecked ->
+            if (!areAllPermissionsGranted()) {
+                // Revert switch state if permissions not granted
+                switchLockService.isChecked = false
+                Toast.makeText(this, "Harap aktifkan semua izin terlebih dahulu", Toast.LENGTH_LONG).show()
+                return@setOnCheckedChangeListener
             }
             
-            if (isDeviceAdminServiceRunning()) {
-                stopDeviceAdminService()
-            } else {
+            if (isChecked) {
                 startDeviceAdminService()
+            } else {
+                stopDeviceAdminService()
             }
         }
         
@@ -142,6 +157,11 @@ class MainActivity : AppCompatActivity() {
                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
                        Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
+            startActivity(intent)
+        }
+        
+        btnQuestionManager.setOnClickListener {
+            val intent = Intent(this, QuestionManagerActivity::class.java)
             startActivity(intent)
         }
     }
@@ -326,13 +346,8 @@ class MainActivity : AppCompatActivity() {
         
         tvStatus.text = statusText
         
-        // Update service button text
-        val serviceButtonText = if (isDeviceAdminServiceRunning) {
-            "Matikan Kunci Edukatif"
-        } else {
-            "Aktifkan Kunci Edukatif"
-        }
-        findViewById<TextView>(R.id.tvStartServiceText).text = serviceButtonText
+        // Update service switch state
+        switchLockService.isChecked = isDeviceAdminServiceRunning
     }
     
     private fun areAllPermissionsGranted(): Boolean {
