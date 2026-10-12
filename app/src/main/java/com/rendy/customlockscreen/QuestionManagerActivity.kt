@@ -13,6 +13,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.rendy.customlockscreen.adapters.QuestionPackAdapter
 import com.rendy.customlockscreen.adapters.CurrentQuestionsAdapter
 import com.rendy.customlockscreen.data.QuestionRepository
+import com.rendy.customlockscreen.lock.AppLockGate
 import com.rendy.customlockscreen.models.QuestionPack
 import com.rendy.customlockscreen.services.GoogleDriveService
 import kotlinx.coroutines.launch
@@ -34,12 +35,18 @@ class QuestionManagerActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (AppLockGate.requireUnlock(this, QuestionManagerActivity::class.java)) return
         setContentView(R.layout.activity_question_manager)
         
         initializeComponents()
         setupRecyclerViews()
         setupClickListeners()
         loadAvailableQuestionPacks()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AppLockGate.requireUnlock(this, QuestionManagerActivity::class.java)) return
     }
     
     private fun initializeComponents() {

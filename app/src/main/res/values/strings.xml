@@ -7,7 +7,9 @@
     <string name="device_admin_enabled">Admin Perangkat Diaktifkan ✓</string>
     <string name="status_not_configured">Status: Belum dikonfigurasi</string>
     <string name="status_admin_required">Status: Admin Perangkat diperlukan</string>
-    <string name="status_ready">Status: Siap untuk memulai</string>
+    <string name="status_ready">Status: Siap un
+
+        tuk memulai</string>
     <string name="status_active">Status: Layar Kunci Pintar aktif ✓</string>
     <string name="unlock_instruction">Jawab pertanyaan untuk membuka kunci</string>
     <string name="correct_answer">Benar! Bagus sekali! 🎉</string>

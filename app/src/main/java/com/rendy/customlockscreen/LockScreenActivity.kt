@@ -1,8 +1,10 @@
 package com.rendy.customlockscreen
 
-import android.app.KeyguardManager
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -10,192 +12,217 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import com.rendy.customlockscreen.data.Question
 import com.rendy.customlockscreen.data.QuestionRepository
+import com.rendy.customlockscreen.kids.KidsSettingsActivity
+import com.rendy.customlockscreen.lock.LockStateStore
+import com.rendy.customlockscreen.net.LockMode
+import com.rendy.customlockscreen.net.RemoteAuthStore
+import kotlinx.coroutines.launch
 
+/**
+ * Educational lock screen supporting two modes:
+ * - [LockMode.QUIZ]: answer a question to unlock.
+ * - [LockMode.TEXT]: read a parent message and unlock with the secret PIN, or
+ *   let the parent unlock remotely.
+ */
 class LockScreenActivity : AppCompatActivity() {
-    
-    private lateinit var tvCategory: TextView
-    private lateinit var tvQuestion: TextView
-    private lateinit var tvFeedback: TextView
-    
-    private lateinit var btnAnswer1: CardView
-    private lateinit var btnAnswer2: CardView
-    private lateinit var btnAnswer3: CardView
-    private lateinit var btnAnswer4: CardView
-    
-    private lateinit var tvAnswer1: TextView
-    private lateinit var tvAnswer2: TextView
-    private lateinit var tvAnswer3: TextView
-    private lateinit var tvAnswer4: TextView
-    
-    private lateinit var answerButtons: List<CardView>
-    private lateinit var answerTextViews: List<TextView>
-    private lateinit var questionRepository: QuestionRepository
-    private lateinit var currentQuestion: Question
-    
 
-    
+    private lateinit var lockStateStore: LockStateStore
+    private lateinit var authStore: RemoteAuthStore
+    private lateinit var questionRepository: QuestionRepository
+
+    private var mode: String = LockMode.QUIZ
+
+    // Quiz views
+    private var tvCategory: TextView? = null
+    private var tvQuestion: TextView? = null
+    private var tvFeedback: TextView? = null
+    private var answerButtons: List<CardView> = emptyList()
+    private var answerTextViews: List<TextView> = emptyList()
+    private var currentQuestion: Question? = null
+
+    // Text mode views
+    private var etUnlockPin: EditText? = null
+
+    private val remoteUnlockReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == RemoteControlService.ACTION_REMOTE_UNLOCK) {
+                finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        android.util.Log.d("LockScreenActivity", "onCreate() called - Lock screen activity starting")
-        
-        // Dismiss the lock screen notification since user opened the activity
+
         val notificationManager = getSystemService(NotificationManager::class.java)
-        notificationManager.cancel(2) // LOCK_SCREEN_NOTIFICATION_ID
-        
-        // Enhanced flags for ColorOS/OPPO compatibility
+        notificationManager.cancel(2)
+
+        applyLockWindowFlags()
+
+        lockStateStore = LockStateStore(this)
+        authStore = RemoteAuthStore(this)
+        questionRepository = QuestionRepository(this)
+
+        mode = resolveMode()
+
+        if (mode == LockMode.TEXT) {
+            setContentView(R.layout.activity_lock_screen_text)
+            setupTextMode()
+        } else {
+            setContentView(R.layout.activity_lock_screen)
+            setupQuizMode()
+        }
+
+        registerRemoteUnlockReceiver()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            unregisterReceiver(remoteUnlockReceiver)
+        } catch (e: Exception) {
+            // Already unregistered.
+        }
+    }
+
+    private fun applyLockWindowFlags() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
         } else {
+            @Suppress("DEPRECATION")
             window.addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
             )
         }
-        
-        // Additional flags for better ColorOS compatibility
+
+        @Suppress("DEPRECATION")
         window.addFlags(
             WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-            WindowManager.LayoutParams.FLAG_FULLSCREEN or
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        
-        // Set window type for system overlay (requires SYSTEM_ALERT_WINDOW permission)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             window.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
         } else {
+            @Suppress("DEPRECATION")
             window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
         }
-        
-        // Make it appear over system UI
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
+    }
+
+    private fun resolveMode(): String {
+        intent.getStringExtra(RemoteControlService.EXTRA_MODE)?.let { return it }
+        val state = lockStateStore.current()
+        return if (state.locked) state.mode else KidsSettingsActivity.getDefaultMode(this)
+    }
+
+    private fun currentTitle(): String? =
+        intent.getStringExtra(RemoteControlService.EXTRA_TITLE) ?: lockStateStore.current().title
+
+    private fun currentText(): String? =
+        intent.getStringExtra(RemoteControlService.EXTRA_TEXT) ?: lockStateStore.current().text
+
+    private fun registerRemoteUnlockReceiver() {
+        val filter = IntentFilter(RemoteControlService.ACTION_REMOTE_UNLOCK)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(remoteUnlockReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(remoteUnlockReceiver, filter)
         }
-        
-        setContentView(R.layout.activity_lock_screen)
-        
-        initializeViews()
-        initializeData()
-        loadNewQuestion()
     }
-    
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-    
-    private fun initializeViews() {
+
+    // region quiz mode
+
+    private fun setupQuizMode() {
         tvCategory = findViewById(R.id.tvCategory)
         tvQuestion = findViewById(R.id.tvQuestion)
         tvFeedback = findViewById(R.id.tvFeedback)
-        
-        btnAnswer1 = findViewById(R.id.btnAnswer1)
-        btnAnswer2 = findViewById(R.id.btnAnswer2)
-        btnAnswer3 = findViewById(R.id.btnAnswer3)
-        btnAnswer4 = findViewById(R.id.btnAnswer4)
-        
-        tvAnswer1 = findViewById(R.id.tvAnswer1)
-        tvAnswer2 = findViewById(R.id.tvAnswer2)
-        tvAnswer3 = findViewById(R.id.tvAnswer3)
-        tvAnswer4 = findViewById(R.id.tvAnswer4)
-        
+
+        val btnAnswer1 = findViewById<CardView>(R.id.btnAnswer1)
+        val btnAnswer2 = findViewById<CardView>(R.id.btnAnswer2)
+        val btnAnswer3 = findViewById<CardView>(R.id.btnAnswer3)
+        val btnAnswer4 = findViewById<CardView>(R.id.btnAnswer4)
+
+        val tvAnswer1 = findViewById<TextView>(R.id.tvAnswer1)
+        val tvAnswer2 = findViewById<TextView>(R.id.tvAnswer2)
+        val tvAnswer3 = findViewById<TextView>(R.id.tvAnswer3)
+        val tvAnswer4 = findViewById<TextView>(R.id.tvAnswer4)
+
         answerButtons = listOf(btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4)
         answerTextViews = listOf(tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4)
-        
-        setupAnswerButtonListeners()
-    }
-    
-    private fun initializeData() {
-        questionRepository = QuestionRepository(this)
-    }
-    
-    private fun setupAnswerButtonListeners() {
+
         answerButtons.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                handleAnswerSelected(index)
-            }
+            button.setOnClickListener { handleAnswerSelected(index) }
         }
+
+        loadNewQuestion()
     }
-    
+
     private fun loadNewQuestion() {
         lifecycleScope.launch {
             val question = questionRepository.getRandomQuestion()
             if (question != null) {
                 currentQuestion = question
-                
-                tvCategory.text = currentQuestion.category.displayName
-                tvQuestion.text = currentQuestion.questionText
-                
-                // Set answer options
-                currentQuestion.options.forEachIndexed { index, option ->
-                    answerTextViews[index].text = option
+                tvCategory?.text = question.category.displayName
+                tvQuestion?.text = question.questionText
+                question.options.forEachIndexed { index, option ->
+                    answerTextViews.getOrNull(index)?.text = option
                 }
-                
-                // Reset button states
                 resetButtonStates()
-                tvFeedback.visibility = View.GONE
+                tvFeedback?.visibility = View.GONE
             } else {
-                // Handle case when no question is available
-                tvQuestion.text = "No questions available"
-                tvCategory.text = "Error"
+                tvQuestion?.text = "Belum ada soal tersedia"
+                tvCategory?.text = "Info"
             }
         }
     }
-    
+
     private fun handleAnswerSelected(selectedIndex: Int) {
-        val isCorrect = selectedIndex == currentQuestion.correctAnswerIndex
-        
-        // Disable all buttons
-        answerButtons.forEach { 
+        val question = currentQuestion ?: return
+        val isCorrect = selectedIndex == question.correctAnswerIndex
+
+        answerButtons.forEach {
             it.isClickable = false
             it.alpha = 0.6f
         }
-        
-        // Update button colors
+
         answerButtons.forEachIndexed { index, button ->
             when {
-                index == currentQuestion.correctAnswerIndex -> {
+                index == question.correctAnswerIndex ->
                     button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.success_green))
-                }
-                index == selectedIndex && !isCorrect -> {
+                index == selectedIndex && !isCorrect ->
                     button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.error_red))
-                }
             }
         }
-        
-        // Show feedback
+
         if (isCorrect) {
-            tvFeedback.text = "Correct! Well done! 🎉"
-            tvFeedback.setTextColor(ContextCompat.getColor(this, R.color.success_green))
-            tvFeedback.visibility = View.VISIBLE
-            
-            // Unlock device after a short delay
+            tvFeedback?.text = "Benar! Bagus sekali! 🎉"
+            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.success_green))
+            tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
-                unlockDevice()
+                lockStateStore.unlock()
+                finish()
             }, 1500)
         } else {
-            tvFeedback.text = "Incorrect. Try again! 🤔"
-            tvFeedback.setTextColor(ContextCompat.getColor(this, R.color.error_red))
-            tvFeedback.visibility = View.VISIBLE
-            
-            // Load new question after a short delay
-            Handler(Looper.getMainLooper()).postDelayed({
-                loadNewQuestion()
-            }, 2000)
+            tvFeedback?.text = "Salah. Coba lagi! 🤔"
+            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.error_red))
+            tvFeedback?.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({ loadNewQuestion() }, 2000)
         }
     }
-    
+
     private fun resetButtonStates() {
         answerButtons.forEach { button ->
             button.isClickable = true
@@ -203,21 +230,54 @@ class LockScreenActivity : AppCompatActivity() {
             button.setCardBackgroundColor(Color.parseColor("#E3F2FD"))
         }
     }
-    
-    private fun unlockDevice() {
-        // Finish this activity to return to home screen
-        finish()
+
+    // endregion
+
+    // region text mode
+
+    private fun setupTextMode() {
+        val tvTextTitle = findViewById<TextView>(R.id.tvTextTitle)
+        val tvTextMessage = findViewById<TextView>(R.id.tvTextMessage)
+        etUnlockPin = findViewById(R.id.etUnlockPin)
+
+        tvTextTitle.text = currentTitle() ?: "Pesan dari Orang Tua"
+        tvTextMessage.text = currentText() ?: "Waktunya istirahat dari HP ya 😊"
+
+        findViewById<Button>(R.id.btnPinUnlock).setOnClickListener { attemptPinUnlock() }
+        findViewById<Button>(R.id.btnWaitParent).setOnClickListener {
+            Toast.makeText(
+                this,
+                "Minta orang tua membuka kunci dari HP mereka",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
-    
+
+    private fun attemptPinUnlock() {
+        val pin = etUnlockPin?.text?.toString()?.trim().orEmpty()
+        if (pin.isEmpty()) {
+            Toast.makeText(this, "Masukkan PIN dulu", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (authStore.verifyPin(pin)) {
+            lockStateStore.unlock()
+            Toast.makeText(this, "🔓 Terbuka", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            Toast.makeText(this, "PIN salah", Toast.LENGTH_SHORT).show()
+            etUnlockPin?.setText("")
+        }
+    }
+
+    // endregion
+
+    @Deprecated("Lock screen must not be dismissed with back")
     override fun onBackPressed() {
-        // Prevent back button from closing the lock screen
-        // Do nothing
+        // Block the back button while locked.
     }
-    
+
     override fun onPause() {
         super.onPause()
-        // If the activity is paused and we haven't unlocked, finish it
-        // This prevents the lock screen from staying in background
         if (!isFinishing) {
             finish()
         }

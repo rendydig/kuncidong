@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvPairDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HP Anak"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Minta anak membuka “Kode Pairing” di HP-nya, lalu masukkan kode di bawah."
+        android:textSize="12sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etPairCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kode 6 digit"
+        android:inputType="number"
+        android:maxLength="6"
+        android:letterSpacing="0.3" />
+
+    <EditText
+        android:id="@+id/etPairPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="PIN rahasia (min. 4 angka)"
+        android:inputType="numberPassword"
+        android:maxLength="8" />
+
+    <EditText
+        android:id="@+id/etParentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Anda (mis. Ayah)"
+        android:inputType="textPersonName"
+        android:maxLines="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PIN disimpan sekali dan dipakai untuk membuka mode pesan di HP anak."
+        android:textSize="11sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

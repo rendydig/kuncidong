@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.rendy.customlockscreen.data.TimerSettings
 import java.util.*
 
 class LockScreenTimerService : Service() {
@@ -63,7 +64,7 @@ class LockScreenTimerService : Service() {
     }
     
     private fun scheduleNextAlarm() {
-        val interval = SettingsActivity.getTimerInterval(this)
+        val interval = TimerSettings.getTimerInterval(this)
         
         if (interval <= 0) {
             Log.d(TAG, "Timer disabled, not scheduling alarm")
