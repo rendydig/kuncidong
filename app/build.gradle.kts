@@ -66,6 +66,12 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     
+    // Kid-friendly fonts and icons
+    implementation("com.mikepenz:iconics-core:5.4.0") // Icon library
+    implementation("com.mikepenz:iconics-views:5.4.0") // Icon views
+    implementation("com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar") // Material icons
+    implementation("com.mikepenz:fontawesome-typeface:5.9.0.2-kotlin@aar") // FontAwesome icons
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

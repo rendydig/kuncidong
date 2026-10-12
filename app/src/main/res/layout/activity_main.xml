@@ -10,22 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <!-- Header Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@android:color/white">
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="32dp"
+                android:padding="24dp"
                 android:gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -41,32 +42,34 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kunci dong"
-                    android:textSize="24sp"
+                    android:text="🎓 Kunci Dong"
+                    android:textSize="28sp"
                     android:textStyle="bold"
-                    android:textColor="@color/primary_blue"
+                    android:textColor="@color/kid_primary"
                     android:textAlignment="center"
+                    android:fontFamily="sans-serif-black"
                     android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Layar Kunci Edukatif untuk Anak-anak"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_secondary"
-                    android:textAlignment="center" />
+                    android:text="✨ Layar Kunci Edukatif untuk Anak-anak ✨"
+                    android:textSize="16sp"
+                    android:textColor="@color/kid_accent"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/nunito" />
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Permissions Setup Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
@@ -75,22 +78,62 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="⚙️ Setup Izin Aplikasi"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_blue"
-                    android:layout_marginBottom="16dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
 
-                <TextView
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_settings_kid"
+                        android:background="@drawable/icon_background_circle"
+                        android:padding="6dp"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Setup Izin Aplikasi"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/kid_primary"
+                        android:fontFamily="@font/nunito" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aktifkan semua izin berikut untuk menggunakan layar kunci edukatif:"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="20dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Aktifkan semua izin berikut untuk menggunakan layar kunci edukatif:"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/nunito"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvPermissionProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Izin Aktif: 0/3"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/warning_orange"
+                        android:background="@drawable/progress_badge_background"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp" />
+
+                </LinearLayout>
 
                 <!-- Admin Permission Toggle -->
                 <LinearLayout
@@ -98,9 +141,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
+                    android:padding="12dp"
                     android:background="@drawable/permission_item_background"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -122,10 +165,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Admin Perangkat"
+                            android:text="🔐 Admin Perangkat"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/kid_primary"
+                            android:fontFamily="@font/nunito" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -151,9 +195,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
+                    android:padding="12dp"
                     android:background="@drawable/permission_item_background"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -175,10 +219,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tampilan Over Apps"
+                            android:text="📱 Tampilan Over Apps"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/kid_primary"
+                            android:fontFamily="@font/nunito" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -204,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
+                    android:padding="12dp"
                     android:background="@drawable/permission_item_background"
                     android:clickable="true"
                     android:focusable="true"
@@ -227,10 +272,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Layanan Aksesibilitas"
+                            android:text="♿ Layanan Aksesibilitas"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/kid_primary"
+                            android:fontFamily="@font/nunito" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -259,8 +305,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
@@ -277,9 +323,11 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="8dp"
-                    app:cardBackgroundColor="@android:color/white">
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/accent_green_light"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/accent_green">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -340,9 +388,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
@@ -364,12 +412,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:background="@drawable/status_background"
+                    android:padding="12dp">
 
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:background="@drawable/status_indicator"
+                        android:id="@+id/statusIndicator"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/status_indicator_active"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
@@ -379,13 +430,16 @@
                         android:layout_weight="1"
                         android:text="Service Running: On"
                         android:textSize="14sp"
-                        android:textColor="@color/text_secondary" />
+                        android:textStyle="bold"
+                        android:textColor="@color/success_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🟢"
-                        android:textSize="16sp" />
+                        android:text="✓"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/success_green" />
 
                 </LinearLayout>
 
@@ -397,9 +451,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
@@ -564,8 +618,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
@@ -600,7 +655,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Set daily screen time limits"
+                        android:text="Tetapkan batas waktu layar harian"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary" />
 
