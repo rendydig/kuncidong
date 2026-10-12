@@ -59,7 +59,7 @@ whole card that is tappable, with a trailing chevron:
 - Leading icon: `@dimen/icon_md` `ImageView`, tinted from a token
   (`app:tint="@color/primary"`), `android:contentDescription="@null"` +
   `android:importantForAccessibility="no"` — the row's text carries the meaning.
-- Title: `TextAppearance.Customlockscreen.Heading`, `content_primary`.
+- Title: `TextAppearance.Customlockscreen.Label`, `content_primary`.
 - Optional status line: `TextAppearance.Customlockscreen.Label`, `content_secondary`,
   set from Kotlin (`tvPinStatus`, `tvAppPinStatus`).
 - Trailing chevron: `@drawable/ic_chevron_right`, `@dimen/icon_lg`, tinted with the row

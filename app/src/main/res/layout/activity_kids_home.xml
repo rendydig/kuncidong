@@ -38,7 +38,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:text="@string/kids_home_title"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                     android:textColor="@color/primary" />
@@ -63,7 +62,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/kids_home_subtitle"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                 android:textColor="@color/content_secondary" />
@@ -110,8 +108,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/space_md"
-                    android:layout_marginBottom="@dimen/space_sm"
+                    android:paddingVertical="@dimen/space_xs"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -149,8 +146,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/space_md"
-                    android:layout_marginBottom="@dimen/space_sm"
+                    android:paddingVertical="@dimen/space_xs"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -188,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/space_md"
+                    android:paddingVertical="@dimen/space_xs"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -270,10 +266,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:text="@string/kids_home_service_subtitle"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                        android:textColor="@color/content_secondary" />
+                        android:textColor="@color/content_secondary"
+                        android:lineSpacingMultiplier="0.9" />
 
                 </LinearLayout>
 
@@ -306,7 +302,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/kids_home_status_inactive"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/content_secondary"
                     android:drawablePadding="@dimen/space_sm" />
 
@@ -362,7 +358,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/kids_home_pairing_title"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/content_primary" />
 
                     <TextView
