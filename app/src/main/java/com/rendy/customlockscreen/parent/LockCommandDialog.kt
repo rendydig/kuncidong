@@ -30,8 +30,6 @@ data class LockCommand(
  */
 object LockCommandDialog {
 
-    private const val FREE_TEXT_LABEL = "✏️ Ketik pesan sendiri"
-
     fun show(
         context: Context,
         targetLabel: String,
@@ -48,7 +46,7 @@ object LockCommandDialog {
 
         tvTarget.text = targetLabel
 
-        val labels = mutableListOf(FREE_TEXT_LABEL)
+        val labels = mutableListOf(context.getString(R.string.lock_dialog_free_text))
         labels.addAll(templates.map { it.title })
         val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, labels)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -68,16 +66,16 @@ object LockCommandDialog {
         }
 
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Kunci HP Anak")
+            .setTitle(R.string.lock_dialog_confirm_title)
             .setView(view)
-            .setPositiveButton("🔒 Kunci", null)
-            .setNegativeButton("Batal", null)
+            .setPositiveButton(R.string.lock_dialog_confirm, null)
+            .setNegativeButton(R.string.action_cancel, null)
             .create()
 
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (rbText.isChecked && etText.text.isBlank()) {
-                    Toast.makeText(context, "Pesan tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.lock_dialog_empty_message), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 val command = if (rbText.isChecked) {

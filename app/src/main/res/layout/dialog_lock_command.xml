@@ -3,17 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="@dimen/space_5">
 
     <TextView
         android:id="@+id/tvLockTarget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kunci HP anak"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:text="@string/lock_dialog_title"
+        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
         android:textColor="@color/text_primary"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="@dimen/space_3" />
 
     <RadioGroup
         android:id="@+id/radioMode"
@@ -27,14 +26,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="🧠 Kuis" />
+            android:text="@string/lock_dialog_mode_quiz" />
 
         <RadioButton
             android:id="@+id/rbText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="💬 Pesan Teks" />
+            android:text="@string/lock_dialog_mode_text" />
 
     </RadioGroup>
 
@@ -44,13 +43,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="@dimen/space_2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Template tersimpan"
-            android:textSize="13sp"
+            android:text="@string/lock_dialog_templates_label"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
             android:textColor="@color/text_secondary" />
 
         <Spinner
@@ -58,13 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/spinner_background"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="@dimen/space_2" />
 
         <EditText
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Judul (opsional)"
+            android:hint="@string/lock_dialog_title_hint"
             android:inputType="text"
             android:maxLines="1" />
 
@@ -72,7 +71,7 @@
             android:id="@+id/etText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pesan untuk anak"
+            android:hint="@string/lock_dialog_text_hint"
             android:inputType="textMultiLine"
             android:minLines="3"
             android:gravity="top" />

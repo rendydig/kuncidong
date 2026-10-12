@@ -36,16 +36,17 @@ class CurrentQuestionsAdapter : RecyclerView.Adapter<CurrentQuestionsAdapter.Que
         private val tvCorrectAnswer: MaterialTextView = itemView.findViewById(R.id.tvCorrectAnswer)
         
         fun bind(question: Question, number: Int) {
-            tvQuestionNumber.text = "#$number"
+            val context = itemView.context
+            tvQuestionNumber.text = context.getString(R.string.question_item_number_format, number)
             tvQuestionText.text = question.questionText
             tvQuestionCategory.text = getCategoryEmoji(question.category.name) + " " + question.category.name
             
             val correctAnswer = if (question.correctAnswerIndex < question.options.size) {
                 question.options[question.correctAnswerIndex]
             } else {
-                "Tidak valid"
+                context.getString(R.string.question_item_answer_invalid)
             }
-            tvCorrectAnswer.text = "Jawaban: $correctAnswer"
+            tvCorrectAnswer.text = context.getString(R.string.question_item_answer_format, correctAnswer)
             
             // Set category-based colors
             val categoryColor = when (question.category.name) {
@@ -54,7 +55,7 @@ class CurrentQuestionsAdapter : RecyclerView.Adapter<CurrentQuestionsAdapter.Que
                 "GEOGRAFI" -> R.color.category_geography
                 "SEJARAH" -> R.color.category_history
                 "BAHASA" -> R.color.category_language
-                else -> R.color.primary
+                else -> R.color.primary_blue
             }
             
             tvQuestionCategory.setBackgroundResource(categoryColor)

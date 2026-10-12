@@ -94,20 +94,20 @@ class LockScreenService : Service() {
             // Service notification channel
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
-                "Kunci Dong Edukasi Service",
+                getString(R.string.lock_service_channel_name),
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Keeps the smart lock screen active"
+                description = getString(R.string.lock_service_channel_description)
                 setShowBadge(false)
             }
             
             // Lock screen notification channel
             val lockScreenChannel = NotificationChannel(
                 LOCK_SCREEN_CHANNEL_ID,
-                "Educational Lock Screen",
+                getString(R.string.lock_screen_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Shows educational questions when device is locked"
+                description = getString(R.string.lock_screen_channel_description)
                 setShowBadge(true)
                 enableLights(true)
                 enableVibration(true)
@@ -121,8 +121,8 @@ class LockScreenService : Service() {
     
     private fun createNotification(): Notification {
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Smart Lock Screen Active")
-            .setContentText("Educational lock screen is running")
+            .setContentTitle(getString(R.string.lock_service_notification_title))
+            .setContentText(getString(R.string.service_notification_text))
             .setSmallIcon(R.mipmap.ic_launcher)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
@@ -161,8 +161,8 @@ class LockScreenService : Service() {
         )
         
         val notification = NotificationCompat.Builder(this, LOCK_SCREEN_CHANNEL_ID)
-            .setContentTitle("🎓 Educational Question Ready!")
-            .setContentText("Tap to answer a question and unlock your device")
+            .setContentTitle(getString(R.string.lock_screen_notification_title))
+            .setContentText(getString(R.string.lock_screen_notification_text))
             .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setCategory(NotificationCompat.CATEGORY_ALARM)

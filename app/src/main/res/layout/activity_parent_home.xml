@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
-    android:padding="16dp">
+    android:padding="@dimen/space_4">
 
     <!-- Header -->
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="@dimen/space_3">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -24,16 +24,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="👨‍👩‍👧 Orang Tua"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:text="@string/parent_home_title"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Display"
                 android:textColor="@color/kid_primary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kunci HP anak di Wi-Fi yang sama"
-                android:textSize="13sp"
+                android:text="@string/parent_home_subtitle"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                 android:textColor="@color/text_secondary" />
 
         </LinearLayout>
@@ -44,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
-            android:text="⚙️" />
+            android:text="@string/icon_settings"
+            android:contentDescription="@string/cd_settings" />
 
     </LinearLayout>
 
@@ -53,15 +53,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="@dimen/space_2">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnScan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:text="🔍 Cari HP Anak"
+            android:layout_marginEnd="@dimen/space_2"
+            android:text="@string/parent_home_scan"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -70,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="📝 Template Pesan"
+            android:text="@string/parent_home_templates"
             android:textAllCaps="false" />
 
     </LinearLayout>
@@ -79,20 +79,20 @@
         android:id="@+id/tvScanStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tekan “Cari HP Anak” untuk memulai."
-        android:textSize="12sp"
+        android:text="@string/parent_home_scan_hint"
+        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
         android:textColor="@color/text_secondary"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="@dimen/space_3" />
 
     <TextView
         android:id="@+id/tvEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Belum ada HP anak terpasang."
-        android:textSize="14sp"
+        android:text="@string/parent_home_empty"
+        android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
         android:textAlignment="center"
         android:textColor="@color/text_secondary"
-        android:padding="24dp"
+        android:padding="@dimen/space_6"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -106,8 +106,8 @@
         android:id="@+id/btnLockSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="🔒 Kunci Terpilih"
+        android:layout_marginTop="@dimen/space_2"
+        android:text="@string/parent_home_lock_selected"
         android:textAllCaps="false"
         android:visibility="gone" />
 

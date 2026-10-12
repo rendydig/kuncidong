@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/gradient_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="@dimen/space_5"
         android:gravity="center">
 
-
+        <!-- Goal -->
+        <TextView
+            android:id="@+id/tvUnlockGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kid_unlock_goal"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+            android:textColor="@color/text_primary"
+            android:textAlignment="center"
+            android:layout_marginBottom="@dimen/space_4" />
 
         <!-- Question Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="@dimen/space_6"
+            app:cardCornerRadius="@dimen/radius_lg"
             app:cardElevation="8dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="@dimen/space_6">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="@dimen/space_4">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🧠"
-                        android:textSize="24sp"
-                        android:layout_marginEnd="12dp" />
+                        android:text="@string/icon_brain"
+                        android:textSize="@dimen/glyph_lg"
+                        android:importantForAccessibility="no"
+                        android:layout_marginEnd="@dimen/space_3" />
 
                     <TextView
                         android:id="@+id/tvCategory"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="MATEMATIKA"
-                        android:textSize="14sp"
+                        android:text="@string/lock_screen_category_placeholder"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                         android:textColor="@color/primary_blue"
                         android:textStyle="bold" />
 
@@ -60,14 +71,13 @@
                     android:id="@+id/tvQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="What is 15 + 27?"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:text="@string/lock_screen_question_placeholder"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                     android:textColor="@color/text_primary"
                     android:textAlignment="center"
-                    android:padding="16dp"
-                    android:background="#F8F9FA"
-                    android:layout_marginTop="8dp" />
+                    android:padding="@dimen/space_4"
+                    android:background="@color/background_light"
+                    android:layout_marginTop="@dimen/space_2" />
 
             </LinearLayout>
 
@@ -77,54 +87,52 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="@dimen/space_5"
+            app:cardCornerRadius="@dimen/radius_lg"
             app:cardElevation="8dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="@dimen/space_5">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pilih jawaban yang benar:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/lock_screen_answer_prompt"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
                     android:textAlignment="center"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="@dimen/space_4" />
 
                 <!-- Answer Grid -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="@dimen/space_3">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnAnswer1"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="@dimen/space_2"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="@dimen/radius_sm"
                         app:cardElevation="4dp"
-                        app:cardBackgroundColor="#E3F2FD">
+                        app:cardBackgroundColor="@color/answer_card_bg">
 
                         <TextView
                             android:id="@+id/tvAnswer1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="42"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:text="@string/lock_screen_answer_placeholder"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                             android:textColor="@color/primary_blue"
                             android:gravity="center" />
 
@@ -133,23 +141,22 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnAnswer2"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/space_2"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="@dimen/radius_sm"
                         app:cardElevation="4dp"
-                        app:cardBackgroundColor="#E3F2FD">
+                        app:cardBackgroundColor="@color/answer_card_bg">
 
                         <TextView
                             android:id="@+id/tvAnswer2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="41"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:text="@string/lock_screen_answer_placeholder"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                             android:textColor="@color/primary_blue"
                             android:gravity="center" />
 
@@ -165,23 +172,22 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnAnswer3"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="@dimen/space_2"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="@dimen/radius_sm"
                         app:cardElevation="4dp"
-                        app:cardBackgroundColor="#E3F2FD">
+                        app:cardBackgroundColor="@color/answer_card_bg">
 
                         <TextView
                             android:id="@+id/tvAnswer3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="43"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:text="@string/lock_screen_answer_placeholder"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                             android:textColor="@color/primary_blue"
                             android:gravity="center" />
 
@@ -190,23 +196,22 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnAnswer4"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/space_2"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="@dimen/radius_sm"
                         app:cardElevation="4dp"
-                        app:cardBackgroundColor="#E3F2FD">
+                        app:cardBackgroundColor="@color/answer_card_bg">
 
                         <TextView
                             android:id="@+id/tvAnswer4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="40"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:text="@string/lock_screen_answer_placeholder"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                             android:textColor="@color/primary_blue"
                             android:gravity="center" />
 
@@ -224,34 +229,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp"
+                android:padding="@dimen/space_5"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tvFeedbackIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✅"
-                    android:textSize="24sp"
-                    android:layout_marginEnd="12dp" />
+                    android:text="@string/icon_correct"
+                    android:textSize="@dimen/glyph_lg"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_3" />
 
                 <TextView
                     android:id="@+id/tvFeedback"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                    android:textColor="@color/text_primary" />
 
             </LinearLayout>
 
@@ -259,4 +263,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

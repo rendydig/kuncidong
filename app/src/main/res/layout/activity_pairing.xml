@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/space_4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="@dimen/space_3">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
@@ -25,15 +25,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
-                android:text="‹" />
+                android:text="@string/icon_back"
+                android:contentDescription="@string/cd_back" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="🔗 Kode Pairing"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:text="@string/pairing_title"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                 android:textColor="@color/kid_primary" />
 
         </LinearLayout>
@@ -41,55 +41,54 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="@dimen/space_4"
+            app:cardCornerRadius="@dimen/radius_lg"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp"
+                android:padding="@dimen/space_6"
                 android:gravity="center">
 
                 <TextView
                     android:id="@+id/tvDeviceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Anak-A"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
+                    android:text="@string/pairing_device_placeholder"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <TextView
                     android:id="@+id/tvPairCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123 456"
-                    android:textSize="44sp"
+                    android:text="@string/pairing_code_placeholder"
+                    android:textSize="@dimen/glyph_hero"
                     android:textStyle="bold"
                     android:letterSpacing="0.15"
                     android:textColor="@color/primary_blue"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <TextView
                     android:id="@+id/tvCountdown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Berlaku 60 detik"
-                    android:textSize="13sp"
+                    android:text="@string/pairing_countdown_placeholder"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textColor="@color/warning_orange" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Minta orang tua memasukkan kode ini di aplikasi mereka, lalu tentukan PIN rahasia."
-                    android:textSize="13sp"
+                    android:text="@string/pairing_instructions"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textAlignment="center"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginTop="12dp" />
+                    android:layout_marginTop="@dimen/space_3" />
 
             </LinearLayout>
 
@@ -98,20 +97,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="👨‍👩‍👧 Orang Tua Terpasang"
-            android:textSize="17sp"
-            android:textStyle="bold"
+            android:text="@string/pairing_parents_title"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
             android:textColor="@color/kid_primary"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="@dimen/space_2" />
 
         <TextView
             android:id="@+id/tvNoParents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Belum ada orang tua yang terpasang."
-            android:textSize="13sp"
+            android:text="@string/pairing_parents_empty"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
             android:textColor="@color/text_secondary"
-            android:padding="8dp" />
+            android:padding="@dimen/space_2" />
 
         <LinearLayout
             android:id="@+id/llParents"

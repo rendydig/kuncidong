@@ -134,10 +134,10 @@ class RemoteControlService : Service(), RemoteCommandHandler {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Kontrol Jarak Jauh Orang Tua",
+                getString(R.string.remote_channel_name),
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Menjaga HP anak tetap bisa menerima perintah dari orang tua"
+                description = getString(R.string.remote_channel_description)
                 setShowBadge(false)
             }
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
@@ -152,8 +152,8 @@ class RemoteControlService : Service(), RemoteCommandHandler {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Kontrol Orang Tua Aktif")
-            .setContentText("Menunggu perintah dari HP orang tua di Wi-Fi yang sama")
+            .setContentTitle(getString(R.string.remote_notification_title))
+            .setContentText(getString(R.string.remote_notification_text))
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentIntent(pendingIntent)
             .setOngoing(true)

@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.rendy.customlockscreen.lock.AppLock
 
 class SmartLockApplication : Application(), Application.ActivityLifecycleCallbacks {
@@ -35,6 +36,8 @@ class SmartLockApplication : Application(), Application.ActivityLifecycleCallbac
 
     override fun onCreate() {
         super.onCreate()
+        // kunci dong is light-only by design; ignore the system dark-mode setting.
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         instance = this
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         registerActivityLifecycleCallbacks(this)

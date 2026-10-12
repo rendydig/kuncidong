@@ -61,7 +61,7 @@ class QuestionManagerActivity : AppCompatActivity() {
         tvCurrentCount = findViewById(R.id.tvCurrentCount)
         
         progressDialog = ProgressDialog(this).apply {
-            setMessage("Mengunduh paket soal...")
+            setMessage(getString(R.string.question_manager_downloading))
             setCancelable(false)
         }
     }
@@ -97,14 +97,14 @@ class QuestionManagerActivity : AppCompatActivity() {
     private fun loadAvailableQuestionPacks() {
         lifecycleScope.launch {
             try {
-                showLoading("Memuat daftar paket soal...")
+                showLoading(getString(R.string.question_manager_loading_packs))
                 val questionPacks = googleDriveService.getAvailableQuestionPacks()
                 questionPackAdapter.updatePacks(questionPacks)
-                tvPacksCount.text = "Tersedia ${questionPacks.size} paket soal"
+                tvPacksCount.text = getString(R.string.question_manager_packs_available, questionPacks.size)
                 hideLoading()
             } catch (e: Exception) {
                 hideLoading()
-                showError("Gagal memuat daftar paket soal: ${e.message}")
+                showError(getString(R.string.question_manager_load_failed, e.message))
             }
         }
     }
@@ -114,13 +114,13 @@ class QuestionManagerActivity : AppCompatActivity() {
             try {
                 val questions = questionRepository.getAllQuestions()
                 currentQuestionsAdapter.updateQuestions(questions)
-                tvCurrentCount.text = "Total ${questions.size} soal tersimpan"
+                tvCurrentCount.text = getString(R.string.question_manager_total, questions.size)
                 
                 // Show current questions section
                 findViewById<MaterialCardView>(R.id.cardCurrentQuestions).visibility = 
                     android.view.View.VISIBLE
             } catch (e: Exception) {
-                showError("Gagal memuat soal saat ini: ${e.message}")
+                showError(getString(R.string.question_manager_load_current_failed, e.message))
             }
         }
     }
@@ -128,7 +128,7 @@ class QuestionManagerActivity : AppCompatActivity() {
     private fun downloadQuestionPack(questionPack: QuestionPack) {
         lifecycleScope.launch {
             try {
-                showLoading("Mengunduh ${questionPack.name}...")
+                showLoading(getString(R.string.question_manager_downloading_named, questionPack.name))
                 
                 // Download questions from Google Drive
                 val questions = googleDriveService.downloadQuestionPack(questionPack)
@@ -137,7 +137,7 @@ class QuestionManagerActivity : AppCompatActivity() {
                 questionRepository.replaceAllQuestions(questions)
                 
                 hideLoading()
-                showSuccess("Berhasil mengunduh ${questions.size} soal dari ${questionPack.name}")
+                showSuccess(getString(R.string.question_manager_download_success, questions.size, questionPack.name))
                 
                 // Refresh current questions if visible
                 if (findViewById<MaterialCardView>(R.id.cardCurrentQuestions).visibility == 
@@ -147,7 +147,7 @@ class QuestionManagerActivity : AppCompatActivity() {
                 
             } catch (e: Exception) {
                 hideLoading()
-                showError("Gagal mengunduh paket soal: ${e.message}")
+                showError(getString(R.string.question_manager_download_failed, e.message))
             }
         }
     }

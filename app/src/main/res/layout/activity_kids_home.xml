@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/space_4">
 
         <!-- Header -->
         <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="@dimen/space_3">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -29,16 +29,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🧒 HP Anak"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_home_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Display"
                     android:textColor="@color/kid_primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Siap menerima kunci dari orang tua"
-                    android:textSize="13sp"
+                    android:text="@string/kids_home_subtitle"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textColor="@color/text_secondary" />
 
             </LinearLayout>
@@ -49,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
-                android:text="⚙️" />
+                android:text="@string/icon_settings"
+                android:contentDescription="@string/cd_settings" />
 
         </LinearLayout>
 
@@ -57,36 +57,35 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Setup Izin"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_home_permissions_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/kid_primary"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <TextView
                     android:id="@+id/tvPermissionProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Izin aktif: 0/3"
-                    android:textSize="12sp"
+                    android:text="@string/kids_home_permission_progress"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textStyle="bold"
                     android:textColor="@color/warning_orange"
-                    android:paddingVertical="4dp"
-                    android:layout_marginBottom="8dp" />
+                    android:paddingVertical="@dimen/space_1"
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <!-- Admin -->
                 <LinearLayout
@@ -95,9 +94,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="10dp"
+                    android:padding="@dimen/space_3"
                     android:background="@drawable/permission_item_background"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/space_2"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -105,17 +104,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🔐"
-                        android:textSize="20sp"
-                        android:layout_marginEnd="12dp" />
+                        android:text="@string/icon_lock"
+                        android:textSize="@dimen/glyph_md"
+                        android:importantForAccessibility="no"
+                        android:layout_marginEnd="@dimen/space_3" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Admin Perangkat"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
+                        android:text="@string/kids_home_admin"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                         android:textColor="@color/text_primary" />
 
                     <Switch
@@ -134,9 +133,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="10dp"
+                    android:padding="@dimen/space_3"
                     android:background="@drawable/permission_item_background"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/space_2"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -144,17 +143,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="📱"
-                        android:textSize="20sp"
-                        android:layout_marginEnd="12dp" />
+                        android:text="@string/icon_phone"
+                        android:textSize="@dimen/glyph_md"
+                        android:importantForAccessibility="no"
+                        android:layout_marginEnd="@dimen/space_3" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tampilan Over Apps"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
+                        android:text="@string/kids_home_overlay"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                         android:textColor="@color/text_primary" />
 
                     <Switch
@@ -173,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="10dp"
+                    android:padding="@dimen/space_3"
                     android:background="@drawable/permission_item_background"
                     android:clickable="true"
                     android:focusable="true"
@@ -182,17 +181,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="♿"
-                        android:textSize="20sp"
-                        android:layout_marginEnd="12dp" />
+                        android:text="@string/icon_accessibility"
+                        android:textSize="@dimen/glyph_md"
+                        android:importantForAccessibility="no"
+                        android:layout_marginEnd="@dimen/space_3" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Layanan Aksesibilitas"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
+                        android:text="@string/kids_home_accessibility"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                         android:textColor="@color/text_primary" />
 
                     <Switch
@@ -213,29 +212,30 @@
             android:id="@+id/btnStartService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="@dimen/space_3"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/accent_green_light"
+            app:cardBackgroundColor="@color/success_light"
             app:strokeWidth="2dp"
-            app:strokeColor="@color/accent_green">
+            app:strokeColor="@color/success">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔐"
-                    android:textSize="28sp"
-                    android:layout_marginEnd="12dp" />
+                    android:text="@string/icon_lock"
+                    android:textSize="@dimen/glyph_lg"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_3" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -246,16 +246,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kunci Edukatif &amp; Kontrol Orang Tua"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:text="@string/kids_home_service_title"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                         android:textColor="@color/text_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Aktifkan agar HP bisa dikunci dari HP orang tua"
-                        android:textSize="12sp"
+                        android:text="@string/kids_home_service_subtitle"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/text_secondary" />
 
                 </LinearLayout>
@@ -273,32 +272,31 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_home_status_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="6dp" />
+                    android:layout_marginBottom="@dimen/space_1" />
 
                 <TextView
                     android:id="@+id/tvStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Layanan tidak aktif"
-                    android:textSize="14sp"
+                    android:text="@string/kids_home_status_inactive"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textColor="@color/text_secondary" />
 
             </LinearLayout>
@@ -310,27 +308,28 @@
             android:id="@+id/btnPairing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/space_6"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#E3F2FD">
+            app:cardBackgroundColor="@color/answer_card_bg">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔗"
-                    android:textSize="24sp"
-                    android:layout_marginEnd="12dp" />
+                    android:text="@string/icon_link"
+                    android:textSize="@dimen/glyph_lg"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_3" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -341,16 +340,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kode Pairing"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:text="@string/kids_home_pairing_title"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                         android:textColor="@color/primary_blue" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tampilkan kode 6 digit untuk HP orang tua"
-                        android:textSize="12sp"
+                        android:text="@string/kids_home_pairing_subtitle"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/text_secondary" />
 
                 </LinearLayout>
@@ -358,9 +356,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="›"
-                    android:textSize="22sp"
-                    android:textColor="@color/primary_blue" />
+                    android:text="@string/icon_chevron_right"
+                    android:textSize="@dimen/glyph_lg"
+                    android:textColor="@color/primary_blue"
+                    android:importantForAccessibility="no" />
 
             </LinearLayout>
 

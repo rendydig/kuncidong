@@ -38,7 +38,7 @@ class AppLockActivity : AppCompatActivity() {
 
         val pin = etPin.text?.toString()?.trim().orEmpty()
         if (pin.isEmpty()) {
-            showError("Masukkan PIN dulu")
+            showError(getString(R.string.lock_screen_pin_required))
             return
         }
 
@@ -47,7 +47,7 @@ class AppLockActivity : AppCompatActivity() {
             proceed()
         } else {
             etPin.setText("")
-            showError("PIN salah. Coba lagi.")
+            showError(getString(R.string.app_lock_pin_wrong))
         }
     }
 

@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/space_4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="@dimen/space_3">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
@@ -25,15 +25,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
-                android:text="‹" />
+                android:text="@string/icon_back"
+                android:contentDescription="@string/cd_back" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="⚙️ Pengaturan HP Anak"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:text="@string/kids_settings_title"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                 android:textColor="@color/kid_primary" />
 
         </LinearLayout>
@@ -42,25 +42,24 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="1dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="⏰ Kunci Otomatis (lokal)"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_settings_timer_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <Spinner
                     android:id="@+id/spinnerTimerInterval"
@@ -72,10 +71,10 @@
                     android:id="@+id/tvTimerStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Timer aktif"
-                    android:textSize="12sp"
+                    android:text="@string/kids_settings_timer_status"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="@dimen/space_2" />
 
             </LinearLayout>
 
@@ -85,25 +84,24 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="1dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🔒 Mode Kunci Lokal"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_settings_mode_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="@dimen/space_1" />
 
                 <RadioGroup
                     android:id="@+id/radioDefaultMode"
@@ -116,22 +114,22 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="🧠 Kuis" />
+                        android:text="@string/kids_settings_mode_quiz" />
 
                     <RadioButton
                         android:id="@+id/rbDefaultText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="💬 Pesan" />
+                        android:text="@string/kids_settings_mode_text" />
 
                 </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dipakai saat kunci otomatis berbunyi tanpa perintah orang tua."
-                    android:textSize="11sp"
+                    android:text="@string/kids_settings_mode_hint"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/text_secondary" />
 
             </LinearLayout>
@@ -142,41 +140,40 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="1dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🔑 PIN Rahasia (buka kunci layar)"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_settings_pin_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="@dimen/space_1" />
 
                 <TextView
                     android:id="@+id/tvPinStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Belum diatur"
-                    android:textSize="12sp"
+                    android:text="@string/kids_settings_pin_unset"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnChangePin"
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ubah PIN"
+                    android:text="@string/kids_settings_pin_change"
                     android:textAllCaps="false" />
 
             </LinearLayout>
@@ -187,41 +184,40 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="1dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🔐 PIN Aplikasi (buka app)"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_settings_app_pin_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="@dimen/space_1" />
 
                 <TextView
                     android:id="@+id/tvAppPinStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Belum diatur - app bisa dibuka bebas"
-                    android:textSize="12sp"
+                    android:text="@string/kids_settings_app_pin_unset"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnChangeAppPin"
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Buat / Ubah PIN Aplikasi"
+                    android:text="@string/kids_settings_app_pin_change"
                     android:textAllCaps="false" />
 
             </LinearLayout>
@@ -232,32 +228,31 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="@dimen/space_3"
+            app:cardCornerRadius="@dimen/radius_md"
             app:cardElevation="1dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/space_4">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="👨‍👩‍👧 Orang Tua Terpasang"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="@string/kids_settings_parents_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <TextView
                     android:id="@+id/tvNoParentsSettings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Belum ada orang tua terpasang."
-                    android:textSize="13sp"
+                    android:text="@string/kids_settings_parents_empty"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textColor="@color/text_secondary" />
 
                 <LinearLayout
@@ -276,8 +271,8 @@
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="📚 Kelola Paket Soal"
+            android:layout_marginBottom="@dimen/space_2"
+            android:text="@string/kids_settings_manage_questions"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -285,8 +280,8 @@
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="🧪 Tes Layar Kunci"
+            android:layout_marginBottom="@dimen/space_2"
+            android:text="@string/kids_settings_test_lock"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -294,8 +289,8 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Ganti Peran HP ini"
+            android:layout_marginBottom="@dimen/space_6"
+            android:text="@string/kids_settings_switch_role"
             android:textAllCaps="false" />
 
     </LinearLayout>

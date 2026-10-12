@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Type scale: five roles used for all readable text. -->
+    <dimen name="text_display">28sp</dimen>
+    <dimen name="text_title">20sp</dimen>
+    <dimen name="text_heading">16sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_label">12sp</dimen>
+
+    <!-- Glyph scale: emoji used as an icon, sized for visual weight not reading. -->
+    <dimen name="glyph_hero">48sp</dimen>
+    <dimen name="glyph_xl">40sp</dimen>
+    <dimen name="glyph_lg">24sp</dimen>
+    <dimen name="glyph_md">20sp</dimen>
+    <dimen name="glyph_sm">16sp</dimen>
+
+    <!-- Corner radii -->
+    <dimen name="radius_sm">12dp</dimen>
+    <dimen name="radius_md">16dp</dimen>
+    <dimen name="radius_lg">20dp</dimen>
+
+    <!-- Spacing scale -->
+    <dimen name="space_1">4dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_5">20dp</dimen>
+    <dimen name="space_6">24dp</dimen>
+</resources>

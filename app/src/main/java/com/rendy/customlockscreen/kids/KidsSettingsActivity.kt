@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -42,14 +43,7 @@ class KidsSettingsActivity : AppCompatActivity() {
     private lateinit var rbDefaultQuiz: RadioButton
     private lateinit var rbDefaultText: RadioButton
 
-    private val timerOptions = arrayOf(
-        "Tidak Pernah",
-        "Setiap 1 Menit",
-        "Setiap 3 Menit",
-        "Setiap 5 Menit",
-        "Setiap 10 Menit",
-        "Setiap 15 Menit"
-    )
+    private val timerOptions by lazy { resources.getStringArray(R.array.kids_settings_timer_options) }
     private val timerValues = arrayOf(0, 1, 3, 5, 10, 15)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,9 +123,9 @@ class KidsSettingsActivity : AppCompatActivity() {
 
     private fun updateTimerStatus(interval: Int) {
         tvTimerStatus.text = if (interval <= 0) {
-            "Kunci otomatis dimatikan"
+            getString(R.string.kids_settings_timer_off)
         } else {
-            "Kunci otomatis setiap $interval menit"
+            getString(R.string.kids_settings_timer_every, interval)
         }
     }
 
@@ -156,14 +150,15 @@ class KidsSettingsActivity : AppCompatActivity() {
     // region PIN
 
     private fun refreshPinStatus() {
-        tvPinStatus.text = if (authStore.hasPin()) "PIN sudah diatur" else "Belum diatur"
+        tvPinStatus.text =
+            if (authStore.hasPin()) getString(R.string.pin_status_set) else getString(R.string.pin_status_unset)
     }
 
     private fun refreshAppPinStatus() {
         tvAppPinStatus.text = if (appPinStore.hasPin()) {
-            "Aktif - app minta PIN saat dibuka"
+            getString(R.string.kids_settings_app_pin_active)
         } else {
-            "Belum diatur - app bisa dibuka bebas"
+            getString(R.string.kids_settings_app_pin_unset)
         }
     }
 
@@ -173,12 +168,12 @@ class KidsSettingsActivity : AppCompatActivity() {
             setPadding(40, 20, 40, 0)
         }
         val etPin = EditText(this).apply {
-            hint = "PIN baru (min. 4 angka)"
+            hint = getString(R.string.kids_settings_new_pin_hint)
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or
                 android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
         }
         val etConfirm = EditText(this).apply {
-            hint = "Ulangi PIN baru"
+            hint = getString(R.string.kids_settings_confirm_pin_hint)
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or
                 android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
         }
@@ -186,10 +181,10 @@ class KidsSettingsActivity : AppCompatActivity() {
         container.addView(etConfirm)
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Ubah PIN Rahasia")
+            .setTitle(R.string.kids_settings_pin_dialog_title)
             .setView(container)
-            .setPositiveButton("Simpan", null)
-            .setNegativeButton("Batal", null)
+            .setPositiveButton(R.string.action_save, null)
+            .setNegativeButton(R.string.action_cancel, null)
             .create()
 
         dialog.setOnShowListener {
@@ -197,13 +192,13 @@ class KidsSettingsActivity : AppCompatActivity() {
                 val pin = etPin.text?.toString()?.trim().orEmpty()
                 val confirm = etConfirm.text?.toString()?.trim().orEmpty()
                 when {
-                    pin.length < 4 -> Toast.makeText(this, "PIN minimal 4 angka", Toast.LENGTH_SHORT).show()
-                    pin != confirm -> Toast.makeText(this, "PIN tidak sama", Toast.LENGTH_SHORT).show()
+                    pin.length < 4 -> Toast.makeText(this, getString(R.string.pin_error_min), Toast.LENGTH_SHORT).show()
+                    pin != confirm -> Toast.makeText(this, getString(R.string.pin_error_mismatch), Toast.LENGTH_SHORT).show()
                     else -> {
                         authStore.setPin(pin)
                         dialog.dismiss()
                         refreshPinStatus()
-                        Toast.makeText(this, "PIN disimpan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.kids_settings_pin_saved), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -233,18 +228,18 @@ class KidsSettingsActivity : AppCompatActivity() {
 
             val name = TextView(this).apply {
                 text = parent.name
-                textSize = 15f
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_heading))
                 layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             }
 
             val unpair = MaterialButton(this).apply {
-                text = "Lepas"
-                textSize = 12f
+                text = getString(R.string.action_unpair)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_label))
                 minWidth = 0
                 setOnClickListener {
                     authStore.unpairParent(parent.id)
                     refreshParents()
-                    Toast.makeText(this@KidsSettingsActivity, "Dilepas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@KidsSettingsActivity, getString(R.string.action_unpaired), Toast.LENGTH_SHORT).show()
                 }
             }
 

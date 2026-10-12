@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -23,6 +22,7 @@ import androidx.lifecycle.lifecycleScope
 import com.rendy.customlockscreen.data.Question
 import com.rendy.customlockscreen.data.QuestionRepository
 import com.rendy.customlockscreen.kids.KidsSettingsActivity
+import com.rendy.customlockscreen.kids.QuizSpeaker
 import com.rendy.customlockscreen.lock.LockStateStore
 import com.rendy.customlockscreen.net.LockMode
 import com.rendy.customlockscreen.net.RemoteAuthStore
@@ -49,6 +49,7 @@ class LockScreenActivity : AppCompatActivity() {
     private var answerButtons: List<CardView> = emptyList()
     private var answerTextViews: List<TextView> = emptyList()
     private var currentQuestion: Question? = null
+    private var quizSpeaker: QuizSpeaker? = null
 
     // Text mode views
     private var etUnlockPin: EditText? = null
@@ -72,6 +73,7 @@ class LockScreenActivity : AppCompatActivity() {
         lockStateStore = LockStateStore(this)
         authStore = RemoteAuthStore(this)
         questionRepository = QuestionRepository(this)
+        quizSpeaker = QuizSpeaker(this)
 
         mode = resolveMode()
 
@@ -88,6 +90,7 @@ class LockScreenActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        quizSpeaker?.shutdown()
         try {
             unregisterReceiver(remoteUnlockReceiver)
         } catch (e: Exception) {
@@ -182,9 +185,10 @@ class LockScreenActivity : AppCompatActivity() {
                 }
                 resetButtonStates()
                 tvFeedback?.visibility = View.GONE
+                quizSpeaker?.speak(question.questionText)
             } else {
-                tvQuestion?.text = "Belum ada soal tersedia"
-                tvCategory?.text = "Info"
+                tvQuestion?.text = getString(R.string.no_question_available)
+                tvCategory?.text = getString(R.string.category_info)
             }
         }
     }
@@ -201,22 +205,22 @@ class LockScreenActivity : AppCompatActivity() {
         answerButtons.forEachIndexed { index, button ->
             when {
                 index == question.correctAnswerIndex ->
-                    button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.success_green))
+                    button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.success))
                 index == selectedIndex && !isCorrect ->
                     button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.error_red))
             }
         }
 
         if (isCorrect) {
-            tvFeedback?.text = "Benar! Bagus sekali! 🎉"
-            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.success_green))
+            tvFeedback?.text = getString(R.string.correct_answer)
+            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.success))
             tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
                 lockStateStore.unlock()
                 finish()
             }, 1500)
         } else {
-            tvFeedback?.text = "Salah. Coba lagi! 🤔"
+            tvFeedback?.text = getString(R.string.incorrect_answer)
             tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.error_red))
             tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({ loadNewQuestion() }, 2000)
@@ -227,7 +231,7 @@ class LockScreenActivity : AppCompatActivity() {
         answerButtons.forEach { button ->
             button.isClickable = true
             button.alpha = 1.0f
-            button.setCardBackgroundColor(Color.parseColor("#E3F2FD"))
+            button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.answer_card_bg))
         }
     }
 
@@ -240,14 +244,14 @@ class LockScreenActivity : AppCompatActivity() {
         val tvTextMessage = findViewById<TextView>(R.id.tvTextMessage)
         etUnlockPin = findViewById(R.id.etUnlockPin)
 
-        tvTextTitle.text = currentTitle() ?: "Pesan dari Orang Tua"
-        tvTextMessage.text = currentText() ?: "Waktunya istirahat dari HP ya 😊"
+        tvTextTitle.text = currentTitle() ?: getString(R.string.lock_screen_text_title)
+        tvTextMessage.text = currentText() ?: getString(R.string.lock_screen_text_message_placeholder)
 
         findViewById<Button>(R.id.btnPinUnlock).setOnClickListener { attemptPinUnlock() }
         findViewById<Button>(R.id.btnWaitParent).setOnClickListener {
             Toast.makeText(
                 this,
-                "Minta orang tua membuka kunci dari HP mereka",
+                getString(R.string.lock_screen_wait_toast),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -256,15 +260,15 @@ class LockScreenActivity : AppCompatActivity() {
     private fun attemptPinUnlock() {
         val pin = etUnlockPin?.text?.toString()?.trim().orEmpty()
         if (pin.isEmpty()) {
-            Toast.makeText(this, "Masukkan PIN dulu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.lock_screen_pin_required), Toast.LENGTH_SHORT).show()
             return
         }
         if (authStore.verifyPin(pin)) {
             lockStateStore.unlock()
-            Toast.makeText(this, "🔓 Terbuka", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.lock_screen_unlocked_toast), Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            Toast.makeText(this, "PIN salah", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.lock_screen_pin_wrong), Toast.LENGTH_SHORT).show()
             etUnlockPin?.setText("")
         }
     }

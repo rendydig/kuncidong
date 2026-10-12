@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="@dimen/space_2"
+    app:cardCornerRadius="@dimen/radius_sm"
     app:cardElevation="2dp"
     app:strokeColor="@color/card_stroke"
     app:strokeWidth="1dp">
@@ -13,38 +13,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="@dimen/space_3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="@dimen/space_2">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvQuestionNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#1"
-                android:textSize="12sp"
+                android:text="@string/question_item_number_placeholder"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                 android:textStyle="bold"
-                android:textColor="@color/primary"
+                android:textColor="@color/primary_blue"
                 android:background="@drawable/number_badge"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:layout_marginEnd="8dp" />
+                android:paddingHorizontal="@dimen/space_2"
+                android:paddingVertical="@dimen/space_1"
+                android:layout_marginEnd="@dimen/space_2" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvQuestionCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🔢 MATEMATIKA"
-                android:textSize="10sp"
+                android:text="@string/question_item_category_placeholder"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                 android:textColor="@color/white"
                 android:background="@drawable/category_badge"
-                android:paddingHorizontal="6dp"
-                android:paddingVertical="2dp" />
+                android:paddingHorizontal="@dimen/space_2"
+                android:paddingVertical="@dimen/space_1" />
 
         </LinearLayout>
 
@@ -52,17 +52,17 @@
             android:id="@+id/tvQuestionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Berapa hasil dari 1 + 10?"
-            android:textSize="14sp"
+            android:text="@string/question_item_text_placeholder"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
             android:textColor="@color/text_primary"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginBottom="@dimen/space_1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvCorrectAnswer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jawaban: 11"
-            android:textSize="12sp"
+            android:text="@string/question_item_answer_placeholder"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
             android:textColor="@color/success"
             android:textStyle="bold" />
 

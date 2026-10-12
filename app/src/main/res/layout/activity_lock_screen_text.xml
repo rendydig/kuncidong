@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/gradient_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="@dimen/space_5"
         android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🔒"
-            android:textSize="48sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
+            android:text="@string/lock_screen_text_icon"
+            android:textSize="@dimen/glyph_hero"
+            android:importantForAccessibility="no"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_2" />
 
         <TextView
             android:id="@+id/tvTextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pesan dari Orang Tua"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:text="@string/lock_screen_text_title"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
             android:textColor="@color/kid_primary"
             android:textAlignment="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="@dimen/space_4" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="@dimen/space_5"
+            app:cardCornerRadius="@dimen/radius_lg"
             app:cardElevation="6dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <TextView
                 android:id="@+id/tvTextMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="24dp"
-                android:text="Waktunya istirahat dari HP ya 😊"
-                android:textSize="20sp"
+                android:padding="@dimen/space_6"
+                android:text="@string/lock_screen_text_message_placeholder"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
+                android:textStyle="normal"
                 android:textColor="@color/text_primary"
                 android:textAlignment="center"
                 android:lineSpacingExtra="6dp" />
@@ -56,44 +58,45 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="@dimen/space_4"
+            app:cardCornerRadius="@dimen/radius_lg"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/surface_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="@dimen/space_5">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Masukkan PIN rahasia untuk membuka"
-                    android:textSize="13sp"
+                    android:text="@string/lock_screen_text_pin_prompt"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textColor="@color/text_secondary"
                     android:textAlignment="center"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="@dimen/space_2" />
 
                 <EditText
                     android:id="@+id/etUnlockPin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="PIN"
+                    android:hint="@string/lock_screen_text_pin_hint"
                     android:inputType="numberPassword"
                     android:maxLength="8"
                     android:gravity="center"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/text_title" />
 
                 <Button
                     android:id="@+id/btnPinUnlock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/space_2"
                     android:backgroundTint="@color/primary_blue"
                     android:textColor="@color/white"
-                    android:text="🔓 Buka dengan PIN"
+                    android:text="@string/lock_screen_text_unlock"
+                    android:contentDescription="@string/cd_unlock_with_pin"
                     android:textAllCaps="false" />
 
             </LinearLayout>
@@ -106,9 +109,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/text_secondary"
-            android:text="⏳ Tunggu izin orang tua"
+            android:text="@string/lock_screen_text_wait"
+            android:contentDescription="@string/cd_wait_for_parent"
             android:textAllCaps="false" />
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

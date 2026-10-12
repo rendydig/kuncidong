@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.rendy.customlockscreen.R
 
 /**
  * Dialog bersama untuk membuat, mengubah, atau menghapus PIN khusus aplikasi.
@@ -21,12 +22,12 @@ object AppPinDialog {
             setPadding(40, 20, 40, 0)
         }
         val etPin = EditText(activity).apply {
-            hint = "PIN aplikasi baru (min. 4 angka)"
+            hint = activity.getString(R.string.app_pin_new_hint)
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or
                 android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
         }
         val etConfirm = EditText(activity).apply {
-            hint = "Ulangi PIN aplikasi baru"
+            hint = activity.getString(R.string.app_pin_confirm_hint)
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or
                 android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
         }
@@ -34,11 +35,11 @@ object AppPinDialog {
         container.addView(etConfirm)
 
         val builder = AlertDialog.Builder(activity)
-            .setTitle(if (hasPin) "Ubah PIN Aplikasi" else "Buat PIN Aplikasi")
+            .setTitle(if (hasPin) R.string.app_pin_change_title else R.string.app_pin_create_title)
             .setView(container)
-            .setPositiveButton("Simpan", null)
-            .setNegativeButton("Batal", null)
-        if (hasPin) builder.setNeutralButton("Hapus PIN", null)
+            .setPositiveButton(R.string.action_save, null)
+            .setNegativeButton(R.string.action_cancel, null)
+        if (hasPin) builder.setNeutralButton(R.string.app_pin_delete, null)
 
         val dialog = builder.create()
         dialog.setOnShowListener {
@@ -46,12 +47,12 @@ object AppPinDialog {
                 val pin = etPin.text?.toString()?.trim().orEmpty()
                 val confirm = etConfirm.text?.toString()?.trim().orEmpty()
                 when {
-                    pin.length < 4 -> toast(activity, "PIN minimal 4 angka")
-                    pin != confirm -> toast(activity, "PIN tidak sama")
+                    pin.length < 4 -> toast(activity, activity.getString(R.string.pin_error_min))
+                    pin != confirm -> toast(activity, activity.getString(R.string.pin_error_mismatch))
                     else -> {
                         store.setPin(pin)
                         dialog.dismiss()
-                        toast(activity, "PIN aplikasi disimpan")
+                        toast(activity, activity.getString(R.string.app_pin_saved))
                         onChanged()
                     }
                 }
@@ -60,7 +61,7 @@ object AppPinDialog {
                 dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
                     store.clearPin()
                     dialog.dismiss()
-                    toast(activity, "PIN aplikasi dihapus")
+                    toast(activity, activity.getString(R.string.app_pin_deleted))
                     onChanged()
                 }
             }

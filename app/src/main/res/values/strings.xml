@@ -1,22 +1,343 @@
 <resources>
     <string name="app_name">kunci dong</string>
-    <string name="app_description">kunci dong - Layar Kunci Edukatif</string>
-    <string name="enable_device_admin">Aktifkan Admin Perangkat</string>
-    <string name="start_service">Mulai Layanan Layar Kunci</string>
-    <string name="stop_service">Hentikan Layanan Layar Kunci</string>
-    <string name="device_admin_enabled">Admin Perangkat Diaktifkan ✓</string>
-    <string name="status_not_configured">Status: Belum dikonfigurasi</string>
-    <string name="status_admin_required">Status: Admin Perangkat diperlukan</string>
-    <string name="status_ready">Status: Siap un
-
-        tuk memulai</string>
-    <string name="status_active">Status: Layar Kunci Pintar aktif ✓</string>
-    <string name="unlock_instruction">Jawab pertanyaan untuk membuka kunci</string>
     <string name="correct_answer">Benar! Bagus sekali! 🎉</string>
     <string name="incorrect_answer">Salah. Coba lagi! 🤔</string>
-    <string name="service_notification_title">kunci dong Aktif</string>
     <string name="service_notification_text">Layar kunci edukatif sedang berjalan</string>
-    <string name="admin_explanation">Aktifkan admin perangkat agar kunci dong berfungsi dengan baik</string>
     <string name="admin_disable_warning">Ini akan menonaktifkan fungsi kunci dong</string>
     <string name="accessibility_service_description">Mendeteksi kapan layar kunci muncul untuk menampilkan pertanyaan edukatif</string>
+
+    <!-- Kid-facing lock screen -->
+    <string name="kid_unlock_goal">Jawab dengan benar untuk membuka 🔓</string>
+    <string name="cd_unlock_with_pin">Buka dengan PIN</string>
+    <string name="cd_wait_for_parent">Tunggu izin orang tua</string>
+
+    <!-- Shared icons -->
+    <string name="icon_back">‹</string>
+    <string name="cd_back">Kembali</string>
+    <string name="cd_settings">Pengaturan</string>
+    <string name="icon_settings">⚙️</string>
+    <string name="icon_chevron_right">›</string>
+    <string name="icon_lock">🔐</string>
+    <string name="icon_link">🔗</string>
+    <string name="icon_phone">📱</string>
+    <string name="icon_accessibility">♿</string>
+    <string name="icon_remove">✕</string>
+    <string name="icon_delete">🗑</string>
+    <string name="icon_brain">🧠</string>
+    <string name="icon_correct">✅</string>
+    <string name="icon_kid">🧒</string>
+    <string name="icon_parent">👨‍👩‍👧</string>
+
+    <!-- App PIN lock (activity_app_lock) -->
+    <string name="app_lock_icon">🔐</string>
+    <string name="app_lock_title">Aplikasi Terkunci</string>
+    <string name="app_lock_subtitle">Masukkan PIN Aplikasi untuk membuka</string>
+    <string name="app_lock_pin_hint">PIN</string>
+    <string name="app_lock_unlock">Buka</string>
+
+    <!-- Kids home (activity_kids_home) -->
+    <string name="kids_home_title">🧒 HP Anak</string>
+    <string name="kids_home_subtitle">Siap menerima kunci dari orang tua</string>
+    <string name="kids_home_permissions_title">Setup Izin</string>
+    <string name="kids_home_permission_progress">Izin aktif: %1$d/3</string>
+    <string name="kids_home_admin">Admin Perangkat</string>
+    <string name="kids_home_overlay">Tampilan Over Apps</string>
+    <string name="kids_home_accessibility">Layanan Aksesibilitas</string>
+    <string name="kids_home_service_title">Kunci Edukatif &amp; Kontrol Orang Tua</string>
+    <string name="kids_home_service_subtitle">Aktifkan agar HP bisa dikunci dari HP orang tua</string>
+    <string name="kids_home_status_title">Status</string>
+    <string name="kids_home_status_inactive">Layanan tidak aktif</string>
+    <string name="kids_home_pairing_title">Kode Pairing</string>
+    <string name="kids_home_pairing_subtitle">Tampilkan kode 6 digit untuk HP orang tua</string>
+
+    <!-- Kids settings (activity_kids_settings) -->
+    <string name="kids_settings_title">⚙️ Pengaturan HP Anak</string>
+    <string name="kids_settings_timer_title">⏰ Kunci Otomatis (lokal)</string>
+    <string name="kids_settings_timer_status">Timer aktif</string>
+    <string name="kids_settings_mode_title">🔒 Mode Kunci Lokal</string>
+    <string name="kids_settings_mode_quiz">🧠 Kuis</string>
+    <string name="kids_settings_mode_text">💬 Pesan</string>
+    <string name="kids_settings_mode_hint">Dipakai saat kunci otomatis berbunyi tanpa perintah orang tua.</string>
+    <string name="kids_settings_pin_title">🔑 PIN Rahasia (buka kunci layar)</string>
+    <string name="kids_settings_pin_unset">Belum diatur</string>
+    <string name="kids_settings_pin_change">Ubah PIN</string>
+    <string name="kids_settings_app_pin_title">🔐 PIN Aplikasi (buka app)</string>
+    <string name="kids_settings_app_pin_unset">Belum diatur - app bisa dibuka bebas</string>
+    <string name="kids_settings_app_pin_change">Buat / Ubah PIN Aplikasi</string>
+    <string name="kids_settings_parents_title">👨‍👩‍👧 Orang Tua Terpasang</string>
+    <string name="kids_settings_parents_empty">Belum ada orang tua terpasang.</string>
+    <string name="kids_settings_manage_questions">📚 Kelola Paket Soal</string>
+    <string name="kids_settings_test_lock">🧪 Tes Layar Kunci</string>
+    <string name="kids_settings_switch_role">Ganti Peran HP ini</string>
+
+    <!-- Lock screen quiz (activity_lock_screen) -->
+    <string name="lock_screen_category_placeholder">MATEMATIKA</string>
+    <string name="lock_screen_question_placeholder">What is 15 + 27?</string>
+    <string name="lock_screen_answer_prompt">Pilih jawaban yang benar:</string>
+    <string name="lock_screen_answer_placeholder">42</string>
+
+    <!-- Lock screen message (activity_lock_screen_text) -->
+    <string name="lock_screen_text_icon">🔒</string>
+    <string name="lock_screen_text_title">Pesan dari Orang Tua</string>
+    <string name="lock_screen_text_message_placeholder">Waktunya istirahat dari HP ya 😊</string>
+    <string name="lock_screen_text_pin_prompt">Masukkan PIN rahasia untuk membuka</string>
+    <string name="lock_screen_text_pin_hint">PIN</string>
+    <string name="lock_screen_text_unlock">🔓 Buka dengan PIN</string>
+    <string name="lock_screen_text_wait">⏳ Tunggu izin orang tua</string>
+
+    <!-- Message templates (activity_message_templates) -->
+    <string name="message_templates_title">📝 Template Pesan</string>
+    <string name="message_templates_title_hint">Judul template</string>
+    <string name="message_templates_text_hint">Isi pesan</string>
+    <string name="message_templates_add">➕ Simpan Template</string>
+    <string name="message_templates_empty">Belum ada template.</string>
+
+    <!-- Pairing (activity_pairing) -->
+    <string name="pairing_title">🔗 Kode Pairing</string>
+    <string name="pairing_device_placeholder">Anak-A</string>
+    <string name="pairing_code_placeholder">123 456</string>
+    <string name="pairing_countdown_placeholder">Berlaku 60 detik</string>
+    <string name="pairing_instructions">Minta orang tua memasukkan kode ini di aplikasi mereka, lalu tentukan PIN rahasia.</string>
+    <string name="pairing_parents_title">👨‍👩‍👧 Orang Tua Terpasang</string>
+    <string name="pairing_parents_empty">Belum ada orang tua yang terpasang.</string>
+
+    <!-- Parent home (activity_parent_home) -->
+    <string name="parent_home_title">👨‍👩‍👧 Orang Tua</string>
+    <string name="parent_home_subtitle">Kunci HP anak di Wi-Fi yang sama</string>
+    <string name="parent_home_scan">🔍 Cari HP Anak</string>
+    <string name="parent_home_templates">📝 Template Pesan</string>
+    <string name="parent_home_scan_hint">Tekan “Cari HP Anak” untuk memulai.</string>
+    <string name="parent_home_empty">Belum ada HP anak terpasang.</string>
+    <string name="parent_home_lock_selected">🔒 Kunci Terpilih</string>
+
+    <!-- Question manager (activity_question_manager) -->
+    <string name="question_manager_icon">📚</string>
+    <string name="question_manager_title">Kelola Paket Soal</string>
+    <string name="question_manager_subtitle">Unduh paket soal baru atau lihat soal saat ini</string>
+    <string name="question_manager_packs_title">☁️ Paket Soal Tersedia</string>
+    <string name="question_manager_refresh">🔄 Refresh</string>
+    <string name="question_manager_loading">Memuat…</string>
+    <string name="question_manager_current_title">📝 Soal Saat Ini</string>
+    <string name="question_manager_view_current">📋 Lihat Soal Saat Ini</string>
+
+    <!-- Role selection (activity_role_selection) -->
+    <string name="role_title">🔐 Kunci Dong</string>
+    <string name="role_subtitle">Pilih peran HP ini</string>
+    <string name="role_parent">Orang Tua</string>
+    <string name="role_parent_desc">Temukan HP anak, kunci dengan kuis atau pesan</string>
+    <string name="role_kids">Anak</string>
+    <string name="role_kids_desc">Terima kunci dari HP orang tua &amp; kode pairing</string>
+    <string name="role_footer">Peran bisa diubah kapan saja di Pengaturan.</string>
+
+    <!-- Lock command dialog (dialog_lock_command) -->
+    <string name="lock_dialog_title">Kunci HP anak</string>
+    <string name="lock_dialog_mode_quiz">🧠 Kuis</string>
+    <string name="lock_dialog_mode_text">💬 Pesan Teks</string>
+    <string name="lock_dialog_templates_label">Template tersimpan</string>
+    <string name="lock_dialog_title_hint">Judul (opsional)</string>
+    <string name="lock_dialog_text_hint">Pesan untuk anak</string>
+
+    <!-- Pair kid dialog (dialog_pair_kid) -->
+    <string name="pair_dialog_title">HP Anak</string>
+    <string name="pair_dialog_instructions">Minta anak membuka “Kode Pairing” di HP-nya, lalu masukkan kode di bawah.</string>
+    <string name="pair_dialog_code_hint">Kode 6 digit</string>
+    <string name="pair_dialog_pin_hint">PIN rahasia (min. 4 angka)</string>
+    <string name="pair_dialog_name_hint">Nama Anda (mis. Ayah)</string>
+    <string name="pair_dialog_pin_note">PIN disimpan sekali dan dipakai untuk membuka mode pesan di HP anak.</string>
+
+    <!-- Current question item (item_current_question) -->
+    <string name="question_item_number_placeholder">#1</string>
+    <string name="question_item_category_placeholder">🔢 MATEMATIKA</string>
+    <string name="question_item_text_placeholder">Berapa hasil dari 1 + 10?</string>
+    <string name="question_item_answer_placeholder">Jawaban: 11</string>
+    <string name="question_item_answer_format">Jawaban: %1$s</string>
+
+    <!-- Kid device item (item_kid_device) -->
+    <string name="kid_device_name_placeholder">Anak-A</string>
+    <string name="kid_device_address_placeholder">192.168.1.10</string>
+    <string name="kid_device_status_paired">Terpasang</string>
+    <string name="kid_device_status_unpaired">Belum dipasangkan - ketuk untuk pairing</string>
+    <string name="kid_device_lock">Kunci</string>
+    <string name="kid_device_unlock">Buka</string>
+    <string name="cd_remove_device">Hapus</string>
+
+    <!-- Message template item (item_message_template) -->
+    <string name="template_item_title_placeholder">Judul</string>
+    <string name="template_item_text_placeholder">Isi pesan</string>
+    <string name="cd_delete_template">Hapus template</string>
+
+    <!-- Question pack item (item_question_pack) -->
+    <string name="pack_item_name_placeholder">Matematika Dasar</string>
+    <string name="pack_item_category_placeholder">🔢 MATEMATIKA</string>
+    <string name="pack_item_desc_placeholder">Soal matematika untuk tingkat SD</string>
+    <string name="pack_item_info_placeholder">50 soal • v1.0 • 2024-01-15</string>
+    <string name="pack_item_info_format">%1$d soal • v%2$s • %3$s</string>
+    <string name="pack_item_download">⬇️ Unduh Paket Soal</string>
+
+    <!-- Runtime copy -->
+    <string name="no_question_available">Belum ada soal tersedia</string>
+    <string name="category_info">Info</string>
+    <string name="pairing_code_inactive">Kode tidak aktif</string>
+    <string name="pairing_code_empty">- - - - - -</string>
+    <string name="pairing_code_countdown">Berlaku %1$d detik lagi</string>
+    <string name="pairing_parent_row">✅ %1$s</string>
+    <string name="pin_status_set">PIN sudah diatur</string>
+    <string name="pin_status_unset">Belum diatur</string>
+
+    <!-- Shared actions -->
+    <string name="action_save">Simpan</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_unpair">Lepas</string>
+    <string name="action_unpaired">Dilepas</string>
+    <string name="pin_error_min">PIN minimal 4 angka</string>
+    <string name="pin_error_mismatch">PIN tidak sama</string>
+
+    <!-- Lock screen runtime -->
+    <string name="lock_screen_wait_toast">Minta orang tua membuka kunci dari HP mereka</string>
+    <string name="lock_screen_pin_required">Masukkan PIN dulu</string>
+    <string name="lock_screen_unlocked_toast">🔓 Terbuka</string>
+    <string name="lock_screen_pin_wrong">PIN salah</string>
+
+    <!-- App PIN runtime -->
+    <string name="app_lock_pin_wrong">PIN salah. Coba lagi.</string>
+    <string name="app_pin_new_hint">PIN aplikasi baru (min. 4 angka)</string>
+    <string name="app_pin_confirm_hint">Ulangi PIN aplikasi baru</string>
+    <string name="app_pin_create_title">Buat PIN Aplikasi</string>
+    <string name="app_pin_change_title">Ubah PIN Aplikasi</string>
+    <string name="app_pin_delete">Hapus PIN</string>
+    <string name="app_pin_saved">PIN aplikasi disimpan</string>
+    <string name="app_pin_deleted">PIN aplikasi dihapus</string>
+
+    <!-- Kids home runtime -->
+    <string name="kids_home_admin_active">Admin perangkat sudah aktif</string>
+    <string name="kids_home_overlay_granted">Izin tampilan sudah diberikan</string>
+    <string name="kids_home_accessibility_active">Aksesibilitas sudah aktif</string>
+    <string name="kids_home_grant_all_permissions">Aktifkan semua izin terlebih dahulu</string>
+    <string name="kids_home_need_overlay">Berikan izin \'Display over other apps\' dulu</string>
+    <string name="kids_home_service_started">Layanan aktif</string>
+    <string name="kids_home_service_stopped">Layanan dihentikan</string>
+    <string name="kids_home_service_start_failed">Gagal memulai layanan: %1$s</string>
+    <string name="kids_home_accessibility_hint">Cari \'kunci dong\' di daftar dan aktifkan</string>
+    <string name="kids_home_admin_granted">Admin perangkat aktif</string>
+    <string name="kids_home_admin_required">Admin perangkat diperlukan</string>
+    <string name="kids_home_overlay_granted_toast">Izin tampilan diberikan!</string>
+    <string name="kids_home_overlay_required">Izin tampilan diperlukan</string>
+    <string name="admin_request_explanation">Aktifkan admin perangkat agar kunci dong bisa mengunci HP</string>
+    <string name="kids_home_status_active">Layanan aktif ✅ Menunggu perintah orang tua</string>
+    <string name="kids_home_status_partial">Layanan aktif sebagian ⚠️</string>
+    <string name="kids_home_status_inactive_runtime">Layanan tidak aktif ❌</string>
+
+    <!-- Kids settings runtime -->
+    <string name="kids_settings_timer_off">Kunci otomatis dimatikan</string>
+    <string name="kids_settings_timer_every">Kunci otomatis setiap %1$d menit</string>
+    <string name="kids_settings_app_pin_active">Aktif - app minta PIN saat dibuka</string>
+    <string name="kids_settings_pin_dialog_title">Ubah PIN Rahasia</string>
+    <string name="kids_settings_new_pin_hint">PIN baru (min. 4 angka)</string>
+    <string name="kids_settings_confirm_pin_hint">Ulangi PIN baru</string>
+    <string name="kids_settings_pin_saved">PIN disimpan</string>
+
+    <string-array name="kids_settings_timer_options">
+        <item>Tidak Pernah</item>
+        <item>Setiap 1 Menit</item>
+        <item>Setiap 3 Menit</item>
+        <item>Setiap 5 Menit</item>
+        <item>Setiap 10 Menit</item>
+        <item>Setiap 15 Menit</item>
+    </string-array>
+
+    <!-- Parent home runtime -->
+    <string name="parent_select_device_first">Pilih HP anak dulu</string>
+    <string name="parent_select_paired_device">Pilih HP anak yang sudah dipasangkan</string>
+    <string name="parent_devices_cleared">Daftar HP anak dihapus</string>
+    <string name="parent_device_unreachable">%1$s tidak bisa dihubungi</string>
+    <string name="parent_device_status">%1$s: %2$s</string>
+    <string name="parent_device_status_battery">%1$s: %2$s, baterai %3$d%%</string>
+    <string name="device_state_locked">terkunci</string>
+    <string name="device_state_unlocked">terbuka</string>
+    <string name="parent_unpair_title">Lepas %1$s?</string>
+    <string name="parent_unpair_message">HP ini tidak akan menerima perintah dari Anda lagi.</string>
+    <string name="parent_pair_dialog_title">Pairing HP Anak</string>
+    <string name="parent_pair_confirm">Pasangkan</string>
+    <string name="parent_pair_success">✅ %1$s terpasang</string>
+    <string name="parent_pair_no_response">tidak ada respons</string>
+    <string name="parent_pair_failed">Gagal pairing: %1$s. Pastikan layar kode di HP anak terbuka.</string>
+    <string name="pair_error_code">Kode harus 6 digit</string>
+    <string name="parent_lock_success">🔒 Terkunci dengan %1$s di %2$d/%3$d HP</string>
+    <string name="mode_label_quiz">kuis</string>
+    <string name="mode_label_message">pesan</string>
+    <string name="parent_unlock_success">🔓 %1$s dibuka</string>
+    <string name="parent_unlock_failed">Gagal membuka %1$s</string>
+    <string name="parent_lock_selected_count">🔒 Kunci %1$d HP Terpilih</string>
+    <string name="parent_multi_target">%1$d HP anak</string>
+    <string name="parent_settings_title">Pengaturan Orang Tua</string>
+    <string name="parent_settings_pin">PIN Aplikasi</string>
+    <string name="parent_settings_switch_role">Ganti peran HP ini</string>
+    <string name="parent_settings_clear">Hapus semua HP anak tersimpan</string>
+    <string name="parent_default_name">Orang Tua</string>
+    <string name="parent_default_name_input">Ayah</string>
+    <string name="device_label_format">%1$s (%2$s)</string>
+    <string name="parent_scanning">Mencari HP anak…</string>
+    <string name="parent_scan_nsd_failed">NSD gagal (%1$s), memakai scan IP…</string>
+    <string name="parent_scan_done">Selesai. %1$d HP anak ditemukan. NSD tetap aktif.</string>
+
+    <!-- Lock command dialog runtime -->
+    <string name="lock_dialog_confirm_title">Kunci HP Anak</string>
+    <string name="lock_dialog_free_text">✏️ Ketik pesan sendiri</string>
+    <string name="lock_dialog_confirm">🔒 Kunci</string>
+    <string name="lock_dialog_empty_message">Pesan tidak boleh kosong</string>
+
+    <!-- Message templates runtime -->
+    <string name="template_error_required">Judul dan isi pesan harus diisi</string>
+    <string name="template_saved">Template disimpan</string>
+    <string name="template_seed_study_title">Waktu Belajar</string>
+    <string name="template_seed_study_text">Saatnya belajar dulu ya. Selesaikan tugasmu, nanti HP dibuka lagi 😊</string>
+    <string name="template_seed_rest_title">Waktunya Istirahat</string>
+    <string name="template_seed_rest_text">Sudah cukup main HP. Istirahat atau baca buku dulu ya.</string>
+    <string name="template_seed_eat_title">Waktunya Makan</string>
+    <string name="template_seed_eat_text">Ayo makan dulu. HP disimpan sebentar ya 🍽️</string>
+
+    <!-- Question manager runtime -->
+    <string name="question_manager_downloading">Mengunduh paket soal…</string>
+    <string name="question_manager_loading_packs">Memuat daftar paket soal…</string>
+    <string name="question_manager_packs_available">Tersedia %1$d paket soal</string>
+    <string name="question_manager_load_failed">Gagal memuat daftar paket soal: %1$s</string>
+    <string name="question_manager_total">Total %1$d soal tersimpan</string>
+    <string name="question_manager_load_current_failed">Gagal memuat soal saat ini: %1$s</string>
+    <string name="question_manager_downloading_named">Mengunduh %1$s…</string>
+    <string name="question_manager_download_success">Berhasil mengunduh %1$d soal dari %2$s</string>
+    <string name="question_manager_download_failed">Gagal mengunduh paket soal: %1$s</string>
+
+    <!-- Service notifications -->
+    <string name="service_channel_name">Pengontrol Kunci Layar Edukasi</string>
+    <string name="service_channel_description">Mengontrol penguncian layar untuk tujuan edukasi</string>
+    <string name="service_notification_active_title">Pengontrol Kunci Layar Edukasi Aktif</string>
+    <string name="service_notification_active_text">Jawab pertanyaan atau masukkan PIN untuk membuka</string>
+    <string name="overlay_channel_name">Overlay Kunci Layar Edukasi</string>
+    <string name="overlay_channel_description">Menampilkan pertanyaan edukatif di atas layar kunci</string>
+    <string name="overlay_notification_title">Overlay Kunci Layar Edukasi Aktif</string>
+    <string name="overlay_notification_text">Layanan overlay sedang berjalan</string>
+    <string name="overlay_skip_question">Lewati Pertanyaan</string>
+
+    <!-- Legacy lock service notifications -->
+    <string name="lock_service_channel_name">Layanan Edukasi kunci dong</string>
+    <string name="lock_service_channel_description">Menjaga layar kunci pintar tetap aktif</string>
+    <string name="lock_service_notification_title">Layar Kunci Pintar Aktif</string>
+    <string name="lock_screen_channel_name">Layar Kunci Edukatif</string>
+    <string name="lock_screen_channel_description">Menampilkan pertanyaan edukatif saat perangkat terkunci</string>
+    <string name="lock_screen_notification_title">🎓 Pertanyaan Edukatif Siap!</string>
+    <string name="lock_screen_notification_text">Ketuk untuk menjawab pertanyaan dan membuka perangkat</string>
+
+    <!-- Remote control service notifications -->
+    <string name="remote_channel_name">Kontrol Jarak Jauh Orang Tua</string>
+    <string name="remote_channel_description">Menjaga HP anak tetap bisa menerima perintah dari orang tua</string>
+    <string name="remote_notification_title">Kontrol Orang Tua Aktif</string>
+    <string name="remote_notification_text">Menunggu perintah dari HP orang tua di Wi-Fi yang sama</string>
+    <string name="device_unlocked_toast">✅ Benar! Perangkat terbuka</string>
+    <string name="device_incorrect_toast">❌ Salah. Coba lagi!</string>
+
+    <!-- Adapters runtime -->
+    <string name="question_item_number_format">#%1$d</string>
+    <string name="question_item_answer_invalid">Tidak valid</string>
+    <string name="device_admin_enabled_toast">Admin perangkat diaktifkan</string>
+    <string name="device_admin_disabled_toast">Admin perangkat dinonaktifkan</string>
 </resources>

@@ -81,7 +81,7 @@ class ParentHomeActivity : AppCompatActivity() {
         findViewById<MaterialButton>(R.id.btnLockSelected).setOnClickListener {
             val selected = adapter.selectedDevices()
             if (selected.isEmpty()) {
-                Toast.makeText(this, "Pilih HP anak dulu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.parent_select_device_first), Toast.LENGTH_SHORT).show()
             } else {
                 lockDevices(selected)
             }
@@ -107,7 +107,7 @@ class ParentHomeActivity : AppCompatActivity() {
         discovery?.stop()
         discovered.clear()
         refresh()
-        tvScanStatus.text = "Mencari HP anak…"
+        tvScanStatus.text = getString(R.string.parent_scanning)
 
         val nsd = NsdDiscovery(this, object : NsdDiscovery.Listener {
             override fun onKidFound(endpoint: KidEndpoint) {
@@ -115,7 +115,7 @@ class ParentHomeActivity : AppCompatActivity() {
             }
 
             override fun onDiscoveryFailed(reason: String) {
-                runOnUiThread { tvScanStatus.text = "NSD gagal ($reason), memakai scan IP…" }
+                runOnUiThread { tvScanStatus.text = getString(R.string.parent_scan_nsd_failed, reason) }
             }
         })
         discovery = nsd
@@ -128,8 +128,7 @@ class ParentHomeActivity : AppCompatActivity() {
                 runOnUiThread { addEndpoint(endpoint) }
             }
             refresh()
-            tvScanStatus.text =
-                "Selesai. ${adapter.itemCount} HP anak ditemukan. NSD tetap aktif."
+            tvScanStatus.text = getString(R.string.parent_scan_done, adapter.itemCount)
         }
     }
 
@@ -180,12 +179,17 @@ class ParentHomeActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val response = client.status(device.host, device.port, device.token)
                 val message = when {
-                    response == null -> "${device.name} tidak bisa dihubungi"
+                    response == null -> getString(R.string.parent_device_unreachable, device.name)
                     response.ok -> {
-                        val state = if (response.locked == true) "terkunci" else "terbuka"
-                        "${device.name}: $state${response.battery?.let { ", baterai $it%" } ?: ""}"
+                        val state = getString(
+                            if (response.locked == true) R.string.device_state_locked
+                            else R.string.device_state_unlocked
+                        )
+                        response.battery?.let {
+                            getString(R.string.parent_device_status_battery, device.name, state, it)
+                        } ?: getString(R.string.parent_device_status, device.name, state)
                     }
-                    else -> "${device.name}: ${response.err}"
+                    else -> getString(R.string.parent_device_status, device.name, response.err)
                 }
                 Toast.makeText(this@ParentHomeActivity, message, Toast.LENGTH_SHORT).show()
             }
@@ -194,18 +198,18 @@ class ParentHomeActivity : AppCompatActivity() {
 
     private fun confirmRemove(device: KidDevice) {
         AlertDialog.Builder(this)
-            .setTitle("Lepas ${device.name}?")
-            .setMessage("HP ini tidak akan menerima perintah dari Anda lagi.")
-            .setPositiveButton("Lepas") { _, _ ->
+            .setTitle(getString(R.string.parent_unpair_title, device.name))
+            .setMessage(R.string.parent_unpair_message)
+            .setPositiveButton(R.string.action_unpair) { _, _ ->
                 lifecycleScope.launch {
                     client.unpair(device.host, device.port, device.token)
                     deviceStore.remove(device.id)
                     discovered.remove("${device.host}:${device.port}")
                     refresh()
-                    Toast.makeText(this@ParentHomeActivity, "Dilepas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ParentHomeActivity, getString(R.string.action_unpaired), Toast.LENGTH_SHORT).show()
                 }
             }
-            .setNegativeButton("Batal", null)
+            .setNegativeButton(R.string.action_cancel, null)
             .show()
     }
 
@@ -220,28 +224,28 @@ class ParentHomeActivity : AppCompatActivity() {
         val etPin = view.findViewById<EditText>(R.id.etPairPin)
         val etName = view.findViewById<EditText>(R.id.etParentName)
 
-        tvDevice.text = "${device.name} (${device.address})"
-        etName.setText("Ayah")
+        tvDevice.text = getString(R.string.device_label_format, device.name, device.address)
+        etName.setText(R.string.parent_default_name_input)
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Pairing HP Anak")
+            .setTitle(R.string.parent_pair_dialog_title)
             .setView(view)
-            .setPositiveButton("Pasangkan", null)
-            .setNegativeButton("Batal", null)
+            .setPositiveButton(R.string.parent_pair_confirm, null)
+            .setNegativeButton(R.string.action_cancel, null)
             .create()
 
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 val code = etCode.text?.toString()?.trim().orEmpty()
                 val pin = etPin.text?.toString()?.trim().orEmpty()
-                val name = etName.text?.toString()?.trim().orEmpty().ifEmpty { "Orang Tua" }
+                val name = etName.text?.toString()?.trim().orEmpty().ifEmpty { getString(R.string.parent_default_name) }
 
                 if (code.length != 6) {
-                    Toast.makeText(this, "Kode harus 6 digit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.pair_error_code), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 if (pin.length < 4) {
-                    Toast.makeText(this, "PIN minimal 4 angka", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.pin_error_min), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
@@ -268,12 +272,12 @@ class ParentHomeActivity : AppCompatActivity() {
                 deviceStore.upsert(stored)
                 discovered.remove("${device.host}:${device.port}")
                 refresh()
-                Toast.makeText(this@ParentHomeActivity, "✅ ${stored.name} terpasang", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@ParentHomeActivity, getString(R.string.parent_pair_success, stored.name), Toast.LENGTH_LONG).show()
             } else {
-                val reason = response?.err ?: "tidak ada respons"
+                val reason = response?.err ?: getString(R.string.parent_pair_no_response)
                 Toast.makeText(
                     this@ParentHomeActivity,
-                    "Gagal pairing: $reason. Pastikan layar kode di HP anak terbuka.",
+                    getString(R.string.parent_pair_failed, reason),
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -287,13 +291,13 @@ class ParentHomeActivity : AppCompatActivity() {
     private fun lockDevices(devices: List<KidDevice>) {
         val targets = devices.filter { it.token.isNotBlank() }
         if (targets.isEmpty()) {
-            Toast.makeText(this, "Pilih HP anak yang sudah dipasangkan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.parent_select_paired_device), Toast.LENGTH_SHORT).show()
             return
         }
 
         lifecycleScope.launch {
             val templates = QuestionDatabase.getDatabase(this@ParentHomeActivity).remoteDao().getAllTemplates()
-            val label = if (targets.size == 1) targets.first().name else "${targets.size} HP anak"
+            val label = if (targets.size == 1) targets.first().name else getString(R.string.parent_multi_target, targets.size)
             LockCommandDialog.show(this@ParentHomeActivity, label, templates) { command ->
                 sendLock(targets, command)
             }
@@ -315,10 +319,14 @@ class ParentHomeActivity : AppCompatActivity() {
                 )
                 if (response?.ok == true) success++
             }
-            val label = if (command.mode == LockMode.TEXT) "pesan" else "kuis"
+            val label = if (command.mode == LockMode.TEXT) {
+                getString(R.string.mode_label_message)
+            } else {
+                getString(R.string.mode_label_quiz)
+            }
             Toast.makeText(
                 this@ParentHomeActivity,
-                "🔒 Terkunci dengan $label di $success/${targets.size} HP",
+                getString(R.string.parent_lock_success, label, success, targets.size),
                 Toast.LENGTH_LONG
             ).show()
             adapter.clearSelection()
@@ -328,7 +336,11 @@ class ParentHomeActivity : AppCompatActivity() {
     private fun unlockDevice(device: KidDevice) {
         lifecycleScope.launch {
             val response = client.unlock(device.host, device.port, device.token)
-            val message = if (response?.ok == true) "🔓 ${device.name} dibuka" else "Gagal membuka ${device.name}"
+            val message = if (response?.ok == true) {
+                getString(R.string.parent_unlock_success, device.name)
+            } else {
+                getString(R.string.parent_unlock_failed, device.name)
+            }
             Toast.makeText(this@ParentHomeActivity, message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -337,16 +349,24 @@ class ParentHomeActivity : AppCompatActivity() {
         val count = adapter.selectedCount()
         val button = findViewById<MaterialButton>(R.id.btnLockSelected)
         button.visibility = if (count > 0) View.VISIBLE else View.GONE
-        button.text = if (count > 1) "🔒 Kunci $count HP Terpilih" else "🔒 Kunci Terpilih"
+        button.text = if (count > 1) {
+            getString(R.string.parent_lock_selected_count, count)
+        } else {
+            getString(R.string.parent_home_lock_selected)
+        }
     }
 
     // endregion
 
     private fun showSettings() {
         AlertDialog.Builder(this)
-            .setTitle("Pengaturan Orang Tua")
+            .setTitle(R.string.parent_settings_title)
             .setItems(
-                arrayOf("PIN Aplikasi", "Ganti peran HP ini", "Hapus semua HP anak tersimpan")
+                arrayOf(
+                    getString(R.string.parent_settings_pin),
+                    getString(R.string.parent_settings_switch_role),
+                    getString(R.string.parent_settings_clear)
+                )
             ) { _, which ->
                 when (which) {
                     0 -> AppPinDialog.show(this)
@@ -359,7 +379,7 @@ class ParentHomeActivity : AppCompatActivity() {
                         deviceStore.clear()
                         discovered.clear()
                         refresh()
-                        Toast.makeText(this, "Daftar HP anak dihapus", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.parent_devices_cleared), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

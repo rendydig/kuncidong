@@ -106,7 +106,7 @@ class KidsHomeActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         btnEnableAdmin.setOnClickListener {
             if (isAdminActive()) {
-                Toast.makeText(this, "Admin perangkat sudah aktif", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.kids_home_admin_active), Toast.LENGTH_SHORT).show()
             } else {
                 requestAdminPermission()
             }
@@ -114,7 +114,7 @@ class KidsHomeActivity : AppCompatActivity() {
 
         btnOverlayPermission.setOnClickListener {
             if (hasOverlayPermission()) {
-                Toast.makeText(this, "Izin tampilan sudah diberikan", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.kids_home_overlay_granted), Toast.LENGTH_SHORT).show()
             } else {
                 requestOverlayPermission()
             }
@@ -122,7 +122,7 @@ class KidsHomeActivity : AppCompatActivity() {
 
         btnAccessibilityService.setOnClickListener {
             if (isAccessibilityServiceEnabled()) {
-                Toast.makeText(this, "Aksesibilitas sudah aktif", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.kids_home_accessibility_active), Toast.LENGTH_SHORT).show()
             } else {
                 requestAccessibilityService()
             }
@@ -133,7 +133,7 @@ class KidsHomeActivity : AppCompatActivity() {
         switchLockService.setOnCheckedChangeListener { _, isChecked ->
             if (!areAllPermissionsGranted()) {
                 switchLockService.isChecked = false
-                Toast.makeText(this, "Aktifkan semua izin terlebih dahulu", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.kids_home_grant_all_permissions), Toast.LENGTH_LONG).show()
                 return@setOnCheckedChangeListener
             }
             if (isChecked) startServices() else stopServices()
@@ -150,14 +150,14 @@ class KidsHomeActivity : AppCompatActivity() {
 
     private fun startServices() {
         if (!hasOverlayPermission()) {
-            Toast.makeText(this, "Berikan izin 'Display over other apps' dulu", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.kids_home_need_overlay), Toast.LENGTH_LONG).show()
             requestOverlayPermission()
             return
         }
         startForeground(DeviceAdminLockScreenService::class.java)
         RemoteControlService.start(this)
         SmartLockApplication.instance.setServiceEnabled(true)
-        Toast.makeText(this, "Layanan aktif", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.kids_home_service_started), Toast.LENGTH_SHORT).show()
         updateStatus()
     }
 
@@ -165,7 +165,7 @@ class KidsHomeActivity : AppCompatActivity() {
         stopService(Intent(this, DeviceAdminLockScreenService::class.java))
         RemoteControlService.stop(this)
         SmartLockApplication.instance.setServiceEnabled(false)
-        Toast.makeText(this, "Layanan dihentikan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.kids_home_service_stopped), Toast.LENGTH_SHORT).show()
         updateStatus()
     }
 
@@ -178,7 +178,7 @@ class KidsHomeActivity : AppCompatActivity() {
                 startService(intent)
             }
         } catch (e: SecurityException) {
-            Toast.makeText(this, "Gagal memulai layanan: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.kids_home_service_start_failed, e.message), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -213,7 +213,7 @@ class KidsHomeActivity : AppCompatActivity() {
 
     private fun requestAccessibilityService() {
         startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-        Toast.makeText(this, "Cari 'kunci dong' di daftar dan aktifkan", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.kids_home_accessibility_hint), Toast.LENGTH_LONG).show()
     }
 
     private fun requestAdminPermission() {
@@ -221,7 +221,7 @@ class KidsHomeActivity : AppCompatActivity() {
             putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, adminComponent)
             putExtra(
                 DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-                "Aktifkan admin perangkat agar kunci dong bisa mengunci HP"
+                getString(R.string.admin_request_explanation)
             )
         }
         startActivityForResult(intent, REQUEST_CODE_ENABLE_ADMIN)
@@ -242,7 +242,7 @@ class KidsHomeActivity : AppCompatActivity() {
 
         val granted = listOf(isAdminActive(), hasOverlayPermission(), isAccessibilityServiceEnabled())
             .count { it }
-        tvPermissionProgress.text = "Izin aktif: $granted/3"
+        tvPermissionProgress.text = getString(R.string.kids_home_permission_progress, granted)
 
         val allGranted = granted == 3
         btnStartService.alpha = if (allGranted) 1.0f else 0.5f
@@ -252,9 +252,9 @@ class KidsHomeActivity : AppCompatActivity() {
         val remoteRunning = isServiceRunning(RemoteControlService::class.java.name)
 
         tvStatus.text = when {
-            lockRunning && remoteRunning -> "Layanan aktif ✅ Menunggu perintah orang tua"
-            lockRunning || remoteRunning -> "Layanan aktif sebagian ⚠️"
-            else -> "Layanan tidak aktif ❌"
+            lockRunning && remoteRunning -> getString(R.string.kids_home_status_active)
+            lockRunning || remoteRunning -> getString(R.string.kids_home_status_partial)
+            else -> getString(R.string.kids_home_status_inactive_runtime)
         }
 
         switchLockService.isChecked = lockRunning || remoteRunning
@@ -265,17 +265,17 @@ class KidsHomeActivity : AppCompatActivity() {
         when (requestCode) {
             REQUEST_CODE_ENABLE_ADMIN -> {
                 if (resultCode == RESULT_OK) {
-                    Toast.makeText(this, "Admin perangkat aktif", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.kids_home_admin_granted), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "Admin perangkat diperlukan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.kids_home_admin_required), Toast.LENGTH_LONG).show()
                 }
                 updateStatus()
             }
             REQUEST_CODE_OVERLAY_PERMISSION -> {
                 if (hasOverlayPermission()) {
-                    Toast.makeText(this, "Izin tampilan diberikan!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.kids_home_overlay_granted_toast), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "Izin tampilan diperlukan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.kids_home_overlay_required), Toast.LENGTH_LONG).show()
                 }
                 updateStatus()
             }

@@ -44,7 +44,12 @@ class QuestionPackAdapter(
         fun bind(questionPack: QuestionPack) {
             tvPackName.text = questionPack.name
             tvPackDescription.text = questionPack.description
-            tvPackInfo.text = "${questionPack.questionCount} soal • v${questionPack.version} • ${questionPack.lastUpdated}"
+            tvPackInfo.text = itemView.context.getString(
+                R.string.pack_item_info_format,
+                questionPack.questionCount,
+                questionPack.version,
+                questionPack.lastUpdated
+            )
             tvPackCategory.text = getCategoryEmoji(questionPack.category) + " " + questionPack.category
             
             btnDownload.setOnClickListener {
@@ -58,7 +63,7 @@ class QuestionPackAdapter(
                 "GEOGRAFI" -> R.color.category_geography
                 "SEJARAH" -> R.color.category_history
                 "BAHASA" -> R.color.category_language
-                else -> R.color.primary
+                else -> R.color.primary_blue
             }
             
             tvPackCategory.setBackgroundResource(categoryColor)

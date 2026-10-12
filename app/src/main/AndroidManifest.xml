@@ -93,7 +93,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
-            android:theme="@style/LockScreenTheme" />
+            android:theme="@style/Theme.Customlockscreen.LockScreen" />
 
         <!-- Device Admin Receiver -->
         <receiver

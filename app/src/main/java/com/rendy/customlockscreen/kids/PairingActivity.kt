@@ -3,6 +3,7 @@ package com.rendy.customlockscreen.kids
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.TypedValue
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -79,12 +80,12 @@ class PairingActivity : AppCompatActivity() {
     private fun renderCode() {
         val code = authStore.currentPairingCode()
         if (code == null) {
-            tvPairCode.text = "- - - - - -"
-            tvCountdown.text = "Kode tidak aktif"
+            tvPairCode.text = getString(R.string.pairing_code_empty)
+            tvCountdown.text = getString(R.string.pairing_code_inactive)
             return
         }
         tvPairCode.text = code.chunked(3).joinToString(" ")
-        tvCountdown.text = "Berlaku ${authStore.pairingCodeSecondsLeft()} detik lagi"
+        tvCountdown.text = getString(R.string.pairing_code_countdown, authStore.pairingCodeSecondsLeft())
     }
 
     private fun refreshParents() {
@@ -94,10 +95,15 @@ class PairingActivity : AppCompatActivity() {
         llParents.removeAllViews()
         for (parent in parents) {
             val row = TextView(this).apply {
-                text = "✅ ${parent.name}"
-                textSize = 15f
+                text = getString(R.string.pairing_parent_row, parent.name)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_heading))
                 setTextColor(resources.getColor(R.color.text_primary, theme))
-                setPadding(12, 20, 12, 20)
+                setPadding(
+                    resources.getDimensionPixelSize(R.dimen.space_3),
+                    resources.getDimensionPixelSize(R.dimen.space_5),
+                    resources.getDimensionPixelSize(R.dimen.space_3),
+                    resources.getDimensionPixelSize(R.dimen.space_5)
+                )
                 setBackgroundResource(R.drawable.permission_item_background)
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,

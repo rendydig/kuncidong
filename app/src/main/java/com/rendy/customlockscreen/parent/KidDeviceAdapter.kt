@@ -72,11 +72,15 @@ class KidDeviceAdapter(
 
             tvName.text = device.name.ifBlank { device.host }
             tvAddress.text = device.address
-            tvStatus.text = if (isPaired) "Terpasang" else "Belum dipasangkan - ketuk untuk pairing"
+            tvStatus.text = if (isPaired) {
+                context.getString(R.string.kid_device_status_paired)
+            } else {
+                context.getString(R.string.kid_device_status_unpaired)
+            }
             tvStatus.setTextColor(
                 ContextCompat.getColor(
                     context,
-                    if (isPaired) R.color.success_green else R.color.warning_orange
+                    if (isPaired) R.color.success else R.color.warning_orange
                 )
             )
 

@@ -7,45 +7,45 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/gradient_background"
-    android:padding="24dp">
+    android:padding="@dimen/space_6">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="24dp"
+        app:cardCornerRadius="@dimen/radius_lg"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="@android:color/white">
+        app:cardBackgroundColor="@color/surface_card">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:padding="24dp">
+            android:padding="@dimen/space_6">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🔐"
-                android:textSize="48sp" />
+                android:text="@string/app_lock_icon"
+                android:textSize="@dimen/glyph_hero"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Aplikasi Terkunci"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                android:layout_marginTop="@dimen/space_2"
+                android:text="@string/app_lock_title"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
                 android:textColor="@color/kid_primary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/space_1"
+                android:layout_marginBottom="@dimen/space_4"
                 android:gravity="center"
-                android:text="Masukkan PIN Aplikasi untuk membuka"
-                android:textSize="13sp"
+                android:text="@string/app_lock_subtitle"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                 android:textColor="@color/text_secondary" />
 
             <EditText
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center"
-                android:hint="PIN"
+                android:hint="@string/app_lock_pin_hint"
                 android:importantForAutofill="no"
                 android:inputType="numberPassword"
                 android:letterSpacing="0.3"
@@ -63,10 +63,10 @@
                 android:id="@+id/tvAppPinError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/space_2"
                 android:gravity="center"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                 android:textColor="@color/error_red"
-                android:textSize="13sp"
                 android:visibility="gone"
                 tools:text="PIN salah. Coba lagi." />
 
@@ -74,8 +74,8 @@
                 android:id="@+id/btnAppPinUnlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Buka"
+                android:layout_marginTop="@dimen/space_4"
+                android:text="@string/app_lock_unlock"
                 android:textAllCaps="false" />
 
         </LinearLayout>

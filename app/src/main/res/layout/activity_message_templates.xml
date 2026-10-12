@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
-    android:padding="16dp">
+    android:padding="@dimen/space_4">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="@dimen/space_3">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBack"
@@ -20,15 +20,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
-            android:text="‹" />
+            android:text="@string/icon_back"
+            android:contentDescription="@string/cd_back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="📝 Template Pesan"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:text="@string/message_templates_title"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
             android:textColor="@color/kid_primary" />
 
     </LinearLayout>
@@ -36,22 +36,22 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        app:cardCornerRadius="16dp"
+        android:layout_marginBottom="@dimen/space_3"
+        app:cardCornerRadius="@dimen/radius_md"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="@android:color/white">
+        app:cardBackgroundColor="@color/surface_card">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/space_4">
 
             <EditText
                 android:id="@+id/etTemplateTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Judul template"
+                android:hint="@string/message_templates_title_hint"
                 android:inputType="text"
                 android:maxLines="1" />
 
@@ -59,7 +59,7 @@
                 android:id="@+id/etTemplateText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Isi pesan"
+                android:hint="@string/message_templates_text_hint"
                 android:inputType="textMultiLine"
                 android:minLines="2"
                 android:gravity="top" />
@@ -68,8 +68,8 @@
                 android:id="@+id/btnAddTemplate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="➕ Simpan Template"
+                android:layout_marginTop="@dimen/space_2"
+                android:text="@string/message_templates_add"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -80,10 +80,10 @@
         android:id="@+id/tvTemplatesEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Belum ada template."
+        android:text="@string/message_templates_empty"
         android:textAlignment="center"
         android:textColor="@color/text_secondary"
-        android:padding="24dp"
+        android:padding="@dimen/space_6"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView

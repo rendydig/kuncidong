@@ -69,20 +69,20 @@ class MessageTemplateActivity : AppCompatActivity() {
         if (remoteDao.templateCount() > 0) return
         remoteDao.insertTemplate(
             MessageTemplate(
-                title = "Waktu Belajar",
-                text = "Saatnya belajar dulu ya. Selesaikan tugasmu, nanti HP dibuka lagi 😊"
+                title = getString(R.string.template_seed_study_title),
+                text = getString(R.string.template_seed_study_text)
             )
         )
         remoteDao.insertTemplate(
             MessageTemplate(
-                title = "Waktunya Istirahat",
-                text = "Sudah cukup main HP. Istirahat atau baca buku dulu ya."
+                title = getString(R.string.template_seed_rest_title),
+                text = getString(R.string.template_seed_rest_text)
             )
         )
         remoteDao.insertTemplate(
             MessageTemplate(
-                title = "Waktunya Makan",
-                text = "Ayo makan dulu. HP disimpan sebentar ya 🍽️"
+                title = getString(R.string.template_seed_eat_title),
+                text = getString(R.string.template_seed_eat_text)
             )
         )
     }
@@ -92,7 +92,7 @@ class MessageTemplateActivity : AppCompatActivity() {
         val text = etText.text?.toString()?.trim().orEmpty()
 
         if (title.isEmpty() || text.isEmpty()) {
-            Toast.makeText(this, "Judul dan isi pesan harus diisi", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.template_error_required), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -100,7 +100,7 @@ class MessageTemplateActivity : AppCompatActivity() {
             remoteDao.insertTemplate(MessageTemplate(title = title, text = text))
             etTitle.setText("")
             etText.setText("")
-            Toast.makeText(this@MessageTemplateActivity, "Template disimpan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MessageTemplateActivity, getString(R.string.template_saved), Toast.LENGTH_SHORT).show()
             loadTemplates()
         }
     }

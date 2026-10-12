@@ -3,31 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="@dimen/space_5">
 
     <TextView
         android:id="@+id/tvPairDevice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HP Anak"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:text="@string/pair_dialog_title"
+        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
         android:textColor="@color/text_primary"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="@dimen/space_1" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Minta anak membuka “Kode Pairing” di HP-nya, lalu masukkan kode di bawah."
-        android:textSize="12sp"
+        android:text="@string/pair_dialog_instructions"
+        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
         android:textColor="@color/text_secondary"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="@dimen/space_3" />
 
     <EditText
         android:id="@+id/etPairCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Kode 6 digit"
+        android:hint="@string/pair_dialog_code_hint"
         android:inputType="number"
         android:maxLength="6"
         android:letterSpacing="0.3" />
@@ -36,7 +35,7 @@
         android:id="@+id/etPairPin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="PIN rahasia (min. 4 angka)"
+        android:hint="@string/pair_dialog_pin_hint"
         android:inputType="numberPassword"
         android:maxLength="8" />
 
@@ -44,16 +43,16 @@
         android:id="@+id/etParentName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nama Anda (mis. Ayah)"
+        android:hint="@string/pair_dialog_name_hint"
         android:inputType="textPersonName"
         android:maxLines="1" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PIN disimpan sekali dan dipakai untuk membuka mode pesan di HP anak."
-        android:textSize="11sp"
+        android:text="@string/pair_dialog_pin_note"
+        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
         android:textColor="@color/text_secondary"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="@dimen/space_2" />
 
 </LinearLayout>

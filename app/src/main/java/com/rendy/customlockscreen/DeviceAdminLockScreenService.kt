@@ -26,6 +26,7 @@ import android.widget.Toast
 import com.rendy.customlockscreen.data.Question
 import com.rendy.customlockscreen.data.QuestionRepository
 import com.rendy.customlockscreen.kids.KidsSettingsActivity
+import com.rendy.customlockscreen.kids.QuizSpeaker
 import com.rendy.customlockscreen.lock.LockStateStore
 import com.rendy.customlockscreen.net.LockMode
 import com.rendy.customlockscreen.net.RemoteAuthStore
@@ -46,7 +47,6 @@ class DeviceAdminLockScreenService : Service() {
         private const val TAG = "DeviceAdminLockScreen"
         private const val NOTIFICATION_ID = 1
         private const val CHANNEL_ID = "device_admin_lock_screen_channel"
-        private const val DEFAULT_TEXT = "Waktunya istirahat dari HP ya 😊"
         private const val TRIGGER_LOCK_SCREEN_NOW = "com.rendy.customlockscreen.TRIGGER_LOCK_SCREEN_NOW"
     }
 
@@ -59,6 +59,7 @@ class DeviceAdminLockScreenService : Service() {
     private lateinit var lockStateStore: LockStateStore
     private lateinit var authStore: RemoteAuthStore
     private var currentQuestion: Question? = null
+    private var quizSpeaker: QuizSpeaker? = null
     private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     private val screenReceiver = object : BroadcastReceiver() {
@@ -90,6 +91,7 @@ class DeviceAdminLockScreenService : Service() {
         questionRepository = QuestionRepository(this)
         lockStateStore = LockStateStore(this)
         authStore = RemoteAuthStore(this)
+        quizSpeaker = QuizSpeaker(this)
 
         createNotificationChannel()
         registerScreenReceiver()
@@ -214,6 +216,7 @@ class DeviceAdminLockScreenService : Service() {
         tvCategory.text = question.category.displayName
         tvQuestion.text = question.questionText
         tvFeedback.visibility = View.GONE
+        quizSpeaker?.speak(question.questionText)
 
         question.options.forEachIndexed { index, option ->
             answerTextViews.getOrNull(index)?.text = option
@@ -233,27 +236,27 @@ class DeviceAdminLockScreenService : Service() {
         val tvMessage = overlayView.findViewById<TextView>(R.id.tvTextMessage)
         val etPin = overlayView.findViewById<EditText>(R.id.etUnlockPin)
 
-        tvTitle.text = title ?: "Pesan dari Orang Tua"
-        tvMessage.text = text ?: DEFAULT_TEXT
+        tvTitle.text = title ?: getString(R.string.lock_screen_text_title)
+        tvMessage.text = text ?: getString(R.string.lock_screen_text_message_placeholder)
 
         overlayView.findViewById<Button>(R.id.btnPinUnlock).setOnClickListener {
             val pin = etPin.text?.toString()?.trim().orEmpty()
             when {
-                pin.isEmpty() -> showToast("Masukkan PIN dulu")
+                pin.isEmpty() -> showToast(getString(R.string.lock_screen_pin_required))
                 authStore.verifyPin(pin) -> {
                     hideOverlay()
                     lockStateStore.unlock()
-                    showToast("🔓 Terbuka")
+                    showToast(getString(R.string.lock_screen_unlocked_toast))
                 }
                 else -> {
                     etPin.setText("")
-                    showToast("PIN salah")
+                    showToast(getString(R.string.lock_screen_pin_wrong))
                 }
             }
         }
 
         overlayView.findViewById<Button>(R.id.btnWaitParent).setOnClickListener {
-            showToast("Minta orang tua membuka dari HP mereka")
+            showToast(getString(R.string.lock_screen_wait_toast))
         }
 
         return overlayView
@@ -285,9 +288,9 @@ class DeviceAdminLockScreenService : Service() {
         if (isCorrect) {
             hideOverlay()
             lockStateStore.unlock()
-            showToast("✅ Benar! Perangkat terbuka")
+            showToast(getString(R.string.device_unlocked_toast))
         } else {
-            showToast("❌ Salah. Coba lagi!")
+            showToast(getString(R.string.device_incorrect_toast))
             android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
                 hideOverlay()
                 lockAndShow(LockMode.QUIZ, null, null)
@@ -320,10 +323,10 @@ class DeviceAdminLockScreenService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Pengontrol Kunci Layar Edukasi",
+                getString(R.string.service_channel_name),
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Controls device locking for educational purposes"
+                description = getString(R.string.service_channel_description)
                 setShowBadge(false)
             }
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
@@ -338,8 +341,8 @@ class DeviceAdminLockScreenService : Service() {
         )
 
         return Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle("Pengontrol Kunci Layar Edukasi Aktif")
-            .setContentText("Jawab pertanyaan atau masukkan PIN untuk membuka")
+            .setContentTitle(getString(R.string.service_notification_active_title))
+            .setContentText(getString(R.string.service_notification_active_text))
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentIntent(pendingIntent)
             .setOngoing(true)
@@ -348,6 +351,7 @@ class DeviceAdminLockScreenService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        quizSpeaker?.shutdown()
         try {
             unregisterReceiver(screenReceiver)
         } catch (e: Exception) {
