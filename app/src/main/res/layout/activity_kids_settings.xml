@@ -28,59 +28,150 @@
                 android:paddingHorizontal="@dimen/space_sm"
                 app:icon="@drawable/ic_arrow_back"
                 app:iconTint="@color/primary"
+                app:iconGravity="textStart"
                 android:contentDescription="@string/cd_back" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/kids_settings_title"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                android:textColor="@color/primary"
-                android:drawableStart="@drawable/ic_settings"
-                android:drawablePadding="@dimen/space_sm"
-                app:drawableTint="@color/primary" />
+                android:textColor="@color/primary" />
 
         </LinearLayout>
 
-        <!-- Timer -->
+        <!-- Section: Keamanan -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kids_settings_section_security"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+            android:textColor="@color/content_secondary"
+            android:layout_marginBottom="@dimen/space_sm" />
+
+        <!-- PIN Rahasia -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChangePin"
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:padding="@dimen/space_md">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_timer_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/content_primary"
-                    android:drawableStart="@drawable/ic_alarm"
-                    android:drawablePadding="@dimen/space_sm"
-                    app:drawableTint="@color/primary"
-                    android:layout_marginBottom="@dimen/space_sm" />
+                <ImageView
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
+                    android:src="@drawable/ic_key"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_md" />
 
-                <Spinner
-                    android:id="@+id/spinnerTimerInterval"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/spinner_background" />
-
-                <TextView
-                    android:id="@+id/tvTimerStatus"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_timer_status"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                    android:textColor="@color/content_secondary"
-                    android:layout_marginTop="@dimen/space_sm" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kids_settings_pin_title"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                        android:textColor="@color/content_primary" />
+
+                    <TextView
+                        android:id="@+id/tvPinStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kids_settings_pin_unset"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                        android:textColor="@color/content_secondary" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- PIN Aplikasi -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChangeAppPin"
+            style="@style/Widget.Customlockscreen.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:strokeColor="@color/primary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_md">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
+                    android:src="@drawable/ic_lock"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_md" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kids_settings_app_pin_title"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                        android:textColor="@color/content_primary" />
+
+                    <TextView
+                        android:id="@+id/tvAppPinStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kids_settings_app_pin_unset"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                        android:textColor="@color/content_secondary" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
 
             </LinearLayout>
 
@@ -91,7 +182,8 @@
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +195,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/kids_settings_mode_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/content_primary"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="@dimen/space_sm"
@@ -151,12 +243,13 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- PIN -->
+        <!-- Timer -->
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,84 +260,50 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_pin_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                    android:text="@string/kids_settings_timer_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/content_primary"
-                    android:drawableStart="@drawable/ic_key"
+                    android:drawableStart="@drawable/ic_alarm"
                     android:drawablePadding="@dimen/space_sm"
                     app:drawableTint="@color/primary"
-                    android:layout_marginBottom="@dimen/space_xs" />
-
-                <TextView
-                    android:id="@+id/tvPinStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_pin_unset"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                    android:textColor="@color/content_secondary"
                     android:layout_marginBottom="@dimen/space_sm" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnChangePin"
-                    style="@style/Widget.Customlockscreen.Button.Secondary"
+                <Spinner
+                    android:id="@+id/spinnerTimerInterval"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/spinner_background" />
+
+                <TextView
+                    android:id="@+id/tvTimerStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_pin_change" />
+                    android:text="@string/kids_settings_timer_status"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                    android:textColor="@color/content_secondary"
+                    android:layout_marginTop="@dimen/space_sm" />
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- PIN Aplikasi -->
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Customlockscreen.Card"
+        <!-- Section: Perangkat -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/space_md">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_app_pin_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/content_primary"
-                    android:drawableStart="@drawable/ic_lock"
-                    android:drawablePadding="@dimen/space_sm"
-                    app:drawableTint="@color/primary"
-                    android:layout_marginBottom="@dimen/space_xs" />
-
-                <TextView
-                    android:id="@+id/tvAppPinStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_app_pin_unset"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                    android:textColor="@color/content_secondary"
-                    android:layout_marginBottom="@dimen/space_sm" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnChangeAppPin"
-                    style="@style/Widget.Customlockscreen.Button.Secondary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_settings_app_pin_change" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            android:text="@string/kids_settings_section_device"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+            android:textColor="@color/content_secondary"
+            android:layout_marginTop="@dimen/space_sm"
+            android:layout_marginBottom="@dimen/space_sm" />
 
         <!-- Parents -->
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -256,7 +315,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/kids_settings_parents_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                     android:textColor="@color/content_primary"
                     android:drawableStart="@drawable/ic_family_restroom"
                     android:drawablePadding="@dimen/space_sm"
@@ -281,36 +340,119 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Other actions -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnManageQuestions"
-            style="@style/Widget.Customlockscreen.Button.Secondary"
+        <!-- Section: Bantuan & dukungan -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_sm"
-            android:text="@string/kids_settings_manage_questions"
-            app:icon="@drawable/ic_menu_book"
-            app:iconTint="@color/white"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/space_sm" />
+            android:text="@string/kids_settings_section_help"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+            android:textColor="@color/content_secondary"
+            android:layout_marginTop="@dimen/space_sm"
+            android:layout_marginBottom="@dimen/space_sm" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTestLock"
-            style="@style/Widget.Customlockscreen.Button.Secondary"
+        <!-- Manage questions -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardManageQuestions"
+            style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_sm"
-            android:text="@string/kids_settings_test_lock"
-            app:icon="@drawable/ic_science"
-            app:iconTint="@color/white"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/space_sm" />
+            android:layout_marginBottom="@dimen/space_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:strokeColor="@color/primary">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_md">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
+                    android:src="@drawable/ic_menu_book"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_md" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/kids_settings_manage_questions"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                    android:textColor="@color/content_primary" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Test lock -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTestLock"
+            style="@style/Widget.Customlockscreen.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:strokeColor="@color/primary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_md">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
+                    android:src="@drawable/ic_science"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_md" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/kids_settings_test_lock"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                    android:textColor="@color/content_primary" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Standalone system action, isolated from the settings cards -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSwitchRole"
-            style="@style/Widget.Customlockscreen.Button.Text"
+            style="@style/Widget.Customlockscreen.Button.Destructive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_lg"
             android:layout_marginBottom="@dimen/space_lg"
             android:text="@string/kids_settings_switch_role" />
 

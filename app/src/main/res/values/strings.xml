@@ -22,6 +22,9 @@
     <string name="app_lock_unlock">Buka</string>
 
     <!-- Kids home (activity_kids_home) -->
+    <string name="kids_home_section_permissions">Perizinan</string>
+    <string name="kids_home_section_service">Layanan</string>
+    <string name="kids_home_section_connection">Koneksi</string>
     <string name="kids_home_title">HP Anak</string>
     <string name="kids_home_subtitle">Siap menerima kunci dari orang tua</string>
     <string name="kids_home_permissions_title">Setup Izin</string>
@@ -37,7 +40,10 @@
     <string name="kids_home_pairing_subtitle">Tampilkan kode 6 digit untuk HP orang tua</string>
 
     <!-- Kids settings (activity_kids_settings) -->
-    <string name="kids_settings_title">Pengaturan HP Anak</string>
+    <string name="kids_settings_section_security">Keamanan</string>
+    <string name="kids_settings_section_device">Perangkat</string>
+    <string name="kids_settings_section_help">Bantuan &amp; dukungan</string>
+    <string name="kids_settings_title">Pengaturan</string>
     <string name="kids_settings_timer_title">Kunci Otomatis (lokal)</string>
     <string name="kids_settings_timer_status">Timer aktif</string>
     <string name="kids_settings_mode_title">Mode Kunci Lokal</string>
@@ -46,10 +52,8 @@
     <string name="kids_settings_mode_hint">Dipakai saat kunci otomatis berbunyi tanpa perintah orang tua.</string>
     <string name="kids_settings_pin_title">PIN Rahasia (buka kunci layar)</string>
     <string name="kids_settings_pin_unset">Belum diatur</string>
-    <string name="kids_settings_pin_change">Ubah PIN</string>
     <string name="kids_settings_app_pin_title">PIN Aplikasi (buka app)</string>
     <string name="kids_settings_app_pin_unset">Belum diatur - app bisa dibuka bebas</string>
-    <string name="kids_settings_app_pin_change">Buat / Ubah PIN Aplikasi</string>
     <string name="kids_settings_parents_title">Orang Tua Terpasang</string>
     <string name="kids_settings_parents_empty">Belum ada orang tua terpasang.</string>
     <string name="kids_settings_manage_questions">Kelola Paket Soal</string>
@@ -88,7 +92,6 @@
 
     <!-- Parent home (activity_parent_home) -->
     <string name="parent_home_title">Orang Tua</string>
-    <string name="parent_home_subtitle">Kunci HP anak di Wi-Fi yang sama</string>
     <string name="parent_home_scan">Cari</string>
     <string name="parent_home_templates">Template</string>
     <string name="parent_home_scan_hint">Tekan “Cari HP Anak” untuk memulai.</string>

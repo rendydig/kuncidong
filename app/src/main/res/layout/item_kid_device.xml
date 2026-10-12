@@ -12,79 +12,101 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:padding="@dimen/space_md">
 
-        <CheckBox
-            android:id="@+id/cbSelect"
-            style="@style/Widget.Customlockscreen.CheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_xs" />
-
+        <!-- Line 1: selection, identity, remove -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:gravity="top">
 
-            <TextView
-                android:id="@+id/tvKidName"
+            <CheckBox
+                android:id="@+id/cbSelect"
+                style="@style/Widget.Customlockscreen.CheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kid_device_name_placeholder"
-                android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                android:textColor="@color/content_primary" />
+                android:gravity="top"
+                android:layout_marginEnd="@dimen/space_sm" />
 
-            <TextView
-                android:id="@+id/tvKidAddress"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/kid_device_address_placeholder"
-                android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                android:textColor="@color/content_secondary" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvKidStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kid_device_status_paired"
-                android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                android:textStyle="bold"
-                android:textColor="@color/success_text" />
+                <TextView
+                    android:id="@+id/tvKidName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kid_device_name_placeholder"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                    android:textColor="@color/content_primary" />
+
+                <TextView
+                    android:id="@+id/tvKidAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kid_device_address_placeholder"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                    android:textColor="@color/content_secondary" />
+
+                <TextView
+                    android:id="@+id/tvKidStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:text="@string/kid_device_status_paired"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+                    android:textStyle="bold"
+                    android:textColor="@color/success_text" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnRemove"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/space_sm"
+                android:src="@drawable/ic_close"
+                android:padding="@dimen/space_sm"
+                android:scaleType="centerInside"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="@color/destructive"
+                android:contentDescription="@string/cd_remove_device" />
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLock"
-            style="@style/Widget.Customlockscreen.Button.Secondary"
-            android:layout_width="wrap_content"
+        <!-- Line 2: row actions -->
+        <LinearLayout
+            android:id="@+id/actionsRow"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minWidth="0dp"
-            android:paddingHorizontal="@dimen/space_md"
-            android:text="@string/kid_device_lock"
-            android:textSize="@dimen/text_label" />
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_md">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUnlock"
-            style="@style/Widget.Customlockscreen.Button.Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="0dp"
-            android:paddingHorizontal="@dimen/space_sm"
-            android:text="@string/kid_device_unlock"
-            android:textSize="@dimen/text_label" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLock"
+                style="@style/Widget.Customlockscreen.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="40dp"
+                android:text="@string/kid_device_lock"
+                app:iconPadding="@dimen/space_sm" />
 
-        <ImageView
-            android:id="@+id/btnRemove"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_close"
-            android:padding="@dimen/space_sm"
-            android:scaleType="fitCenter"
-            app:tint="@color/destructive"
-            android:contentDescription="@string/cd_remove_device" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUnlock"
+                style="@style/Widget.Customlockscreen.Button.Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/space_sm"
+                android:minHeight="40dp"
+                android:text="@string/kid_device_unlock" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

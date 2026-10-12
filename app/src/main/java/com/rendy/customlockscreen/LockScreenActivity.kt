@@ -18,8 +18,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.google.android.material.card.MaterialCardView
 import androidx.lifecycle.lifecycleScope
 import com.rendy.customlockscreen.data.Question
 import com.rendy.customlockscreen.data.QuestionRepository
@@ -49,7 +49,8 @@ class LockScreenActivity : AppCompatActivity() {
     private var tvQuestion: TextView? = null
     private var tvFeedback: TextView? = null
     private var tvFeedbackIcon: ImageView? = null
-    private var answerButtons: List<CardView> = emptyList()
+    private var feedbackCard: MaterialCardView? = null
+    private var answerButtons: List<MaterialCardView> = emptyList()
     private var answerTextViews: List<TextView> = emptyList()
     private var currentQuestion: Question? = null
     private var quizSpeaker: QuizSpeaker? = null
@@ -156,11 +157,12 @@ class LockScreenActivity : AppCompatActivity() {
         tvQuestion = findViewById(R.id.tvQuestion)
         tvFeedback = findViewById(R.id.tvFeedback)
         tvFeedbackIcon = findViewById(R.id.tvFeedbackIcon)
+        feedbackCard = findViewById(R.id.feedbackCard)
 
-        val btnAnswer1 = findViewById<CardView>(R.id.btnAnswer1)
-        val btnAnswer2 = findViewById<CardView>(R.id.btnAnswer2)
-        val btnAnswer3 = findViewById<CardView>(R.id.btnAnswer3)
-        val btnAnswer4 = findViewById<CardView>(R.id.btnAnswer4)
+        val btnAnswer1 = findViewById<MaterialCardView>(R.id.btnAnswer1)
+        val btnAnswer2 = findViewById<MaterialCardView>(R.id.btnAnswer2)
+        val btnAnswer3 = findViewById<MaterialCardView>(R.id.btnAnswer3)
+        val btnAnswer4 = findViewById<MaterialCardView>(R.id.btnAnswer4)
 
         val tvAnswer1 = findViewById<TextView>(R.id.tvAnswer1)
         val tvAnswer2 = findViewById<TextView>(R.id.tvAnswer2)
@@ -208,10 +210,14 @@ class LockScreenActivity : AppCompatActivity() {
 
         answerButtons.forEachIndexed { index, button ->
             when {
-                index == question.correctAnswerIndex ->
+                index == question.correctAnswerIndex -> {
                     button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.success))
-                index == selectedIndex && !isCorrect ->
+                    button.setStrokeColor(ContextCompat.getColor(this, R.color.success))
+                }
+                index == selectedIndex && !isCorrect -> {
                     button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.error))
+                    button.setStrokeColor(ContextCompat.getColor(this, R.color.error))
+                }
             }
         }
 
@@ -221,6 +227,7 @@ class LockScreenActivity : AppCompatActivity() {
             tvFeedbackIcon?.setImageResource(R.drawable.ic_celebration)
             tvFeedbackIcon?.imageTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(this, R.color.success))
+            feedbackCard?.setStrokeColor(ContextCompat.getColor(this, R.color.success))
             tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
                 lockStateStore.unlock()
@@ -232,6 +239,7 @@ class LockScreenActivity : AppCompatActivity() {
             tvFeedbackIcon?.setImageResource(R.drawable.ic_psychology_alt)
             tvFeedbackIcon?.imageTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(this, R.color.error))
+            feedbackCard?.setStrokeColor(ContextCompat.getColor(this, R.color.error))
             tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({ loadNewQuestion() }, 2000)
         }
@@ -242,6 +250,7 @@ class LockScreenActivity : AppCompatActivity() {
             button.isClickable = true
             button.alpha = 1.0f
             button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.answer_tile))
+            button.setStrokeColor(ContextCompat.getColor(this, R.color.primary))
         }
     }
 

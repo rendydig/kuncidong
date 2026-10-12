@@ -1,7 +1,9 @@
 package com.rendy.customlockscreen.data
 
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import com.rendy.customlockscreen.R
 
 /**
@@ -27,5 +29,17 @@ object CategoryVisuals {
         "SEJARAH" -> R.drawable.ic_history_edu
         "BAHASA" -> R.drawable.ic_menu_book
         else -> R.drawable.ic_help
+    }
+
+    /**
+     * Puts the category icon on a `text_xs` badge at the `icon_sm` size, so the
+     * icon matches the badge text instead of towering over it at its 24dp
+     * intrinsic size. The badge's tint comes from `app:drawableTint` in the layout.
+     */
+    fun applyBadgeIcon(textView: TextView, category: String) {
+        val icon = ContextCompat.getDrawable(textView.context, iconRes(category)) ?: return
+        val size = textView.resources.getDimensionPixelSize(R.dimen.icon_sm)
+        icon.setBounds(0, 0, size, size)
+        textView.setCompoundDrawablesRelative(icon, null, null, null)
     }
 }

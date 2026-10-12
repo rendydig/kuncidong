@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +56,16 @@ class ParentHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (AppLockGate.requireUnlock(this, ParentHomeActivity::class.java)) return
         setContentView(R.layout.activity_parent_home)
+
+        // The app runs edge-to-edge (targetSdk 36): lift the bottom action above the navigation bar.
+        val root = findViewById<View>(R.id.root)
+        val basePaddingBottom = root.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            view.updatePadding(
+                bottom = basePaddingBottom + insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            )
+            insets
+        }
 
         deviceStore = ParentDeviceStore(this)
         client = RemoteControlClient()

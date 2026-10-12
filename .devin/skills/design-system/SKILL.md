@@ -27,6 +27,10 @@ token tables, component styles, and documented exceptions). Do not skip this eve
 the exception list is what keeps the audit from flagging the gradient, the launcher icon or the fifth
 category hue.
 
+For any settings/utility screen, also read [references/patterns.md](references/patterns.md) — the
+recurring screen shapes (inset groups, section headers, chevron rows, action isolation) a screen is
+expected to reuse instead of inventing its own structure.
+
 ## Step 1 — Scope
 
 Decide what to audit, and say so in the report:
@@ -88,6 +92,21 @@ file and line for each finding.
 - Every icon and image has a `contentDescription`, or `importantForAccessibility="no"` when it is
   decorative and adjacent text already carries the meaning.
 
+**Settings pattern** (settings/utility screens — see [references/patterns.md](references/patterns.md))
+- Related settings are grouped into inset cards; no card touches the screen edge, and the page has a
+  single gutter (`@dimen/space_md`) owned by the scroll container.
+- Each section opens with a header `TextView` using `TextAppearance.Customlockscreen.Label` in
+  `content_secondary` (normal case, no icon, no accent colour), with `space_sm` above/below.
+- A row that navigates (a dialog, a drill-down, another activity) is a whole clickable card —
+  `android:clickable`/`focusable` + `?android:attr/selectableItemBackground` — with a trailing
+  `ic_chevron_right` (`icon_lg`, tinted, `importantForAccessibility="no"`). A chevron on a card that
+  does not navigate, or a navigational card without one, is a finding.
+- Destructive/system actions sit outside the cards at the bottom of the screen, full width, using
+  `Widget.Customlockscreen.Button.Destructive` — never nested inside a settings card.
+- Separation is card boundaries + `space_md`; ad-hoc dividers, rules or heavy lines are a finding.
+- Inline single-value pickers (a `Spinner`, a `RadioGroup`) may stay inside their own card instead of
+  drilling down — this is a documented deviation, not a finding.
+
 **Theme**
 - The app is **light-only by design**. There must be no `res/values-night/` directory, and the base
   theme must be a `Theme.Material3.Light.*` parent with `android:forceDarkAllowed=false`.
@@ -144,4 +163,6 @@ shape and name the 2-3 strongest polish items instead — never pad the list.
   Android equivalent; see the translation notes.
 - `Widget.Customlockscreen.Button.Destructive` and the unused palette roles — the system defines the
   full BounceBox set; a variant is only a finding if it has no BounceBox counterpart.
+- The section headers, chevron rows and isolated destructive action described in
+  [references/patterns.md](references/patterns.md) — they are the system, not a deviation.
 - Indonesian copy, and the parent/kid dual-persona split.

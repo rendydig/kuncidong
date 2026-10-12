@@ -12,72 +12,79 @@
         android:orientation="vertical"
         android:padding="@dimen/space_md">
 
-        <!-- Header -->
+        <!-- Header: kid icon on the left, title, gear flush to the right edge (same row as parent). -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:layout_marginBottom="@dimen/space_md">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_xl"
-                        android:layout_height="@dimen/icon_xl"
-                        android:src="@drawable/ic_child_care"
-                        app:tint="@color/primary"
-                        android:contentDescription="@null"
-                        android:importantForAccessibility="no"
-                        android:layout_marginEnd="@dimen/space_sm" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/kids_home_title"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Display"
-                        android:textColor="@color/primary" />
-
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_child_care"
+                    app:tint="@color/primary"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_marginEnd="@dimen/space_md" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/kids_home_title"
+                    android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
+                    android:textColor="@color/primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnKidsSettings"
+                    style="@style/Widget.Customlockscreen.Button.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/kids_home_subtitle"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                    android:textColor="@color/content_secondary" />
+                    android:minWidth="0dp"
+                    android:insetRight="0dp"
+                    android:paddingStart="@dimen/space_sm"
+                    android:paddingEnd="0dp"
+                    app:icon="@drawable/ic_settings"
+                    app:iconSize="@dimen/icon_lg"
+                    app:iconTint="@color/primary"
+                    app:iconGravity="textStart"
+                    android:contentDescription="@string/cd_settings" />
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnKidsSettings"
-                style="@style/Widget.Customlockscreen.Button.Text"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="0dp"
-                android:paddingHorizontal="@dimen/space_sm"
-                app:icon="@drawable/ic_settings"
-                app:iconTint="@color/primary"
-                android:contentDescription="@string/cd_settings" />
+                android:gravity="center"
+                android:text="@string/kids_home_subtitle"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
+                android:textColor="@color/content_secondary" />
 
         </LinearLayout>
 
         <!-- Permissions -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kids_home_section_permissions"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+            android:textColor="@color/content_secondary"
+            android:layout_marginBottom="@dimen/space_sm" />
+
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,21 +93,13 @@
                 android:padding="@dimen/space_md">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_home_permissions_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/primary"
-                    android:layout_marginBottom="@dimen/space_sm" />
-
-                <TextView
                     android:id="@+id/tvPermissionProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/kids_home_permission_progress"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                    android:textStyle="bold"
-                    android:textColor="@color/warning_text"
+                    android:textStyle="normal"
+                    android:textColor="@color/primary"
                     android:paddingVertical="@dimen/space_xs"
                     android:layout_marginBottom="@dimen/space_sm" />
 
@@ -111,8 +110,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/space_md"
-                    android:background="@drawable/permission_item_background"
+                    android:paddingVertical="@dimen/space_md"
                     android:layout_marginBottom="@dimen/space_sm"
                     android:clickable="true"
                     android:focusable="true"
@@ -132,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/kids_home_admin"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/content_primary" />
 
                     <Switch
@@ -151,8 +149,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/space_md"
-                    android:background="@drawable/permission_item_background"
+                    android:paddingVertical="@dimen/space_md"
                     android:layout_marginBottom="@dimen/space_sm"
                     android:clickable="true"
                     android:focusable="true"
@@ -172,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/kids_home_overlay"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/content_primary" />
 
                     <Switch
@@ -191,8 +188,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/space_md"
-                    android:background="@drawable/permission_item_background"
+                    android:paddingVertical="@dimen/space_md"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -211,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/kids_home_accessibility"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/content_primary" />
 
                     <Switch
@@ -228,6 +224,15 @@
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Service toggle -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kids_home_section_service"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+            android:textColor="@color/content_secondary"
+            android:layout_marginTop="@dimen/space_sm"
+            android:layout_marginBottom="@dimen/space_sm" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnStartService"
             style="@style/Widget.Customlockscreen.Card"
@@ -263,15 +268,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/kids_home_service_title"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                        android:textColor="@color/content_primary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/kids_home_service_subtitle"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                         android:textColor="@color/content_secondary" />
@@ -289,24 +288,18 @@
 
         <!-- Status -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardStatus"
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            app:strokeColor="@color/error">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/space_md">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kids_home_status_title"
-                    android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/content_primary"
-                    android:layout_marginBottom="@dimen/space_xs" />
 
                 <TextView
                     android:id="@+id/tvStatus"
@@ -322,6 +315,15 @@
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Pairing -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kids_home_section_connection"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
+            android:textColor="@color/content_secondary"
+            android:layout_marginTop="@dimen/space_sm"
+            android:layout_marginBottom="@dimen/space_sm" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnPairing"
             style="@style/Widget.Customlockscreen.Card"
@@ -331,7 +333,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/answer_tile">
+            app:cardBackgroundColor="@color/answer_tile"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -360,7 +363,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/kids_home_pairing_title"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                        android:textColor="@color/primary" />
+                        android:textColor="@color/content_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"

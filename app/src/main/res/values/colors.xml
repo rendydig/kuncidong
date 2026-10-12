@@ -15,11 +15,15 @@
     <color name="primary_alpha_15">#26FF6B6B</color>
     <color name="primary_alpha_20">#33FF6B6B</color>
     <color name="primary_alpha_40">#66FF6B6B</color>
+    <!-- Coral copy on a coral tint (4.94:1 on primary_container) -->
+    <color name="primary_text">#B03A3A</color>
 
     <!-- Brand: teal secondary -->
     <color name="secondary">#4ECDC4</color>
     <color name="secondary_dark">#3DBEB5</color>
     <color name="secondary_container">#E4F8F6</color>
+    <!-- Teal copy on a teal tint (4.66:1 on secondary_container) -->
+    <color name="secondary_text">#1F7A72</color>
 
     <!-- Brand: sunshine tertiary (rewards, stars, celebration) -->
     <color name="tertiary">#FFE66D</color>
@@ -30,7 +34,7 @@
     <color name="success">#4ECDC4</color>
     <color name="success_dark">#3DBEB5</color>
     <color name="success_container">#D1FAE5</color>
-    <color name="success_text">#166534</color>
+    <color name="success_text">#047857</color>
 
     <color name="warning">#FFE66D</color>
     <color name="warning_container">#FEF9C3</color>

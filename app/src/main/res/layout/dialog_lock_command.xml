@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/space_lg">
+    android:padding="@dimen/space_md">
 
     <TextView
         android:id="@+id/tvLockTarget"
@@ -19,7 +19,9 @@
         android:id="@+id/radioMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:layout_marginBottom="@dimen/space_md">
 
         <RadioButton
             android:id="@+id/rbQuiz"
@@ -27,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="@dimen/space_sm"
             android:checked="true"
             android:text="@string/lock_dialog_mode_quiz"
             android:drawableStart="@drawable/ic_psychology"
@@ -51,30 +54,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/space_sm">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lock_dialog_templates_label"
             android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-            android:textColor="@color/content_secondary" />
+            android:textColor="@color/content_secondary"
+            android:layout_marginBottom="@dimen/space_sm" />
 
         <Spinner
             android:id="@+id/spinnerTemplate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/spinner_background"
-            android:layout_marginTop="@dimen/space_sm"
-            android:layout_marginBottom="@dimen/space_sm" />
+            android:layout_marginBottom="@dimen/space_md" />
 
         <EditText
             android:id="@+id/etTitle"
             style="@style/Widget.Customlockscreen.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_sm"
+            android:layout_marginBottom="@dimen/space_md"
             android:hint="@string/lock_dialog_title_hint"
             android:inputType="text"
             android:maxLines="1" />

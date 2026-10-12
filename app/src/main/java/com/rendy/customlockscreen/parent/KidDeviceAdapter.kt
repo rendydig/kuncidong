@@ -63,6 +63,7 @@ class KidDeviceAdapter(
         private val tvName: TextView = itemView.findViewById(R.id.tvKidName)
         private val tvAddress: TextView = itemView.findViewById(R.id.tvKidAddress)
         private val tvStatus: TextView = itemView.findViewById(R.id.tvKidStatus)
+        private val actionsRow: View = itemView.findViewById(R.id.actionsRow)
         private val btnLock: MaterialButton = itemView.findViewById(R.id.btnLock)
         private val btnUnlock: MaterialButton = itemView.findViewById(R.id.btnUnlock)
         private val btnRemove: ImageView = itemView.findViewById(R.id.btnRemove)
@@ -85,8 +86,7 @@ class KidDeviceAdapter(
                 )
             )
 
-            btnLock.visibility = if (isPaired) View.VISIBLE else View.GONE
-            btnUnlock.visibility = if (isPaired) View.VISIBLE else View.GONE
+            actionsRow.visibility = if (isPaired) View.VISIBLE else View.GONE
             btnRemove.visibility = if (isPaired) View.VISIBLE else View.GONE
 
             cbSelect.setOnCheckedChangeListener(null)

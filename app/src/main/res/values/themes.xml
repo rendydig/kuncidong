@@ -104,6 +104,8 @@
     </style>
 
     <style name="Widget.Customlockscreen.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">@dimen/text_body</item>
         <item name="android:textAllCaps">false</item>
         <item name="cornerRadius">@dimen/radius_pill</item>
         <item name="android:textColor">@color/primary</item>

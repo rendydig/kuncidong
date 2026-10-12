@@ -28,6 +28,7 @@
                 android:paddingHorizontal="@dimen/space_sm"
                 app:icon="@drawable/ic_arrow_back"
                 app:iconTint="@color/primary"
+                app:iconGravity="textStart"
                 android:contentDescription="@string/cd_back" />
 
             <TextView

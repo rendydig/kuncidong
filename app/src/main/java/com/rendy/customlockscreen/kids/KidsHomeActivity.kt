@@ -40,6 +40,7 @@ class KidsHomeActivity : AppCompatActivity() {
     private lateinit var btnOverlayPermission: LinearLayout
     private lateinit var btnAccessibilityService: LinearLayout
     private lateinit var btnStartService: MaterialCardView
+    private lateinit var cardStatus: MaterialCardView
     private lateinit var tvStatus: TextView
     private lateinit var tvPermissionProgress: TextView
     private lateinit var switchAdmin: Switch
@@ -92,6 +93,7 @@ class KidsHomeActivity : AppCompatActivity() {
         btnOverlayPermission = findViewById(R.id.btnOverlayPermission)
         btnAccessibilityService = findViewById(R.id.btnAccessibilityService)
         btnStartService = findViewById(R.id.btnStartService)
+        cardStatus = findViewById(R.id.cardStatus)
         tvStatus = findViewById(R.id.tvStatus)
         tvPermissionProgress = findViewById(R.id.tvPermissionProgress)
         switchAdmin = findViewById(R.id.switchAdmin)
@@ -266,6 +268,13 @@ class KidsHomeActivity : AppCompatActivity() {
         tvStatus.setTextColor(statusColor)
         tvStatus.compoundDrawableTintList = ColorStateList.valueOf(statusColor)
         tvStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(statusIconRes, 0, 0, 0)
+
+        val statusStrokeColorRes = when (statusColorRes) {
+            R.color.success_text -> R.color.success
+            R.color.warning_text -> R.color.warning
+            else -> R.color.error
+        }
+        cardStatus.setStrokeColor(ContextCompat.getColor(this, statusStrokeColorRes))
 
         switchLockService.isChecked = lockRunning || remoteRunning
     }

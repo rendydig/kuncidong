@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/space_lg">
+    android:padding="@dimen/space_md">
 
     <TextView
         android:id="@+id/tvPairDevice"
@@ -27,7 +27,7 @@
         style="@style/Widget.Customlockscreen.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_sm"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/pair_dialog_code_hint"
         android:inputType="number"
         android:maxLength="6"
@@ -38,7 +38,7 @@
         style="@style/Widget.Customlockscreen.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_sm"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/pair_dialog_pin_hint"
         android:inputType="numberPassword"
         android:maxLength="8" />
@@ -48,6 +48,7 @@
         style="@style/Widget.Customlockscreen.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/pair_dialog_name_hint"
         android:inputType="textPersonName"
         android:maxLines="1" />
@@ -57,7 +58,6 @@
         android:layout_height="wrap_content"
         android:text="@string/pair_dialog_pin_note"
         android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-        android:textColor="@color/content_secondary"
-        android:layout_marginTop="@dimen/space_sm" />
+        android:textColor="@color/content_secondary" />
 
 </LinearLayout>

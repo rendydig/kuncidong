@@ -43,10 +43,11 @@
 
         <!-- Question Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Customlockscreen.Card.Elevated"
+            style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_lg">
+            android:layout_marginBottom="@dimen/space_lg"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,10 +101,11 @@
 
         <!-- Answer Buttons Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Customlockscreen.Card.Elevated"
+            style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_lg">
+            android:layout_marginBottom="@dimen/space_lg"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +140,9 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="@dimen/radius_md"
                         app:cardElevation="@dimen/elevation_sm"
-                        app:cardBackgroundColor="@color/answer_tile">
+                        app:cardBackgroundColor="@color/answer_tile"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
 
                         <TextView
                             android:id="@+id/tvAnswer1"
@@ -162,7 +166,9 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="@dimen/radius_md"
                         app:cardElevation="@dimen/elevation_sm"
-                        app:cardBackgroundColor="@color/answer_tile">
+                        app:cardBackgroundColor="@color/answer_tile"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
 
                         <TextView
                             android:id="@+id/tvAnswer2"
@@ -193,7 +199,9 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="@dimen/radius_md"
                         app:cardElevation="@dimen/elevation_sm"
-                        app:cardBackgroundColor="@color/answer_tile">
+                        app:cardBackgroundColor="@color/answer_tile"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
 
                         <TextView
                             android:id="@+id/tvAnswer3"
@@ -217,7 +225,9 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="@dimen/radius_md"
                         app:cardElevation="@dimen/elevation_sm"
-                        app:cardBackgroundColor="@color/answer_tile">
+                        app:cardBackgroundColor="@color/answer_tile"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
 
                         <TextView
                             android:id="@+id/tvAnswer4"

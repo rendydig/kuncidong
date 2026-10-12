@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.rendy.customlockscreen.LockScreenActivity
 import com.rendy.customlockscreen.LockScreenTimerService
 import com.rendy.customlockscreen.QuestionManagerActivity
@@ -64,14 +65,14 @@ class KidsSettingsActivity : AppCompatActivity() {
         rbDefaultText = findViewById(R.id.rbDefaultText)
 
         findViewById<MaterialButton>(R.id.btnBack).setOnClickListener { finish() }
-        findViewById<MaterialButton>(R.id.btnChangePin).setOnClickListener { showChangePinDialog() }
-        findViewById<MaterialButton>(R.id.btnChangeAppPin).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.cardChangePin).setOnClickListener { showChangePinDialog() }
+        findViewById<MaterialCardView>(R.id.cardChangeAppPin).setOnClickListener {
             AppPinDialog.show(this) { refreshAppPinStatus() }
         }
-        findViewById<MaterialButton>(R.id.btnManageQuestions).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.cardManageQuestions).setOnClickListener {
             startActivity(Intent(this, QuestionManagerActivity::class.java))
         }
-        findViewById<MaterialButton>(R.id.btnTestLock).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.cardTestLock).setOnClickListener {
             startActivity(Intent(this, LockScreenActivity::class.java))
         }
         findViewById<MaterialButton>(R.id.btnSwitchRole).setOnClickListener {

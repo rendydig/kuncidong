@@ -11,36 +11,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/space_lg"
-        android:gravity="center_horizontal">
-
-        <ImageView
-            android:layout_width="@dimen/icon_hero"
-            android:layout_height="@dimen/icon_hero"
-            android:src="@drawable/ic_lock"
-            app:tint="@color/primary"
-            android:contentDescription="@null"
-            android:importantForAccessibility="no"
-            android:layout_marginTop="@dimen/space_lg" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/role_title"
-            android:textAppearance="@style/TextAppearance.Customlockscreen.Display"
-            android:textColor="@color/primary"
-            android:textAlignment="center"
-            android:layout_marginTop="@dimen/space_sm"
-            android:layout_marginBottom="@dimen/space_sm" />
+        android:gravity="center">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/role_subtitle"
-            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-            android:textStyle="normal"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
             android:textColor="@color/content_secondary"
             android:textAlignment="center"
-            android:layout_marginBottom="@dimen/space_lg" />
+            android:layout_marginBottom="@dimen/space_xl" />
 
         <!-- Parent role -->
         <com.google.android.material.card.MaterialCardView
@@ -48,10 +28,12 @@
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md"
+            android:layout_marginBottom="@dimen/space_lg"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/primary_container"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,15 +61,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/role_parent"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                        android:textColor="@color/primary" />
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                        android:textColor="@color/content_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/role_parent_desc"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                        android:textColor="@color/content_secondary" />
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Xs"
+                        android:textStyle="normal"
+                        android:textColor="@color/primary_text"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="-3dp" />
 
                 </LinearLayout>
 
@@ -109,10 +94,11 @@
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/secondary_container"
+            app:strokeColor="@color/secondary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,7 +111,7 @@
                     android:layout_width="@dimen/icon_xl"
                     android:layout_height="@dimen/icon_xl"
                     android:src="@drawable/ic_child_care"
-                    app:tint="@color/primary"
+                    app:tint="@color/secondary"
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:layout_marginEnd="@dimen/space_md" />
@@ -140,15 +126,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/role_kids"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                        android:textColor="@color/primary" />
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                        android:textColor="@color/content_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/role_kids_desc"
-                        android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                        android:textColor="@color/content_secondary" />
+                        android:textAppearance="@style/TextAppearance.Customlockscreen.Xs"
+                        android:textStyle="normal"
+                        android:textColor="@color/secondary_text"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="-3dp" />
 
                 </LinearLayout>
 
@@ -156,7 +145,7 @@
                     android:layout_width="@dimen/icon_lg"
                     android:layout_height="@dimen/icon_lg"
                     android:src="@drawable/ic_chevron_right"
-                    app:tint="@color/primary"
+                    app:tint="@color/secondary"
                     android:contentDescription="@null"
                     android:importantForAccessibility="no" />
 
@@ -168,10 +157,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/role_footer"
-            android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
+            android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
             android:textColor="@color/content_secondary"
             android:textAlignment="center"
-            android:layout_marginTop="@dimen/space_sm" />
+            android:layout_marginTop="@dimen/space_lg" />
 
     </LinearLayout>
 

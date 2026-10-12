@@ -54,9 +54,7 @@ class QuestionPackAdapter(
                 questionPack.lastUpdated
             )
             tvPackCategory.text = questionPack.category
-            tvPackCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                CategoryVisuals.iconRes(questionPack.category), 0, 0, 0
-            )
+            CategoryVisuals.applyBadgeIcon(tvPackCategory, questionPack.category)
             
             btnDownload.setOnClickListener {
                 onDownloadClick(questionPack)

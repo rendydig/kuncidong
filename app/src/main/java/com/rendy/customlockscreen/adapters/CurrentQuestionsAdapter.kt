@@ -43,9 +43,7 @@ class CurrentQuestionsAdapter : RecyclerView.Adapter<CurrentQuestionsAdapter.Que
             tvQuestionNumber.text = context.getString(R.string.question_item_number_format, number)
             tvQuestionText.text = question.questionText
             tvQuestionCategory.text = question.category.name
-            tvQuestionCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                CategoryVisuals.iconRes(question.category.name), 0, 0, 0
-            )
+            CategoryVisuals.applyBadgeIcon(tvQuestionCategory, question.category.name)
             
             val correctAnswer = if (question.correctAnswerIndex < question.options.size) {
                 question.options[question.correctAnswerIndex]

@@ -27,15 +27,17 @@ a value that is not on this page, add a token here rather than hardcoding it.
 | `primary` | `#FF6B6B` | Color Primary (coral) | Primary actions, brand accents |
 | `primary_dark` | `#E85D5D` | Primary hover | Pressed primary |
 | `primary_container` | `#FFE3E3` | coral ~20% | Primary tint fills |
+| `primary_text` | `#B03A3A` | coral darkened | Brand copy on a coral tint (4.94:1 on `primary_container`) |
 | `primary_alpha_15` / `_20` / `_40` | `#26/33/66FF6B6B` | coral 15/20/40% | Focus rings, chip borders |
 | `secondary` | `#4ECDC4` | Color Secondary (teal) | Navigation, supporting accents, checked state |
 | `secondary_dark` | `#3DBEB5` | Secondary hover | Pressed secondary |
 | `secondary_container` | `#E4F8F6` | teal ~15% | Secondary tint fills |
+| `secondary_text` | `#1F7A72` | teal darkened | Brand copy on a teal tint (4.66:1 on `secondary_container`) |
 | `tertiary` | `#FFE66D` | Color Tertiary (sunshine) | Rewards, stars, celebration |
 | `tertiary_dark` | `#F5D84A` | — | Pressed tertiary (derived) |
 | `tertiary_container` | `#FFF9DB` | — | Tertiary tint fills (derived) |
 | `success` | `#4ECDC4` | Color Success | Correct / completed fills |
-| `success_container` / `success_text` | `#D1FAE5` / `#166534` | Status chip success | Success status chip |
+| `success_container` / `success_text` | `#D1FAE5` / `#047857` | Status chip success | Success status chip |
 | `warning` | `#FFE66D` | Color Warning | Hints, gentle alerts (as a fill) |
 | `warning_container` / `warning_text` | `#FEF9C3` / `#854D0E` | Status chip warning | Warning chip + warning copy |
 | `error` | `#FF6B6B` | Color Error | Wrong answer fills |
@@ -69,6 +71,11 @@ finding if it has neither a reference nor a BounceBox role.
 **Text on colour.** Coral, teal and yellow fills are light, so white text on them fails contrast. Use
 dark `content_primary` text on brand-coloured fills (answer tiles, category badges), and the `*_text`
 tokens (`success_text`, `warning_text`, `error_text`) for coloured status copy on white.
+
+When copy has to stay brand-coloured on a brand tint — a card subtitle, say — use `primary_text` /
+`secondary_text`. The raw `primary` / `secondary` on their own container is only ~2:1 and reads as
+invisible; the `*_dark` variants are ~2.8:1 / ~2.1:1, still short of AA. `primary_text` / `secondary_text`
+keep the coral and teal hues and clear 4.5:1 on `primary_container` / `secondary_container`.
 
 ## Type scale (`dimens.xml` → `TextAppearance.Customlockscreen.*`)
 
@@ -135,8 +142,8 @@ Elevation — `elevation_sm` 2dp, `elevation_md` 4dp, `elevation_lg` 8dp, mappin
 
 - **Buttons** — `Widget.Customlockscreen.Button.Primary` (coral), `.Secondary` (teal), `.Ghost`
   (transparent + 3dp coral border), `.Destructive` (#EF4444), and `.Text` (borderless text button).
-  All are pill-shaped with a 48dp minimum height. `.Destructive` is defined for completeness; the
-  app's delete/remove actions are icon buttons, so it is not referenced by a screen yet.
+  All are pill-shaped with a 48dp minimum height. `.Destructive` is used by the kids-settings
+  "Ganti Peran HP ini" action, which sits isolated below the settings cards.
 - **Cards** — `Widget.Customlockscreen.Card` (white, 2dp `card_border`, 24dp radius, elevation_sm) and
   `.Card.Elevated` (no border, elevation_md).
 - **Inputs** — `Widget.Customlockscreen.EditText`, backed by `@drawable/edittext_background` (default
@@ -147,6 +154,16 @@ Elevation — `elevation_sm` 2dp, `elevation_md` 4dp, `elevation_lg` 8dp, mappin
   (`tooltip_bg`, 16dp radius).
 - **Badges** — `@drawable/category_badge` (pill, tinted per category by the adapters) and
   `@drawable/number_badge` (pill, `primary_container` + `primary` border).
+
+## Settings screen pattern
+
+Settings and utility screens (`activity_kids_settings.xml`, `activity_kids_home.xml`) follow one
+recurring structure — inset cards grouped under quiet section headers, chevron rows for anything that
+navigates, and destructive/system actions isolated below the cards. Section headers are
+`TextAppearance.Customlockscreen.Label` in `content_secondary`; rows are whole clickable cards with a
+trailing `ic_chevron_right`; separation is card boundaries plus `space_md`, never dividers. Full
+anatomy, including the deliberate exception that keeps inline `Spinner`/`RadioGroup` pickers inside
+their own card, is in [patterns.md](patterns.md).
 
 ## Strings
 
@@ -176,6 +193,10 @@ BounceBox is a web system; these are the honest translations:
 - The `ic_*.xml` Material Symbols vectors use `@android:color/white` as `android:fillColor` under an
   `android:tint`; the tint masks it, so they never render as white.
 - The adaptive launcher icon uses the raster art in `res/mipmap-*/ic_launcher_*.webp`.
+- `success_text` (`#047857`, emerald-700) rather than BounceBox's status-chip green `#166534`: the
+  forest green read as generic "corporate success" against the coral/teal/sunshine palette, so
+  success copy is pulled toward BounceBox's teal success identity (`secondary` / `success`) while
+  keeping a green reading. Contrast on white is 5.5:1 (WCAG AA).
 - `category_language` (`#A78BFA`) is a fifth hue added beyond BounceBox's four brand colours, because
   the app has five question categories.
 - `OverlayLockScreenService` builds its view in code and uses pixel margins rather than the dp scale;

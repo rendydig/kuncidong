@@ -35,10 +35,11 @@
             android:layout_marginBottom="@dimen/space_md" />
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Customlockscreen.Card.Elevated"
+            style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_lg">
+            android:layout_marginBottom="@dimen/space_lg"
+            app:strokeColor="@color/primary">
 
             <TextView
                 android:id="@+id/tvTextMessage"
@@ -58,7 +59,8 @@
             style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_md">
+            android:layout_marginBottom="@dimen/space_md"
+            app:strokeColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
