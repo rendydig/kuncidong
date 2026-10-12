@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Type scale: five roles used for all readable text. -->
-    <dimen name="text_display">28sp</dimen>
-    <dimen name="text_title">20sp</dimen>
-    <dimen name="text_heading">16sp</dimen>
-    <dimen name="text_body">14sp</dimen>
-    <dimen name="text_label">12sp</dimen>
+    <!-- Type scale: the app roles, mapped onto the BounceBox scale (h1/h3/h4/body/small/xs). -->
+    <dimen name="text_display">48sp</dimen>
+    <dimen name="text_title">28sp</dimen>
+    <dimen name="text_heading">22sp</dimen>
+    <dimen name="text_body">18sp</dimen>
+    <dimen name="text_label">16sp</dimen>
+    <dimen name="text_xs">14sp</dimen>
 
-    <!-- Glyph scale: emoji used as an icon, sized for visual weight not reading. -->
-    <dimen name="glyph_hero">48sp</dimen>
-    <dimen name="glyph_xl">40sp</dimen>
-    <dimen name="glyph_lg">24sp</dimen>
-    <dimen name="glyph_md">20sp</dimen>
-    <dimen name="glyph_sm">16sp</dimen>
+    <!-- Icon scale: Material Symbols vector drawables, sized in dp. -->
+    <dimen name="icon_hero">48dp</dimen>
+    <dimen name="icon_xl">40dp</dimen>
+    <dimen name="icon_lg">24dp</dimen>
+    <dimen name="icon_md">20dp</dimen>
+    <dimen name="icon_sm">16dp</dimen>
 
-    <!-- Corner radii -->
-    <dimen name="radius_sm">12dp</dimen>
+    <!-- Corner radii (BounceBox: md / lg / pill) -->
     <dimen name="radius_md">16dp</dimen>
-    <dimen name="radius_lg">20dp</dimen>
+    <dimen name="radius_lg">24dp</dimen>
+    <dimen name="radius_pill">100dp</dimen>
 
-    <!-- Spacing scale -->
-    <dimen name="space_1">4dp</dimen>
-    <dimen name="space_2">8dp</dimen>
-    <dimen name="space_3">12dp</dimen>
-    <dimen name="space_4">16dp</dimen>
-    <dimen name="space_5">20dp</dimen>
-    <dimen name="space_6">24dp</dimen>
+    <!-- Spacing scale (BounceBox: 8px base, generous) -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">16dp</dimen>
+    <dimen name="space_lg">24dp</dimen>
+    <dimen name="space_xl">32dp</dimen>
+    <dimen name="space_2xl">48dp</dimen>
+    <dimen name="space_3xl">64dp</dimen>
+
+    <!-- Elevation (BounceBox shadow-sm / md / lg). Coloured glows are approximated, not elevation. -->
+    <dimen name="elevation_sm">2dp</dimen>
+    <dimen name="elevation_md">4dp</dimen>
+    <dimen name="elevation_lg">8dp</dimen>
 </resources>

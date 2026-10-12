@@ -10,22 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/space_4">
+        android:padding="@dimen/space_md">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="@dimen/space_3">
+            android:layout_marginBottom="@dimen/space_md">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
-                style="@style/Widget.Material3.Button.TextButton"
+                style="@style/Widget.Customlockscreen.Button.Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
-                android:text="@string/icon_back"
+                android:paddingHorizontal="@dimen/space_sm"
+                app:icon="@drawable/ic_arrow_back"
+                app:iconTint="@color/primary"
                 android:contentDescription="@string/cd_back" />
 
             <TextView
@@ -34,23 +36,24 @@
                 android:layout_weight="1"
                 android:text="@string/pairing_title"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                android:textColor="@color/kid_primary" />
+                android:textColor="@color/primary"
+                android:drawableStart="@drawable/ic_link"
+                android:drawablePadding="@dimen/space_sm"
+                app:drawableTint="@color/primary" />
 
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Customlockscreen.Card.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_4"
-            app:cardCornerRadius="@dimen/radius_lg"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/surface_card">
+            android:layout_marginBottom="@dimen/space_md">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_6"
+                android:padding="@dimen/space_lg"
                 android:gravity="center">
 
                 <TextView
@@ -59,19 +62,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pairing_device_placeholder"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="@dimen/space_2" />
+                    android:textColor="@color/content_secondary"
+                    android:layout_marginBottom="@dimen/space_sm" />
 
                 <TextView
                     android:id="@+id/tvPairCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pairing_code_placeholder"
-                    android:textSize="@dimen/glyph_hero"
+                    android:textSize="@dimen/text_display"
                     android:textStyle="bold"
                     android:letterSpacing="0.15"
-                    android:textColor="@color/primary_blue"
-                    android:layout_marginBottom="@dimen/space_2" />
+                    android:textColor="@color/primary"
+                    android:layout_marginBottom="@dimen/space_sm" />
 
                 <TextView
                     android:id="@+id/tvCountdown"
@@ -79,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pairing_countdown_placeholder"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                    android:textColor="@color/warning_orange" />
+                    android:textColor="@color/warning_text" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -87,8 +90,8 @@
                     android:text="@string/pairing_instructions"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
                     android:textAlignment="center"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginTop="@dimen/space_3" />
+                    android:textColor="@color/content_secondary"
+                    android:layout_marginTop="@dimen/space_md" />
 
             </LinearLayout>
 
@@ -99,8 +102,11 @@
             android:layout_height="wrap_content"
             android:text="@string/pairing_parents_title"
             android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-            android:textColor="@color/kid_primary"
-            android:layout_marginBottom="@dimen/space_2" />
+            android:textColor="@color/primary"
+            android:drawableStart="@drawable/ic_family_restroom"
+            android:drawablePadding="@dimen/space_sm"
+            app:drawableTint="@color/primary"
+            android:layout_marginBottom="@dimen/space_sm" />
 
         <TextView
             android:id="@+id/tvNoParents"
@@ -108,8 +114,8 @@
             android:layout_height="wrap_content"
             android:text="@string/pairing_parents_empty"
             android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-            android:textColor="@color/text_secondary"
-            android:padding="@dimen/space_2" />
+            android:textColor="@color/content_secondary"
+            android:padding="@dimen/space_sm" />
 
         <LinearLayout
             android:id="@+id/llParents"

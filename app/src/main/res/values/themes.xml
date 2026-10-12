@@ -1,15 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. Light-only: the app has no dark variant by design. -->
+    <!-- Base application theme. BounceBox palette, light-only by design. -->
     <style name="Base.Theme.Customlockscreen" parent="Theme.Material3.Light">
-        <item name="colorPrimary">@color/primary_blue</item>
-        <item name="colorPrimaryVariant">@color/primary_blue_dark</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/success</item>
-        <item name="colorSecondaryVariant">@color/success_dark</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/content_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="android:statusBarColor">@color/primary_blue</item>
+        <item name="colorSecondaryContainer">@color/secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/content_primary</item>
+        <item name="colorTertiary">@color/tertiary</item>
+        <item name="colorOnTertiary">@color/content_primary</item>
+        <item name="colorSurface">@color/surface_base</item>
+        <item name="colorOnSurface">@color/content_primary</item>
+        <item name="colorSurfaceVariant">@color/surface_muted</item>
+        <item name="colorOnSurfaceVariant">@color/content_secondary</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorOutline">@color/card_border</item>
+        <item name="android:statusBarColor">@color/primary</item>
         <item name="android:forceDarkAllowed">false</item>
-        <item name="fontFamily">@font/nunito</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="tooltipStyle">@style/Widget.Customlockscreen.Tooltip</item>
     </style>
 
     <style name="Theme.Customlockscreen" parent="Base.Theme.Customlockscreen" />
@@ -29,59 +41,115 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowAnimationStyle">@null</item>
-        <item name="fontFamily">@font/nunito</item>
+        <item name="fontFamily">@font/poppins</item>
     </style>
 
-    <!-- Type scale -->
+    <!-- Type scale. Headlines are Titan One; body copy is Poppins. -->
     <style name="TextAppearance.Customlockscreen.Display" parent="TextAppearance.Material3.DisplaySmall">
         <item name="android:textSize">@dimen/text_display</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/fredoka_one</item>
+        <item name="android:fontFamily">@font/titan_one</item>
     </style>
 
     <style name="TextAppearance.Customlockscreen.Title" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textSize">@dimen/text_title</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/nunito</item>
+        <item name="android:fontFamily">@font/titan_one</item>
     </style>
 
     <style name="TextAppearance.Customlockscreen.Heading" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:textSize">@dimen/text_heading</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/nunito</item>
+        <item name="android:fontFamily">@font/titan_one</item>
     </style>
 
     <style name="TextAppearance.Customlockscreen.Body" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textSize">@dimen/text_body</item>
-        <item name="android:fontFamily">@font/nunito</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
     <style name="TextAppearance.Customlockscreen.Label" parent="TextAppearance.Material3.LabelMedium">
         <item name="android:textSize">@dimen/text_label</item>
-        <item name="android:fontFamily">@font/nunito</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
-    <!-- Button Styles -->
-    <style name="AnswerButton" parent="Widget.AppCompat.Button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:layout_marginHorizontal">@dimen/space_4</item>
-        <item name="android:layout_marginVertical">@dimen/space_2</item>
-        <item name="android:textSize">@dimen/text_heading</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/answer_button_selector</item>
-        <item name="android:elevation">4dp</item>
+    <style name="TextAppearance.Customlockscreen.Xs" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <!-- Buttons: pill-shaped, >=44dp tall, no caps. -->
+    <style name="Widget.Customlockscreen.Button" parent="Widget.Material3.Button">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">@dimen/text_body</item>
         <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- Text Styles -->
-    <style name="QuestionText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_title</item>
-        <item name="android:textColor">@color/question_text</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:padding">@dimen/space_6</item>
-        <item name="android:lineSpacingExtra">4dp</item>
+    <style name="Widget.Customlockscreen.Button.Primary" parent="Widget.Customlockscreen.Button" />
+
+    <style name="Widget.Customlockscreen.Button.Secondary" parent="Widget.Customlockscreen.Button">
+        <item name="backgroundTint">@color/secondary</item>
+    </style>
+
+    <style name="Widget.Customlockscreen.Button.Ghost" parent="Widget.Customlockscreen.Button">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="strokeWidth">3dp</item>
+    </style>
+
+    <style name="Widget.Customlockscreen.Button.Destructive" parent="Widget.Customlockscreen.Button">
+        <item name="backgroundTint">@color/destructive</item>
+    </style>
+
+    <style name="Widget.Customlockscreen.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <!-- Cards: white, 24dp radius; default has a 2dp border, elevated has none. -->
+    <style name="Widget.Customlockscreen.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/surface_base</item>
+        <item name="cardCornerRadius">@dimen/radius_lg</item>
+        <item name="cardElevation">@dimen/elevation_sm</item>
+        <item name="strokeColor">@color/card_border</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="Widget.Customlockscreen.Card.Elevated" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/surface_base</item>
+        <item name="cardCornerRadius">@dimen/radius_lg</item>
+        <item name="cardElevation">@dimen/elevation_md</item>
+    </style>
+
+    <!-- Inputs: white, 16dp radius, coral focus ring, red error state. -->
+    <style name="Widget.Customlockscreen.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/content_primary</item>
+        <item name="android:textColorHint">@color/content_hint</item>
+        <item name="android:paddingStart">@dimen/space_md</item>
+        <item name="android:paddingEnd">@dimen/space_md</item>
+        <item name="android:paddingTop">@dimen/space_sm</item>
+        <item name="android:paddingBottom">@dimen/space_sm</item>
+    </style>
+
+    <!-- Checkboxes and radios: teal when checked. -->
+    <style name="Widget.Customlockscreen.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/secondary</item>
+    </style>
+
+    <style name="Widget.Customlockscreen.RadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/secondary</item>
+        <item name="android:textColor">@color/content_primary</item>
+    </style>
+
+    <!-- Tooltips: dark surface, white text, 16dp radius. -->
+    <style name="Widget.Customlockscreen.Tooltip" parent="Widget.Material3.Tooltip">
+        <item name="android:background">@drawable/tooltip_background</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>

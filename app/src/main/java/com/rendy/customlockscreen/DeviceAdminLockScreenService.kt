@@ -117,7 +117,7 @@ class DeviceAdminLockScreenService : Service() {
             RemoteControlService.ACTION_REMOTE_UNLOCK -> {
                 hideOverlay()
                 lockStateStore.unlock()
-                showToast("🔓 Orang tua membuka kunci")
+                showToast(getString(R.string.lock_screen_remote_unlock_toast))
             }
         }
 

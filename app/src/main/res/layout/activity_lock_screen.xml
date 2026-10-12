@@ -11,49 +11,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/space_5"
+        android:padding="@dimen/space_lg"
         android:gravity="center">
 
         <!-- Goal -->
-        <TextView
-            android:id="@+id/tvUnlockGoal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/kid_unlock_goal"
-            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-            android:textColor="@color/text_primary"
-            android:textAlignment="center"
-            android:layout_marginBottom="@dimen/space_4" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/space_md">
+
+            <TextView
+                android:id="@+id/tvUnlockGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kid_unlock_goal"
+                android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                android:textColor="@color/content_primary" />
+
+            <ImageView
+                android:layout_width="@dimen/icon_lg"
+                android:layout_height="@dimen/icon_lg"
+                android:src="@drawable/ic_lock_open"
+                app:tint="@color/content_primary"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:layout_marginStart="@dimen/space_sm" />
+
+        </LinearLayout>
 
         <!-- Question Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Customlockscreen.Card.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_6"
-            app:cardCornerRadius="@dimen/radius_lg"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/surface_card">
+            android:layout_marginBottom="@dimen/space_lg">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_6">
+                android:padding="@dimen/space_lg">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/space_4">
+                    android:layout_marginBottom="@dimen/space_md">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/icon_brain"
-                        android:textSize="@dimen/glyph_lg"
+                    <ImageView
+                        android:layout_width="@dimen/icon_lg"
+                        android:layout_height="@dimen/icon_lg"
+                        android:src="@drawable/ic_psychology"
+                        app:tint="@color/primary"
+                        android:contentDescription="@null"
                         android:importantForAccessibility="no"
-                        android:layout_marginEnd="@dimen/space_3" />
+                        android:layout_marginEnd="@dimen/space_md" />
 
                     <TextView
                         android:id="@+id/tvCategory"
@@ -62,7 +77,7 @@
                         android:layout_weight="1"
                         android:text="@string/lock_screen_category_placeholder"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                        android:textColor="@color/primary_blue"
+                        android:textColor="@color/primary"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -73,94 +88,92 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lock_screen_question_placeholder"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/content_primary"
                     android:textAlignment="center"
-                    android:padding="@dimen/space_4"
-                    android:background="@color/background_light"
-                    android:layout_marginTop="@dimen/space_2" />
+                    android:padding="@dimen/space_md"
+                    android:background="@drawable/question_box_background"
+                    android:layout_marginTop="@dimen/space_sm" />
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Answer Buttons Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Customlockscreen.Card.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_5"
-            app:cardCornerRadius="@dimen/radius_lg"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/surface_card">
+            android:layout_marginBottom="@dimen/space_lg">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_5">
+                android:padding="@dimen/space_lg">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lock_screen_answer_prompt"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/content_primary"
                     android:textAlignment="center"
-                    android:layout_marginBottom="@dimen/space_4" />
+                    android:layout_marginBottom="@dimen/space_md" />
 
                 <!-- Answer Grid -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/space_3">
+                    android:layout_marginBottom="@dimen/space_md">
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnAnswer1"
                         android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="@dimen/space_2"
+                        android:layout_marginEnd="@dimen/space_sm"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="@dimen/radius_sm"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/answer_card_bg">
+                        app:cardCornerRadius="@dimen/radius_md"
+                        app:cardElevation="@dimen/elevation_sm"
+                        app:cardBackgroundColor="@color/answer_tile">
 
                         <TextView
                             android:id="@+id/tvAnswer1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/lock_screen_answer_placeholder"
-                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                            android:textColor="@color/primary_blue"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                            android:textColor="@color/content_primary"
                             android:gravity="center" />
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnAnswer2"
                         android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginStart="@dimen/space_2"
+                        android:layout_marginStart="@dimen/space_sm"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="@dimen/radius_sm"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/answer_card_bg">
+                        app:cardCornerRadius="@dimen/radius_md"
+                        app:cardElevation="@dimen/elevation_sm"
+                        app:cardBackgroundColor="@color/answer_tile">
 
                         <TextView
                             android:id="@+id/tvAnswer2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/lock_screen_answer_placeholder"
-                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                            android:textColor="@color/primary_blue"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                            android:textColor="@color/content_primary"
                             android:gravity="center" />
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
@@ -169,85 +182,84 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnAnswer3"
                         android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="@dimen/space_2"
+                        android:layout_marginEnd="@dimen/space_sm"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="@dimen/radius_sm"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/answer_card_bg">
+                        app:cardCornerRadius="@dimen/radius_md"
+                        app:cardElevation="@dimen/elevation_sm"
+                        app:cardBackgroundColor="@color/answer_tile">
 
                         <TextView
                             android:id="@+id/tvAnswer3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/lock_screen_answer_placeholder"
-                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                            android:textColor="@color/primary_blue"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                            android:textColor="@color/content_primary"
                             android:gravity="center" />
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnAnswer4"
                         android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_weight="1"
-                        android:layout_marginStart="@dimen/space_2"
+                        android:layout_marginStart="@dimen/space_sm"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="@dimen/radius_sm"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/answer_card_bg">
+                        app:cardCornerRadius="@dimen/radius_md"
+                        app:cardElevation="@dimen/elevation_sm"
+                        app:cardBackgroundColor="@color/answer_tile">
 
                         <TextView
                             android:id="@+id/tvAnswer4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/lock_screen_answer_placeholder"
-                            android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                            android:textColor="@color/primary_blue"
+                            android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
+                            android:textColor="@color/content_primary"
                             android:gravity="center" />
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Feedback Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/feedbackCard"
+            style="@style/Widget.Customlockscreen.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:cardCornerRadius="@dimen/radius_md"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/surface_card">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/space_5"
+                android:padding="@dimen/space_lg"
                 android:gravity="center_vertical">
 
-                <TextView
+                <ImageView
                     android:id="@+id/tvFeedbackIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/icon_correct"
-                    android:textSize="@dimen/glyph_lg"
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_check_circle"
+                    app:tint="@color/success"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
-                    android:layout_marginEnd="@dimen/space_3" />
+                    android:layout_marginEnd="@dimen/space_md" />
 
                 <TextView
                     android:id="@+id/tvFeedback"
@@ -255,11 +267,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/content_primary" />
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

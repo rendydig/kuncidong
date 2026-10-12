@@ -3,5 +3,5 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/fredoka_one_regular" />
+        android:font="@font/titan_one_regular" />
 </font-family>

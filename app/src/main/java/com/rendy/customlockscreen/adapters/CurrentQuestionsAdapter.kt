@@ -1,11 +1,14 @@
 package com.rendy.customlockscreen.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.rendy.customlockscreen.R
+import com.rendy.customlockscreen.data.CategoryVisuals
 import com.rendy.customlockscreen.data.Question
 
 class CurrentQuestionsAdapter : RecyclerView.Adapter<CurrentQuestionsAdapter.QuestionViewHolder>() {
@@ -39,7 +42,10 @@ class CurrentQuestionsAdapter : RecyclerView.Adapter<CurrentQuestionsAdapter.Que
             val context = itemView.context
             tvQuestionNumber.text = context.getString(R.string.question_item_number_format, number)
             tvQuestionText.text = question.questionText
-            tvQuestionCategory.text = getCategoryEmoji(question.category.name) + " " + question.category.name
+            tvQuestionCategory.text = question.category.name
+            tvQuestionCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                CategoryVisuals.iconRes(question.category.name), 0, 0, 0
+            )
             
             val correctAnswer = if (question.correctAnswerIndex < question.options.size) {
                 question.options[question.correctAnswerIndex]
@@ -49,27 +55,9 @@ class CurrentQuestionsAdapter : RecyclerView.Adapter<CurrentQuestionsAdapter.Que
             tvCorrectAnswer.text = context.getString(R.string.question_item_answer_format, correctAnswer)
             
             // Set category-based colors
-            val categoryColor = when (question.category.name) {
-                "MATEMATIKA" -> R.color.category_math
-                "ILMU PENGETAHUAN" -> R.color.category_science
-                "GEOGRAFI" -> R.color.category_geography
-                "SEJARAH" -> R.color.category_history
-                "BAHASA" -> R.color.category_language
-                else -> R.color.primary_blue
-            }
-            
-            tvQuestionCategory.setBackgroundResource(categoryColor)
-        }
-        
-        private fun getCategoryEmoji(category: String): String {
-            return when (category) {
-                "MATEMATIKA" -> "🔢"
-                "ILMU PENGETAHUAN" -> "🔬"
-                "GEOGRAFI" -> "🌍"
-                "SEJARAH" -> "📜"
-                "BAHASA" -> "📚"
-                else -> "❓"
-            }
+            tvQuestionCategory.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(context, CategoryVisuals.colorRes(question.category.name))
+            )
         }
     }
 }

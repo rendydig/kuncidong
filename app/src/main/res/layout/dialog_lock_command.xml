@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/space_5">
+    android:padding="@dimen/space_lg">
 
     <TextView
         android:id="@+id/tvLockTarget"
@@ -11,8 +12,8 @@
         android:layout_height="wrap_content"
         android:text="@string/lock_dialog_title"
         android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="@dimen/space_3" />
+        android:textColor="@color/content_primary"
+        android:layout_marginBottom="@dimen/space_md" />
 
     <RadioGroup
         android:id="@+id/radioMode"
@@ -22,18 +23,26 @@
 
         <RadioButton
             android:id="@+id/rbQuiz"
+            style="@style/Widget.Customlockscreen.RadioButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="@string/lock_dialog_mode_quiz" />
+            android:text="@string/lock_dialog_mode_quiz"
+            android:drawableStart="@drawable/ic_psychology"
+            android:drawablePadding="@dimen/space_xs"
+            app:drawableTint="@color/secondary" />
 
         <RadioButton
             android:id="@+id/rbText"
+            style="@style/Widget.Customlockscreen.RadioButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/lock_dialog_mode_text" />
+            android:text="@string/lock_dialog_mode_text"
+            android:drawableStart="@drawable/ic_chat_bubble"
+            android:drawablePadding="@dimen/space_xs"
+            app:drawableTint="@color/secondary" />
 
     </RadioGroup>
 
@@ -43,32 +52,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/space_2">
+        android:layout_marginTop="@dimen/space_sm">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lock_dialog_templates_label"
             android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-            android:textColor="@color/text_secondary" />
+            android:textColor="@color/content_secondary" />
 
         <Spinner
             android:id="@+id/spinnerTemplate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/spinner_background"
-            android:layout_marginBottom="@dimen/space_2" />
+            android:layout_marginTop="@dimen/space_sm"
+            android:layout_marginBottom="@dimen/space_sm" />
 
         <EditText
             android:id="@+id/etTitle"
+            style="@style/Widget.Customlockscreen.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_sm"
             android:hint="@string/lock_dialog_title_hint"
             android:inputType="text"
             android:maxLines="1" />
 
         <EditText
             android:id="@+id/etText"
+            style="@style/Widget.Customlockscreen.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lock_dialog_text_hint"

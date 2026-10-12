@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -139,7 +140,7 @@ class MessageTemplateActivity : AppCompatActivity() {
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val tvTitle: TextView = itemView.findViewById(R.id.tvTemplateTitle)
             private val tvText: TextView = itemView.findViewById(R.id.tvTemplateText)
-            private val btnDelete: TextView = itemView.findViewById(R.id.btnDeleteTemplate)
+            private val btnDelete: ImageView = itemView.findViewById(R.id.btnDeleteTemplate)
 
             fun bind(template: MessageTemplate) {
                 tvTitle.text = template.title

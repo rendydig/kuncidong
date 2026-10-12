@@ -5,6 +5,7 @@ import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.rendy.customlockscreen.DeviceAdminLockScreenService
@@ -251,11 +253,19 @@ class KidsHomeActivity : AppCompatActivity() {
         val lockRunning = isServiceRunning(DeviceAdminLockScreenService::class.java.name)
         val remoteRunning = isServiceRunning(RemoteControlService::class.java.name)
 
-        tvStatus.text = when {
-            lockRunning && remoteRunning -> getString(R.string.kids_home_status_active)
-            lockRunning || remoteRunning -> getString(R.string.kids_home_status_partial)
-            else -> getString(R.string.kids_home_status_inactive_runtime)
+        val (statusTextRes, statusIconRes, statusColorRes) = when {
+            lockRunning && remoteRunning ->
+                Triple(R.string.kids_home_status_active, R.drawable.ic_check_circle, R.color.success_text)
+            lockRunning || remoteRunning ->
+                Triple(R.string.kids_home_status_partial, R.drawable.ic_warning, R.color.warning_text)
+            else ->
+                Triple(R.string.kids_home_status_inactive_runtime, R.drawable.ic_cancel, R.color.error_text)
         }
+        val statusColor = ContextCompat.getColor(this, statusColorRes)
+        tvStatus.text = getString(statusTextRes)
+        tvStatus.setTextColor(statusColor)
+        tvStatus.compoundDrawableTintList = ColorStateList.valueOf(statusColor)
+        tvStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(statusIconRes, 0, 0, 0)
 
         switchLockService.isChecked = lockRunning || remoteRunning
     }

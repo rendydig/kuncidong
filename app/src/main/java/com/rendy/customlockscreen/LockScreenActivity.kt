@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +48,7 @@ class LockScreenActivity : AppCompatActivity() {
     private var tvCategory: TextView? = null
     private var tvQuestion: TextView? = null
     private var tvFeedback: TextView? = null
+    private var tvFeedbackIcon: ImageView? = null
     private var answerButtons: List<CardView> = emptyList()
     private var answerTextViews: List<TextView> = emptyList()
     private var currentQuestion: Question? = null
@@ -152,6 +155,7 @@ class LockScreenActivity : AppCompatActivity() {
         tvCategory = findViewById(R.id.tvCategory)
         tvQuestion = findViewById(R.id.tvQuestion)
         tvFeedback = findViewById(R.id.tvFeedback)
+        tvFeedbackIcon = findViewById(R.id.tvFeedbackIcon)
 
         val btnAnswer1 = findViewById<CardView>(R.id.btnAnswer1)
         val btnAnswer2 = findViewById<CardView>(R.id.btnAnswer2)
@@ -207,13 +211,16 @@ class LockScreenActivity : AppCompatActivity() {
                 index == question.correctAnswerIndex ->
                     button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.success))
                 index == selectedIndex && !isCorrect ->
-                    button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.error_red))
+                    button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.error))
             }
         }
 
         if (isCorrect) {
             tvFeedback?.text = getString(R.string.correct_answer)
-            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.success))
+            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.success_text))
+            tvFeedbackIcon?.setImageResource(R.drawable.ic_celebration)
+            tvFeedbackIcon?.imageTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(this, R.color.success))
             tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
                 lockStateStore.unlock()
@@ -221,7 +228,10 @@ class LockScreenActivity : AppCompatActivity() {
             }, 1500)
         } else {
             tvFeedback?.text = getString(R.string.incorrect_answer)
-            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.error_red))
+            tvFeedback?.setTextColor(ContextCompat.getColor(this, R.color.error_text))
+            tvFeedbackIcon?.setImageResource(R.drawable.ic_psychology_alt)
+            tvFeedbackIcon?.imageTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(this, R.color.error))
             tvFeedback?.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({ loadNewQuestion() }, 2000)
         }
@@ -231,7 +241,7 @@ class LockScreenActivity : AppCompatActivity() {
         answerButtons.forEach { button ->
             button.isClickable = true
             button.alpha = 1.0f
-            button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.answer_card_bg))
+            button.setCardBackgroundColor(ContextCompat.getColor(this, R.color.answer_tile))
         }
     }
 

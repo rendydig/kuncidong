@@ -5,21 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
-    android:padding="@dimen/space_4">
+    android:padding="@dimen/space_md">
 
     <!-- Header -->
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Customlockscreen.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_4"
-        app:cardCornerRadius="@dimen/radius_sm"
-        app:cardElevation="4dp">
+        android:layout_marginBottom="@dimen/space_md">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/space_5">
+            android:padding="@dimen/space_lg">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,14 +26,14 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/question_manager_icon"
-                    android:textSize="@dimen/glyph_lg"
+                <ImageView
+                    android:layout_width="@dimen/icon_lg"
+                    android:layout_height="@dimen/icon_lg"
+                    android:src="@drawable/ic_menu_book"
+                    app:tint="@color/primary_dark"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
-                    android:layout_marginEnd="@dimen/space_3" />
+                    android:layout_marginEnd="@dimen/space_md" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -47,15 +46,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/question_manager_title"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Title"
-                        android:textColor="@color/primary_blue_dark" />
+                        android:textColor="@color/primary_dark" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/question_manager_subtitle"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginTop="@dimen/space_1" />
+                        android:textColor="@color/content_secondary"
+                        android:layout_marginTop="@dimen/space_xs" />
 
                 </LinearLayout>
 
@@ -76,24 +75,23 @@
 
             <!-- Available Question Packs -->
             <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Customlockscreen.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_4"
-                app:cardCornerRadius="@dimen/radius_sm"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/space_md">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_5">
+                    android:padding="@dimen/space_lg">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="@dimen/space_4">
+                        android:layout_marginBottom="@dimen/space_md">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="0dp"
@@ -101,7 +99,10 @@
                             android:layout_weight="1"
                             android:text="@string/question_manager_packs_title"
                             android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                            android:textColor="@color/primary_blue_dark" />
+                            android:textColor="@color/primary_dark"
+                            android:drawableStart="@drawable/ic_cloud_download"
+                            android:drawablePadding="@dimen/space_sm"
+                            app:drawableTint="@color/primary_dark" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnRefreshPacks"
@@ -109,8 +110,11 @@
                             android:layout_height="wrap_content"
                             android:text="@string/question_manager_refresh"
                             android:textSize="@dimen/text_label"
-                            style="@style/Widget.Material3.Button.TextButton"
-                            app:cornerRadius="@dimen/radius_sm" />
+                            app:icon="@drawable/ic_refresh"
+                            app:iconTint="@color/primary"
+                            app:iconGravity="textStart"
+                            app:iconPadding="@dimen/space_xs"
+                            style="@style/Widget.Customlockscreen.Button.Text" />
 
                     </LinearLayout>
 
@@ -120,8 +124,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/question_manager_loading"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="@dimen/space_3" />
+                        android:textColor="@color/content_secondary"
+                        android:layout_marginBottom="@dimen/space_md" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvAvailablePacks"
@@ -136,25 +140,24 @@
             <!-- Current Questions -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardCurrentQuestions"
+                style="@style/Widget.Customlockscreen.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_4"
-                android:visibility="gone"
-                app:cardCornerRadius="@dimen/radius_sm"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/space_md"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_5">
+                    android:padding="@dimen/space_lg">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="@dimen/space_4">
+                        android:layout_marginBottom="@dimen/space_md">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="0dp"
@@ -162,7 +165,10 @@
                             android:layout_weight="1"
                             android:text="@string/question_manager_current_title"
                             android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                            android:textColor="@color/primary_blue_dark" />
+                            android:textColor="@color/primary_dark"
+                            android:drawableStart="@drawable/ic_edit_note"
+                            android:drawablePadding="@dimen/space_sm"
+                            app:drawableTint="@color/primary_dark" />
 
                     </LinearLayout>
 
@@ -172,8 +178,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/question_manager_loading"
                         android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="@dimen/space_3" />
+                        android:textColor="@color/content_secondary"
+                        android:layout_marginBottom="@dimen/space_md" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCurrentQuestions"
@@ -188,27 +194,26 @@
 
             <!-- Action Button -->
             <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Customlockscreen.Card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/radius_sm"
-                app:cardElevation="4dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_5">
+                    android:padding="@dimen/space_lg">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnViewCurrent"
+                        style="@style/Widget.Customlockscreen.Button.Primary"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:text="@string/question_manager_view_current"
                         android:textSize="@dimen/text_heading"
                         android:textStyle="bold"
-                        app:backgroundTint="@color/primary_blue"
-                        app:cornerRadius="@dimen/radius_sm"
                         app:icon="@drawable/ic_list"
+                        app:iconTint="@color/white"
                         app:iconGravity="textStart" />
 
                 </LinearLayout>

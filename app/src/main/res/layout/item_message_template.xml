@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Customlockscreen.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/space_2"
-    app:cardCornerRadius="@dimen/radius_md"
-    app:cardElevation="1dp"
-    app:cardBackgroundColor="@color/surface_card">
+    android:layout_marginBottom="@dimen/space_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="@dimen/space_4">
+        android:padding="@dimen/space_md">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -27,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/template_item_title_placeholder"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/content_primary" />
 
             <TextView
                 android:id="@+id/tvTemplateText"
@@ -35,19 +33,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/template_item_text_placeholder"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Body"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/content_secondary"
                 android:maxLines="3"
                 android:ellipsize="end" />
 
         </LinearLayout>
 
-        <TextView
+        <ImageView
             android:id="@+id/btnDeleteTemplate"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:text="@string/icon_delete"
-            android:gravity="center"
-            android:textSize="@dimen/glyph_sm"
+            android:src="@drawable/ic_delete"
+            android:padding="@dimen/space_sm"
+            android:scaleType="fitCenter"
+            app:tint="@color/destructive"
             android:contentDescription="@string/cd_delete_template" />
 
     </LinearLayout>

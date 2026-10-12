@@ -30,6 +30,7 @@ class AppLockActivity : AppCompatActivity() {
     }
 
     private fun attemptUnlock() {
+        etPin.setBackgroundResource(R.drawable.edittext_background)
         val store = AppPinStore(this)
         if (!store.hasPin()) {
             proceed()
@@ -52,6 +53,7 @@ class AppLockActivity : AppCompatActivity() {
     }
 
     private fun showError(message: String) {
+        etPin.setBackgroundResource(R.drawable.edittext_background_error)
         tvError.text = message
         tvError.visibility = TextView.VISIBLE
     }

@@ -88,7 +88,8 @@ screen, file, and line for each finding.
   intentional list below for what this app already does deliberately).
 
 **Accessibility**
-- Every emoji-as-icon and image has a `contentDescription`; emoji read aloud by TalkBack are noise.
+- Every icon and image has a `contentDescription`, or is marked decorative; a monochrome icon read
+  aloud by TalkBack is noise.
 - State is never signalled by colour alone.
 
 **Ethics and parental control**
@@ -135,12 +136,14 @@ shape and name the 2-3 strongest polish items instead — never pad the list.
 These are deliberate parts of kunci dong's identity, not defects. Judge them on whether they serve
 the child, not on whether they match a generic clean-UI checklist:
 
-- The soft pastel gradient background, the rounded white cards, and the coral accent.
-- Emoji used as the icon language (good for pre-readers — just require `contentDescription`).
+- The soft pastel gradient background, the rounded white cards, and the coral primary accent — these
+  are the app's deliberate BounceBox kid identity (see the `design-system` skill).
+- The monochrome Material Symbols icons — they are not the pre-reader aid emoji were, so check that
+  the text beside an icon still carries the meaning on its own for the youngest band.
 - Lottie and list animations — children like motion and sound; the question is whether the motion is
   meaningful and whether it can be reduced, not whether it exists.
 - Indonesian copy, and the parent/kid dual-persona split.
-- The playful, high-contrast kid palette.
+- The playful, high-contrast kid palette, pill-shaped buttons and oversized type.
 
 ## Attribution
 

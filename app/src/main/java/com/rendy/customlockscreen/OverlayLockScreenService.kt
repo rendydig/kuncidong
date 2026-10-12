@@ -184,8 +184,8 @@ class OverlayLockScreenService : Service() {
             // Time display
             addView(TextView(this@OverlayLockScreenService).apply {
                 text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.glyph_hero))
-                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.text_primary))
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_display))
+                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.content_primary))
                 gravity = Gravity.CENTER
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -197,7 +197,7 @@ class OverlayLockScreenService : Service() {
             addView(TextView(this@OverlayLockScreenService).apply {
                 text = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault()).format(Date())
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_title))
-                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.text_secondary))
+                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.content_secondary))
                 gravity = Gravity.CENTER
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -209,7 +209,7 @@ class OverlayLockScreenService : Service() {
             addView(TextView(this@OverlayLockScreenService).apply {
                 text = question.category.name
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_body))
-                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.text_primary))
+                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.content_primary))
                 gravity = Gravity.CENTER
                 setPadding(24, 8, 24, 8)
                 setBackgroundResource(R.drawable.category_badge)
@@ -226,7 +226,7 @@ class OverlayLockScreenService : Service() {
             addView(TextView(this@OverlayLockScreenService).apply {
                 text = question.questionText
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_title))
-                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.text_primary))
+                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.content_primary))
                 gravity = Gravity.CENTER
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -256,7 +256,7 @@ class OverlayLockScreenService : Service() {
             addView(Button(this@OverlayLockScreenService).apply {
                 text = getString(R.string.overlay_skip_question)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_body))
-                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.text_secondary))
+                setTextColor(ContextCompat.getColor(this@OverlayLockScreenService, R.color.content_secondary))
                 setBackgroundColor(android.graphics.Color.TRANSPARENT)
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,

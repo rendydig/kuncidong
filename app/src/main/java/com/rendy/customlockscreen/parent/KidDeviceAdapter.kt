@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -64,7 +65,7 @@ class KidDeviceAdapter(
         private val tvStatus: TextView = itemView.findViewById(R.id.tvKidStatus)
         private val btnLock: MaterialButton = itemView.findViewById(R.id.btnLock)
         private val btnUnlock: MaterialButton = itemView.findViewById(R.id.btnUnlock)
-        private val btnRemove: TextView = itemView.findViewById(R.id.btnRemove)
+        private val btnRemove: ImageView = itemView.findViewById(R.id.btnRemove)
 
         fun bind(device: KidDevice) {
             val isPaired = device.token.isNotBlank()
@@ -80,7 +81,7 @@ class KidDeviceAdapter(
             tvStatus.setTextColor(
                 ContextCompat.getColor(
                     context,
-                    if (isPaired) R.color.success else R.color.warning_orange
+                    if (isPaired) R.color.success_text else R.color.warning_text
                 )
             )
 

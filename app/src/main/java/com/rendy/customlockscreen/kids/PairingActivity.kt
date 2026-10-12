@@ -1,5 +1,6 @@
 package com.rendy.customlockscreen.kids
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -97,12 +98,16 @@ class PairingActivity : AppCompatActivity() {
             val row = TextView(this).apply {
                 text = getString(R.string.pairing_parent_row, parent.name)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_heading))
-                setTextColor(resources.getColor(R.color.text_primary, theme))
+                setTextColor(resources.getColor(R.color.content_primary, theme))
+                setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_check_circle, 0, 0, 0)
+                compoundDrawablePadding = resources.getDimensionPixelSize(R.dimen.space_sm)
+                compoundDrawableTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.success, theme))
                 setPadding(
-                    resources.getDimensionPixelSize(R.dimen.space_3),
-                    resources.getDimensionPixelSize(R.dimen.space_5),
-                    resources.getDimensionPixelSize(R.dimen.space_3),
-                    resources.getDimensionPixelSize(R.dimen.space_5)
+                    resources.getDimensionPixelSize(R.dimen.space_md),
+                    resources.getDimensionPixelSize(R.dimen.space_lg),
+                    resources.getDimensionPixelSize(R.dimen.space_md),
+                    resources.getDimensionPixelSize(R.dimen.space_lg)
                 )
                 setBackgroundResource(R.drawable.permission_item_background)
                 layoutParams = LinearLayout.LayoutParams(

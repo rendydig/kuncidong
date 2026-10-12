@@ -1,13 +1,16 @@
 package com.rendy.customlockscreen.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import com.rendy.customlockscreen.R
+import com.rendy.customlockscreen.data.CategoryVisuals
 import com.rendy.customlockscreen.models.QuestionPack
 
 class QuestionPackAdapter(
@@ -50,34 +53,19 @@ class QuestionPackAdapter(
                 questionPack.version,
                 questionPack.lastUpdated
             )
-            tvPackCategory.text = getCategoryEmoji(questionPack.category) + " " + questionPack.category
+            tvPackCategory.text = questionPack.category
+            tvPackCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                CategoryVisuals.iconRes(questionPack.category), 0, 0, 0
+            )
             
             btnDownload.setOnClickListener {
                 onDownloadClick(questionPack)
             }
             
             // Set category-based colors for grade levels
-            val categoryColor = when (questionPack.category) {
-                "MATEMATIKA" -> R.color.category_math
-                "ILMU PENGETAHUAN" -> R.color.category_science
-                "GEOGRAFI" -> R.color.category_geography
-                "SEJARAH" -> R.color.category_history
-                "BAHASA" -> R.color.category_language
-                else -> R.color.primary_blue
-            }
-            
-            tvPackCategory.setBackgroundResource(categoryColor)
-        }
-        
-        private fun getCategoryEmoji(category: String): String {
-            return when (category) {
-                "MATEMATIKA" -> "🔢"
-                "ILMU PENGETAHUAN" -> "🔬"
-                "GEOGRAFI" -> "🌍"
-                "SEJARAH" -> "📜"
-                "BAHASA" -> "📚"
-                else -> "❓"
-            }
+            tvPackCategory.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(itemView.context, CategoryVisuals.colorRes(questionPack.category))
+            )
         }
     }
 }

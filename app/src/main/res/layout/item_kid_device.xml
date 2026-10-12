@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Customlockscreen.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/space_3"
+    android:layout_marginBottom="@dimen/space_md"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="@dimen/radius_md"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/surface_card">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="@dimen/space_3">
+        android:padding="@dimen/space_md">
 
         <CheckBox
             android:id="@+id/cbSelect"
+            style="@style/Widget.Customlockscreen.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_1" />
+            android:layout_marginEnd="@dimen/space_xs" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/kid_device_name_placeholder"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Heading"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/content_primary" />
 
             <TextView
                 android:id="@+id/tvKidAddress"
@@ -44,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/kid_device_address_placeholder"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
-                android:textColor="@color/text_secondary" />
+                android:textColor="@color/content_secondary" />
 
             <TextView
                 android:id="@+id/tvKidStatus"
@@ -53,38 +52,38 @@
                 android:text="@string/kid_device_status_paired"
                 android:textAppearance="@style/TextAppearance.Customlockscreen.Label"
                 android:textStyle="bold"
-                android:textColor="@color/success" />
+                android:textColor="@color/success_text" />
 
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLock"
-            style="@style/Widget.Material3.Button.TonalButton"
+            style="@style/Widget.Customlockscreen.Button.Secondary"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:minWidth="0dp"
-            android:paddingHorizontal="@dimen/space_3"
+            android:paddingHorizontal="@dimen/space_md"
             android:text="@string/kid_device_lock"
             android:textSize="@dimen/text_label" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUnlock"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Widget.Customlockscreen.Button.Text"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:minWidth="0dp"
-            android:paddingHorizontal="@dimen/space_2"
+            android:paddingHorizontal="@dimen/space_sm"
             android:text="@string/kid_device_unlock"
             android:textSize="@dimen/text_label" />
 
-        <TextView
+        <ImageView
             android:id="@+id/btnRemove"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:text="@string/icon_remove"
-            android:gravity="center"
-            android:textSize="@dimen/glyph_sm"
-            android:textColor="@color/error_red"
+            android:src="@drawable/ic_close"
+            android:padding="@dimen/space_sm"
+            android:scaleType="fitCenter"
+            app:tint="@color/destructive"
             android:contentDescription="@string/cd_remove_device" />
 
     </LinearLayout>
